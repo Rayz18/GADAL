@@ -29,7 +29,7 @@ require_once "../../config/config.php";
                 </div>
             </div>
 
-            <!-- Program Images and Titles -->
+            <!-- Program Images and Titles  -->
             <div class="photo-grid"> <!-- Updated to wrap all photo cards -->
                 <?php
                 // Fetch only approved programs or filter by search term
