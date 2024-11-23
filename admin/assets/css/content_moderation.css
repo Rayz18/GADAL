@@ -48,7 +48,7 @@ body {
     padding: 20px;
     text-align: center;
     border-radius: 12px;
-    border: 2px solid #007bff;
+    border: 2px solid transparent; /* Default border is transparent */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Border shadow for each card */
     display: flex;
     flex-direction: column;
@@ -94,6 +94,20 @@ body {
 .view-button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+/* Pending Card Notification */
+.custom-card.pending {
+    border-color: #dc3545; /* Red border */
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+}
+
+/* No Pending Card Notification */
+.custom-card.no-pending {
+    border-color: #28a745; /* Green border */
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
 }
 
 /* Modal Styling */

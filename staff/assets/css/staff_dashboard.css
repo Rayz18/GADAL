@@ -1,3 +1,29 @@
+/* Profile Icon Styling */
+
+header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #B19CD9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions span {
+    font-size: 1rem;
+    color: #333;
+    margin-right: 15px;
+}
+
+.header-actions .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
 .card {
     height: 280px; /* Slightly smaller height */
     display: flex;
@@ -109,4 +135,68 @@ main {
 
 main.sidebar-open {
     margin-left: 230px; /* Adjusted margin for smaller sidebar */
+}
+
+form .form-group {
+    margin-bottom: 0;
+}
+
+form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+form .form-control {
+    display: inline-block;
+    width: auto;
+    min-width: 200px;
+    margin-right: 10px;
+}
+
+form button {
+    height: 38px;
+    padding: 0 15px;
+}
+
+form.d-flex.gap-3 .form-group {
+    margin-right: 15px; /* Adds space between form elements */
+}
+
+.custom-form-control {
+    background-color: #ffffff; /* Keep background white */
+    border: 2px solid #B19CD9;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-right: 15px; /* Ensure consistent spacing */
+}
+
+.custom-button {
+    background-color: #B19CD9;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 15px; /* Ensure space between the button and other fields */
+}
+
+.custom-form-control:focus {
+    border-color: #4b0082;
+    box-shadow: 0px 4px 8px rgba(75, 0, 130, 0.2);
+}
+
+.custom-button:hover {
+    background-color: #4b0082;
+    transform: translateY(-2px);
+}
+
+.custom-button:focus {
+    background-color: #4b0082;
+    outline: none;
 }

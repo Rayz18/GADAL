@@ -1,87 +1,113 @@
-/* Reset and Base Styles */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* Overall layout styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.dashboard-wrapper {
     margin: 0;
     padding: 0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.dashboard-wrapper {
-    display: flex;
-    width: 100%;
-}
-
-.main-content {
-    flex: 1;
-    transition: margin-left 0.3s ease;
-    margin-bottom: 200px;
-}
-
-/* Main Dashboard Container */
-.dashboard-container {
-    width: 100%;
-    max-width: 900px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    margin: 20px auto;
+/* KPI Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
     text-align: center;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Header Styles */
-.dashboard-container h1 {
-    font-size: 2.5em;
-    color: #333;
-    margin-bottom: 20px;
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-.analytics-section h2 {
-    font-size: 1.8em;
-    color: #666;
-    margin-bottom: 20px;
+.card-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* Chart Container */
+/* Background colors for different cards */
+.bg-light-purple {
+    background-color: #b19cd9;
+    color: white;
+}
+
+.bg-purple {
+    background-color: #9a73c7;
+    color: white;
+}
+
+.bg-dark-purple {
+    background-color: #7a4ca1;
+    color: white;
+}
+
+/* Spacing and alignment */
+.row {
+    margin: 0;
+}
+
+.col-lg-3,
+.col-md-6 {
+    padding: 10px;
+}
+
 .chart-container {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    height: 200px; /* Reduced height for smaller graphs */
+    width: 100%; /* Full width inside column */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f3f3f3;
-    border-radius: 100px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
 }
-
 canvas {
-    max-width: 100%;
-    height: auto;
+    height: 100%; /* Ensures the canvas fits the container */
+    width: 100%;  /* Ensures the canvas fits the container */
 }
 
-/* Responsive Styling */
-@media (max-width: 600px) {
-    .dashboard-container {
-        padding: 20px;
-    }
+.chart-container {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    height: 200px; /* Consistent height for all graphs */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+canvas {
+    height: 100%; /* Fit canvas to container */
+    width: 100%;
+}
 
-    .dashboard-container h1 {
-        font-size: 1.8em;
-    }
+.chart-container {
+    height: 250px; /* Adjust the height */
+    width: 100%; /* Keep full width of the column */
+}
 
-    .analytics-section h2 {
-        font-size: 1.5em;
+@media (min-width: 992px) {
+    .col-md-6, .col-md-4 {
+        margin-bottom: 20px; /* Add spacing */
     }
+}
+
+.chart-container {
+    height: 300px; /* Match the height of Program Impact and Total Attendees */
+    width: 100%;   /* Allow the chart to fill its container width */
+    max-width: 100%; /* Ensure responsiveness */
+    padding: 15px;
+}
+
+.row > .col-md-6, .row > .col-lg-4 {
+    margin-bottom: 20px; /* Ensure proper spacing between rows */
 }
