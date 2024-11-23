@@ -82,7 +82,7 @@ if ($registration_exists) {
             <div class="alert alert-info text-center">
                 You've successfully registered to the seminar "<?php echo htmlspecialchars($seminar_title); ?>"!
             </div>
-            <a href="CourseContent.php?course_id=<?php echo htmlspecialchars($course_id); ?>&tab=seminar"
+            <a href="Seminar.php?course_id=<?php echo htmlspecialchars($course_id); ?>"
                 class="btn btn-primary w-100 mt-3">View Seminar</a>
         <?php else: ?>
             <p class="fs-6 text-muted mb-4 instruction-text"><?php echo htmlspecialchars($instructions); ?></p>

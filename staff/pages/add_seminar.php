@@ -30,12 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['seminar_poster'])) {
         mkdir($target_dir, 0777, true);
     }
 
-    $target_file = $target_dir . basename($file["name"]);
+    $poster_name = time() . '_' . basename($file['name']);
+    $target_file = $target_dir . $poster_name;
 
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+    if (move_uploaded_file($file['tmp_name'], $target_file)) {
+        $poster_path = "staff/upload/seminars/" . $poster_name;
         $query = "INSERT INTO seminars (course_id, seminar_title, description, date, time, venue, poster_path, include_registration, include_attendance, include_evaluation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("issssssiii", $course_id, $seminar_title, $description, $date, $time, $venue, $target_file, $include_registration, $include_attendance, $include_evaluation);
+        $stmt->bind_param("issssssiii", $course_id, $seminar_title, $description, $date, $time, $venue, $poster_path, $include_registration, $include_attendance, $include_evaluation);
 
         if ($stmt->execute()) {
             $success_message = "Seminar details added successfully!";
@@ -47,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['seminar_poster'])) {
     }
 }
 
+// Fetch existing seminars for the selected course
 $query = "SELECT * FROM seminars WHERE course_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $course_id);
@@ -67,9 +70,7 @@ $result = $stmt->get_result();
 <body class="d-flex flex-column vh-100">
     <div class="container-fluid flex-grow-1 overflow-auto">
         <!-- Back Button -->
-        <a href="manage_programs.php" class="btn btn-outline-secondary back-button">
-            &larr; Back
-        </a>
+        <a href="manage_programs.php" class="btn btn-outline-secondary back-button">&larr; Back</a>
         <div class="text-center mt-4">
             <h1 class="text-light-purple">Add Seminar Details</h1>
         </div>
@@ -143,7 +144,7 @@ $result = $stmt->get_result();
                 </div>
             </div>
 
-            <!-- Existing Seminars Section with Edit/Delete Options -->
+            <!-- Existing Seminars Section with Buttons -->
             <div class="col-md-6">
                 <div class="card shadow-sm overflow-auto" style="max-height: 690px;">
                     <div class="card-body">
@@ -157,18 +158,15 @@ $result = $stmt->get_result();
                                             <p class="mb-1 seminar-description">
                                                 <?php echo htmlspecialchars($row['description']); ?>
                                             </p>
-
                                             <?php if ($row['poster_path']): ?>
                                                 <img src="<?php echo htmlspecialchars($row['poster_path']); ?>"
                                                     class="img-fluid mt-2 rounded" alt="Seminar Poster">
                                             <?php endif; ?>
-
                                             <small class="text-muted d-block mt-2">
                                                 <?php echo htmlspecialchars($row['date']); ?>,
                                                 <?php echo htmlspecialchars($row['time']); ?> at
                                                 <?php echo htmlspecialchars($row['venue']); ?>
                                             </small>
-
                                             <!-- Conditionally display buttons -->
                                             <div class="mt-2">
                                                 <?php if ($row['include_registration']): ?>

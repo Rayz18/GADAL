@@ -75,10 +75,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             while ($course = $query->fetch_assoc()) {
                 // Check if the learner is enrolled in the course
                 $course_id = $course['course_id'];
+                $course_mode = $course['offered_mode']; // Fetch the mode of the course (face-to-face or online)
                 $enrollment_query = $conn->query("SELECT * FROM enrollments WHERE learner_id = '$learner_id' AND course_id = '$course_id'");
                 $is_enrolled = $enrollment_query->num_rows > 0;
+
+                // Determine the route based on the course mode
+                $route = '';
+                if ($is_enrolled) {
+                    if ($course_mode === 'face_to_face') {
+                        $route = "../../learner/pages/Seminar.php?course_id=$course_id";
+                    } else {
+                        $route = "../../learner/pages/CourseContent.php?course_id=$course_id";
+                    }
+                }
                 ?>
-                <div class="course-card">
+                <div class="course-card <?php echo $is_enrolled ? 'enrolled' : ''; ?>"
+                    onclick="<?php echo $route ? "window.location.href='$route'" : ''; ?>">
                     <div class="course-image">
                         <img src="../../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
                             alt="<?php echo htmlspecialchars($course['course_name']); ?> Image">
@@ -88,19 +100,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p><?php echo htmlspecialchars($course['course_desc']); ?></p>
                         <p class="course-date"><?php echo htmlspecialchars($course['course_date']); ?></p>
 
-                        <!-- Form moved here -->
+                        <!-- Form for Enroll/Unenroll -->
                         <form method="POST" style="display: inline;">
                             <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
                             <?php if ($is_enrolled): ?>
                                 <button type="submit" name="unenroll" class="button unenroll"
                                     onclick="confirmUnenroll(event)">Unenroll</button>
-                                <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
-                                    class="button view-course">View Course</a>
                             <?php else: ?>
                                 <button type="submit" name="enroll" class="button enroll">Enroll</button>
                             <?php endif; ?>
                         </form>
-                        <!-- End of moved form -->
+                        <!-- End of Form -->
                     </div>
                 </div>
                 <?php
