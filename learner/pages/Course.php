@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($program['program_name']); ?> - Learner Interface</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../learner/assets/css/Course.css">
     <script>
         // Confirmation dialog for unenroll button
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body class="bg-light-gray">
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
 
     <!-- Title Section -->
     <div class="title-section">
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ?>
                 <div class="course-card">
                     <div class="course-image">
-                        <img src="../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
+                        <img src="../../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
                             alt="<?php echo htmlspecialchars($course['course_name']); ?> Image">
                     </div>
                     <div class="course-description">
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <button type="submit" name="unenroll" class="button unenroll"
                                     onclick="confirmUnenroll(event)">Unenroll</button>
                                 <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
-                                    class="button view-course">View Seminar</a>
+                                    class="button view-course">View Course</a>
                             <?php else: ?>
                                 <button type="submit" name="enroll" class="button enroll">Enroll</button>
                             <?php endif; ?>
