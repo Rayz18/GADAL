@@ -5,23 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="./includes/assets/LearnerNavBar.css">
-    <link rel="stylesheet" href="./learner/assets/css/Home.css">
+    <link rel="stylesheet" href="./public/assets/css/LearnerNavBar.css">
+    <link rel="stylesheet" href="./public/assets/css/Home.css">
 </head>
 
 <body>
-    <?php include './includes/LearnerNavBar.php'; ?>
+    <?php include './public/includes/LearnerNavBar.php'; ?>
     <!-- Image Slider Section -->
     <div class="slider-container">
         <div class="slider">
             <div class="slide fade">
-                <img src="/GADAL/assets/images/A.jpg" class="slider-image">
+                <img src="/GADAL/public/assets/images/A.jpg" class="slider-image">
             </div>
             <div class="slide fade">
-                <img src="/GADAL/assets/images/B.jpg" class="slider-image">
+                <img src="/GADAL/public/assets/images/B.jpg" class="slider-image">
             </div>
             <div class="slide fade">
-                <img src="/GADAL/assets/images/C.jpg" class="slider-image">
+                <img src="/GADAL/public/assets/images/C.jpg" class="slider-image">
             </div>
         </div>
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

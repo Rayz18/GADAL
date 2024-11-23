@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Logo and Heading Section (Left) -->
             <div class="col-md-6 d-flex flex-column align-items-start p-3">
                 <div class="d-flex mb-3">
-                    <img src="../../assets/images/BSU.png" alt="University Logo" class="logo mr-2">
-                    <img src="../../assets/images/GAD.png" alt="Department Logo" class="logo">
+                    <img src="../../public/assets/images/BSU.png" alt="University Logo" class="logo mr-2">
+                    <img src="../../public/assets/images/GAD.png" alt="Department Logo" class="logo">
                 </div>
                 <h1 class="text-white display-4 font-weight-bold quote-text">Empowering Equality, Advancing Development
                 </h1>

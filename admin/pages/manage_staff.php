@@ -22,7 +22,7 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
 
 <body>
     <div class="dashboard-wrapper">
-        <?php include '../../includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="main-content">
             <div class="manage-staff-container container mt-5">
                 <h1 class="text-center">MANAGE STAFF ACCOUNTS</h1>

@@ -41,6 +41,7 @@ $query .= " ORDER BY created_at DESC";
 
 // Execute the query
 $programs_query = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -50,21 +51,12 @@ $programs_query = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Dashboard</title>
-    <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../staff/assets/css/staff_dashboard.css">
-    <script src="../../includes/assets/sidebarToggle.js" defer></script>
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
-
-    <!-- Sidebar -->
-    <div class="sidebar collapsed">
-        <!-- Sidebar content here -->
-    </div>
-    <!-- Sidebar Toggle Button -->
-    <div id="toggle-sidebar" class="toggle-sidebar"></div>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <!-- Main Content Section -->
     <main class="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-gray p-5">
@@ -141,28 +133,28 @@ $programs_query = $conn->query($query);
     </main>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const toggleButton = document.getElementById("sidebar-toggle");
-        const sidebar = document.querySelector(".sidebar");
-        const mainContent = document.querySelector("main");
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.getElementById("sidebar-toggle");
+            const sidebar = document.querySelector(".sidebar");
+            const mainContent = document.querySelector("main");
 
-        // Initialize sidebar state
-        sidebar.classList.add("collapsed");
-        toggleButton.style.left = "0"; // Align toggle with collapsed sidebar
-        mainContent.style.marginLeft = "0";
+            // Initialize sidebar state
+            sidebar.classList.add("collapsed");
+            toggleButton.style.left = "0"; // Align toggle with collapsed sidebar
+            mainContent.style.marginLeft = "0";
 
-        toggleButton.addEventListener("click", function () {
-            sidebar.classList.toggle("collapsed");
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");
 
-            if (sidebar.classList.contains("collapsed")) {
-                mainContent.style.marginLeft = "0";
-                toggleButton.style.left = "0"; // Move toggle back to collapsed position
-            } else {
-                mainContent.style.marginLeft = "250px";
-                toggleButton.style.left = "250px"; // Move toggle alongside expanded sidebar
-            }
+                if (sidebar.classList.contains("collapsed")) {
+                    mainContent.style.marginLeft = "0";
+                    toggleButton.style.left = "0"; // Move toggle back to collapsed position
+                } else {
+                    mainContent.style.marginLeft = "250px";
+                    toggleButton.style.left = "250px"; // Move toggle alongside expanded sidebar
+                }
+            });
         });
-    });
     </script>
 
 </body>

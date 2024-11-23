@@ -1,6 +1,13 @@
 <?php
-session_start();
+// Start the session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Destroy the session
 session_unset();
 session_destroy();
-header('Location: /GADAL/Home.php'); // Redirect to the login page after logout
-exit;
+
+// Redirect to Home.php
+header('Location: /GADAL/Home.php');
+exit();

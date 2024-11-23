@@ -56,7 +56,7 @@ foreach ($content_types as $type => $query) {
 
 <body>
     <div class="dashboard-wrapper">
-        <?php include '../../includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="main-content">
             <div class="content-moderation-container container mt-5">
                 <h1 class="text-center">Content Moderation</h1>

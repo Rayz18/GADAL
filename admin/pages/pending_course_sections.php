@@ -23,7 +23,7 @@ if (!$sections_query) {
 </head>
 
 <body>
-    <?php include '../includes/AdminNavBar.php'; ?>
+    <?php include '../../public/includes/AdminNavBar.php'; ?>
     <div class="container mt-5">
         <h1 class="text-center">Pending Course Sections</h1>
         <div class="list-group mt-4">

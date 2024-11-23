@@ -10,8 +10,8 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Logo Section -->
     <div class="user-nav-logo">
         <!-- Use absolute paths for logos -->
-        <img src="/GADAL/assets/images/BSU.png" alt="BSU Logo" class="user-logo">
-        <img src="/GADAL/assets/images/GAD.png" alt="GAD Logo" class="user-logo">
+        <img src="/GADAL/public/assets/images/BSU.png" alt="BSU Logo" class="user-logo">
+        <img src="/GADAL/public/assets/images/GAD.png" alt="GAD Logo" class="user-logo">
         <div class="user-nav-titles">
             <span class="user-nav-title main-title">BATANGAS STATE UNIVERSITY - THE NATIONAL ENGINEERING
                 UNIVERSITY</span>
@@ -32,7 +32,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Profile Icon -->
     <div class="user-profile-icon" onclick="togglePopup()">
         <!-- Use absolute path for profile icon -->
-        <img src="/GADAL/assets/images/icon.png" alt="Profile" class="user-profile">
+        <img src="/GADAL/public/assets/images/icon.png" alt="Profile" class="user-profile">
     </div>
 
     <!-- Profile Popup -->

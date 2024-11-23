@@ -9,12 +9,12 @@ require_once "../../config/config.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Programs Page</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../learner/assets/css/Program.css">
 </head>
 
 <body>
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
     <!-- Programs Section -->
     <div class="program-container">
         <div class="content">

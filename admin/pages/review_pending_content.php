@@ -53,14 +53,13 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
 <head>
     <meta charset="UTF-8">
     <title>Review Pending <?php echo htmlspecialchars($content_type); ?></title>
-    <link rel="stylesheet" href="../../includes/assets/AdminNavBar.css">
     <link rel="stylesheet" href="../../admin/assets/css/review_pending_content.css">
     <script src="../../../includes/assets/Toggle.js" defer></script>
 </head>
 
 <body>
     <div class="dashboard-wrapper">
-        <?php include '../../includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="review-content-container">
             <h1>Pending <?php echo htmlspecialchars($content_type); ?></h1>
             <table>

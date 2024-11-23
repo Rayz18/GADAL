@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificates</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../learner/assets/css/Certificate.css">
 </head>
 
 <body>
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
     <!-- Main Certificate Listing Page -->
     <div class="container">
         <h1>CERTIFICATES</h1>
