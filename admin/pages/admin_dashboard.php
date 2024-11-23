@@ -1,12 +1,3 @@
-<?php
-session_start();
-require_once '../../config/config.php';
-
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: admin_login.php');
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,29 +5,69 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../admin/assets/css/admin_dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js" defer></script>
     <script src="../../admin/assets/js/dashboard_charts.js" defer></script>
-    <link rel="stylesheet" href="../../admin/assets/css/admin_dashboard.css">
 </head>
 
 <body>
     <div class="dashboard-wrapper">
         <?php include '../../includes/AdminNavBar.php'; ?>
-        <div class="main-content">
-            <div class="container mt-5">
-                <h1 class="text-center">Admin Dashboard</h1>
-                <div class="analytics-section mt-4">
-                    <h2 class="text-center">Analytics and Visualizations</h2>
-                    <div class="d-flex justify-content-center mt-3">
-                        <div class="chart-container bg-light p-4 shadow-sm rounded">
-                            <canvas id="staffChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="main-content container">
+            <h1 class="text-center mt-4 mb-5">Admin Dashboard</h1>
+
+            <!-- KPI Cards Container -->
+            <div id="kpiCardsContainer" class="row"></div>
+
+            <div class="row mt-4">
+    <!-- Gender Distribution Impact -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="genderImpactChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Program Impact Analysis -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="programImpactChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Total Attendees Over Time -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="attendeesOverTimeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <!-- Community Reach Impact -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="communityReachChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Campaign Growth Trend -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="campaignGrowthChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <!-- Programs by Categories -->
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="chart-container bg-light p-3 shadow-sm rounded">
+            <canvas id="programsByCategoryChart"></canvas>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
     <script src="../../../includes/assets/sidebarToggle.js"></script>
