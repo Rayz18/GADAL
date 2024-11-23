@@ -19,22 +19,12 @@ $programs_query = $conn->query("SELECT * FROM programs");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Dashboard</title>
-    <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../staff/assets/css/staff_dashboard.css">
-    <script src="../../includes/assets/sidebarToggle.js" defer></script>
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
-
-    <!-- Sidebar -->
-    <div class="sidebar collapsed">
-        <!-- Sidebar content here -->
-    </div>
-    <!-- Sidebar Toggle Button -->
-    <div id="toggle-sidebar" class="toggle-sidebar"></div>
-
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <!-- Main Content Section -->
     <main class="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-gray p-5">

@@ -31,15 +31,14 @@ function truncateProgramName($name, $limit = 15)
     <title>Manage Programs and Courses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../staff/assets/css/manage_programs.css">
-    <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="../../includes/assets/sidebarToggle.js" defer></script>
+
 </head>
 
 <body>
     <!-- Include the Staff Navigation Bar -->
-    <?php include '../../includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <div class="layout">
         <!-- Sidebar -->

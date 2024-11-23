@@ -20,11 +20,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="../../admin/assets/js/dashboard_charts.js" defer></script>
     <link rel="stylesheet" href="../../admin/assets/css/admin_dashboard.css">
+
 </head>
 
 <body>
     <div class="dashboard-wrapper">
-        <?php include '../../includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="main-content">
             <div class="container mt-5">
                 <h1 class="text-center">Admin Dashboard</h1>
@@ -39,7 +40,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
             </div>
         </div>
     </div>
-    <script src="../../../includes/assets/sidebarToggle.js"></script>
+    <script src="../../../includes/assets/js/sidebarToggle.js"></script>
 </body>
 
 </html>
