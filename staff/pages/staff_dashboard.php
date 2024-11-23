@@ -41,6 +41,7 @@ $query .= " ORDER BY created_at DESC";
 
 // Execute the query
 $programs_query = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +59,16 @@ $programs_query = $conn->query($query);
 
 <body>
     <?php include '../../includes/StaffNavBar.php'; ?>
+
+    <!-- Header Section -->
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow">
+        <div class="header-title"></div> <!-- Removed "Staff Dashboard" title -->
+        <div class="header-actions d-flex align-items-center">
+            <span class="me-3 text-dark">
+                Welcome, <a href="profile.php" class="text-primary text-decoration-none"><strong><?php echo $staff_name; ?></strong></a>
+            </span>
+        </div>
+    </header>
 
     <!-- Sidebar -->
     <div class="sidebar collapsed">
