@@ -53,13 +53,11 @@ $result = $stmt->get_result();
     <title>Upload Videos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../staff/assets/css/add_videos.css">
-    <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../includes/assets/sidebarToggle.js" defer></script>
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <!-- Sidebar -->
     <div class="sidebar collapsed">

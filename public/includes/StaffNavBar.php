@@ -4,9 +4,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: admin_login.php'); // Redirect to login page if not logged in
+// Check if staff is logged in
+if (!isset($_SESSION['staff_logged_in'])) {
+    header('Location: staff_login.php'); // Redirect to login page if not logged in
     exit;
 }
 ?>
@@ -19,17 +19,19 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Sidebar</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../includes/assets/AdminNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/StaffNavBar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../../public/assets/js/sidebarToggle.js" defer></script>
+
 </head>
 
 <body>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <!-- Logo Image at the center top -->
-            <a href="admin_dashboard.php" class="logo">
-                <img src="../../assets/images/GAD.png" alt="GAD Logo" class="user-logo">
+            <a href="staff_dashboard.php" class="logo">
+                <img src="../../public/assets/images/GAD.png" alt="Staff Logo" class="logo-img">
             </a>
 
             <!-- Title below the logo -->
@@ -38,40 +40,28 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <p>Gender and Development</p>
             </div>
         </div>
+
         <!-- Navigation Links -->
         <ul class="menu">
-            <li><a href="admin_dashboard.php" class="menu-item">Dashboard</a></li>
-            <li><a href="manage_staff.php" class="menu-item">Manage Staff</a></li>
-            <li><a href="content_moderation.php" class="menu-item">Content Moderation</a></li>
-            <li><a href="#" class="menu-item">Manage</a></li>
-            <li><a href="#" class="menu-item">Reports</a></li>
+            <li><a href="staff_dashboard.php" class="menu-item">Home</a></li>
+            <li><a href="manage_programs.php" class="menu-item">Manage Programs</a></li>
         </ul>
 
         <!-- Logout Button -->
-        <a href="admin_logout.php" class="logout" onclick="confirmLogout()">Logout</a>
+        <a href="staff_logout.php" class="logout">Logout</a>
     </div>
 
     <!-- Sidebar Toggle Button -->
     <div class="sidebar-toggle" id="sidebar-toggle"></div>
 
-    <!-- Page Content -->
-    <div class="content" id="content">
-        <!-- Page-specific content will be placed here -->
-    </div>
-
-    <!-- JavaScript to handle the sidebar toggle -->
     <script>
-        document.getElementById("sidebar-toggle").addEventListener("click", function () {
-            document.getElementById("sidebar").classList.toggle("expanded");
-            document.getElementById("content").classList.toggle("shifted");
-        });
-
         function confirmLogout() {
             if (confirm("Are you sure you want to logout?")) {
-                window.location.href = "admin_logout.php";
+                window.location.href = "staff_logout.php";
             }
         }
     </script>
+
 </body>
 
 </html>

@@ -58,7 +58,7 @@ $file_columns = ['file_path'];
 </head>
 
 <body>
-    <?php include '../../includes/AdminNavBar.php'; ?>
+    <?php include '../../public/includes/AdminNavBar.php'; ?>
     <div class="container mt-5">
         <h1 class="text-center">Pending <?php echo htmlspecialchars($content_type); ?></h1>
         <div class="table-responsive mt-4">

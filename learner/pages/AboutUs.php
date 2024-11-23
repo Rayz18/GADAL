@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../learner/assets/css/AboutUs.css">
 </head>
 
 <body>
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
 
     <!-- Header Image Section -->
     <div class="container-fluid p-0">
-        <img src="../../assets/images/Gender.jpg" alt="Header" class="img-fluid w-100">
+        <img src="../../public/assets/images/Gender.jpg" alt="Header" class="img-fluid w-100">
     </div>
 
     <!-- Content Section -->

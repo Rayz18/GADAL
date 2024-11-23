@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect With Us</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../learner/assets/css/ConnectWithUs.css">
 </head>
 
 <body>
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
     <div class="connect-container">
         <div class="content">
             <h1 class="title">CONNECT WITH US</h1>
