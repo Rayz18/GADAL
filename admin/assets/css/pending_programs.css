@@ -1,0 +1,106 @@
+/* General body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f6fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #222;
+    font-size: 32px;
+    margin: 30px 0;
+}
+
+/* Content section container */
+.content-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Each content item */
+.content-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f9fafc;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.3s ease;
+}
+
+/* Hover effect on content item */
+.content-item:hover {
+    background-color: #f1f4f8;
+}
+
+/* Program name styling */
+.content-item p {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Approve button styling */
+button.approve {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+}
+
+/* Decline button styling */
+button.decline {
+    background-color: #F44336;
+    color: white;
+}
+
+/* Button hover effect */
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(1);
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+    .content-section {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .content-item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,144 @@
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh; /* Ensure it takes the full viewport height */
+}
+
+.main-content {
+    flex: 1;
+    margin-bottom: 20px; /* Adjust for spacing below */
+    transition: margin-left 0.3s ease; /* Smooth transition for expanding and compressing */
+    min-height: calc(100vh - 40px); /* Dynamic height based on viewport */
+}
+
+/* Manage Staff Container */
+.manage-staff-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35); /* Darker shadow with higher opacity */
+    padding: 30px;
+    margin-top: 100px; /* Space from the top */
+    margin-bottom: 50px; /* Add space below */
+}
+
+/* Header Styles */
+.manage-staff-container h1 {
+    font-size: 2em;
+    color: #333; /* Changed to a darker color */
+    font-weight: 200 !important; /* Made the font bold */
+    text-align: center;
+}
+
+/* Add Staff Section */
+.add-staff-section h2 {
+    font-size: 1.5em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.add-staff {
+    background-color: #6c63ff;
+    margin-bottom: 20px;
+}
+
+.add-staff:hover {
+    background-color: #5048e5;
+}
+
+.edit {
+    background-color: #4caf50;
+}
+
+.edit:hover {
+    background-color: #388e3c;
+}
+
+.delete {
+    background-color: #f44336;
+}
+
+.delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Table Styles */
+.staff-list {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.staff-list table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.staff-list th,
+.staff-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.staff-list th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #666;
+}
+
+.staff-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .manage-staff-container {
+        padding: 20px;
+    }
+
+    .add-staff {
+        padding: 8px 16px;
+    }
+
+    .staff-list th, 
+    .staff-list td {
+        padding: 8px;
+    }
+}

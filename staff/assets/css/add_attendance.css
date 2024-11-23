@@ -1,0 +1,39 @@
+/* Styling for field labels */
+.field-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Styling for the back button */
+.btn-outline-secondary {
+    position: fixed; /* Fix to the viewport */
+    top: 10px; /* Adjust distance from the top */
+    left: 20px !important; /* Adjust distance from the left */
+    z-index: 10; /* Keep above other elements */
+}
+
+/* General styling for the form */
+body {
+    background-color: #f8f9fa; /* Light background color */
+}
+
+form {
+    font-size: 1rem;
+}
+
+textarea,
+input[type="text"],
+select,
+button {
+    font-size: 0.9rem;
+}
+
+button.btn-danger {
+    background-color: #C96A6A;
+    border-color: #C96A6A;
+}
+
+button.btn-danger:hover {
+    background-color: #b15858;
+    border-color: #b15858;
+}

@@ -1,0 +1,126 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto;   /* Ensure vertical scrolling only */
+    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+}
+
+/* Apply box-sizing to all elements to prevent overflow */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Programs section */
+.program-container {
+    margin: 0 auto;
+    padding-top: 70px; 
+    text-align: center;
+}
+
+.term-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px 0; /* Reduced margin to move everything upwards */
+}
+
+h1 {
+    color: rgb(86, 28, 109);
+    font-size: 26px;
+    margin-bottom: 12px; /* Adjusted margin for title */
+}
+
+.search-container {
+    display: flex;
+    align-items: right;
+    margin-left: 1000px;
+    
+}
+
+.search-container input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid rgba(213, 213, 216, 0.849);
+    border-radius: 5px;
+    width: 200px;
+}
+
+.search-container button {
+    background-color: rgba(213, 213, 216, 0.849);
+    color: white;
+    border: none;
+    padding: 8px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #B19CD9;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 5px;
+    row-gap: 50px;
+    justify-items: center;
+    padding: 100px;
+    padding-top: 20px;   
+}
+
+.photo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 450;
+}
+
+.photo-card img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.photo-card img:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.photo-title {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #3182ce;
+    text-decoration: none;
+    max-width: 100%; /* Ensure title doesn't exceed card width */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide the overflowed text */
+    text-overflow: ellipsis; /* Add ellipsis to overflowed text */
+}
+
+.photo-title:hover {
+    text-decoration: underline;
+}
+
+/* Customize scrollbar */
+::-webkit-scrollbar {
+    width: 6px; /* Set scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cac5d35d; /* Scrollbar color */
+    border-radius: 6px; /* Rounded scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4; /* Scrollbar track color */
+}

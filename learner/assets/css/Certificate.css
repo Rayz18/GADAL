@@ -1,0 +1,101 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto;   /* Ensure vertical scrolling only */
+    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+}
+
+/* Apply box-sizing to all elements to prevent overflow */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+
+/* Programs section */
+.container {
+    margin: 0 auto;
+    padding-top: 100px; 
+    text-align: center;
+}
+
+h1 {
+    color: rgb(86, 28, 109);
+    font-size: 26px;
+    margin-bottom: 30px; /* Adjusted margin for title */
+}
+
+/* Filter section */
+.filters {
+    display: flex;
+    align-items: center;  /* Vertically center label and dropdown */
+    justify-content: flex-end;  /* Keep them aligned to the left, but centered vertically */
+    gap: 10px; /* Add spacing between label and dropdown */
+    width: 100%;  /* Make it span the full width */
+    margin-bottom: 20px;  /* Space from the content below */
+    padding: 0 60px;  /* Add side padding for spacing from page edges */
+}
+
+/* Style the filter label */
+.filters label {
+    font-size: 14px;
+    color: #333; /* Darker text for better visibility */
+    margin: 0;   /* Remove default margin */
+}
+
+/* Style the dropdown */
+#offering {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    width: 180px; /* Slightly wider dropdown */
+}
+
+
+
+.certificate-list {
+    list-style-type: none;
+    text-align: left;
+    margin-left: 50px;
+}
+
+.certificate-list li {
+    margin: 60px;
+}
+
+.certificate-list a {
+    font-size: 18px;
+    color: blue;
+    text-decoration: none;
+}
+
+.certificate-list a:hover {
+    text-decoration: underline;
+}
+
+.certificate-list p {
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* Customize scrollbar */
+::-webkit-scrollbar {
+    width: 6px; /* Set scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cac5d35d; /* Scrollbar color */
+    border-radius: 6px; /* Rounded scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4; /* Scrollbar track color */
+}

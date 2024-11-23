@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, rgba(177, 156, 217, 0.7), rgba(201, 106, 106, 0.7));
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.row {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.logo {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.col-md-6.d-flex.flex-column.align-items-start.p-3 {
+    padding-left: 35px;
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
+.quote-text {
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
+    font-size: 44.5px;
+    font-weight: bold;
+    color: white;
+    max-width: 550px;
+    line-height: 1.2;
+}
+
+.login-card {
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    padding: 20px;
+    max-width: 450px;
+    width: 125%;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    margin-left: -50px;
+}
+
+/* Make the "Admin Login" text bolder and larger */
+h2 {
+    font-weight: 700; /* Bolder weight */
+    font-size: 26px; /* Slightly increased font size */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2);
+    outline: none;
+}
+
+.btn-primary {
+    background-color: #a78bfa;
+    border: none;
+    margin-bottom: 200px;
+}
+
+.btn-primary:hover {
+    background-color: #B19CD9;
+}
+
+.text-danger {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+}

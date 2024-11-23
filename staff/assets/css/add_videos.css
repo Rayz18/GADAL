@@ -1,0 +1,101 @@
+/* General Layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.main-container {
+    padding: 40px 20px;
+}
+
+.page-title {
+    color: #007bff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.messages {
+    position: relative; /* Ensures child elements are positioned relative to this container */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.alert {
+    position: absolute; /* Allows the alert to overlay on top of the content */
+    top: -55px; /* Aligns the alert to the top of the messages container */
+    left: 50%; /* Centers the alert horizontally */
+    transform: translateX(-50%); /* Adjusts for the alert's width to keep it centered */
+    max-width: 600px; /* Restricts the alert's maximum width */
+    padding: 10px 20px; /* Adds padding for readability */
+    background-color: #d4edda; /* Default background for success message */
+    color: #155724; /* Default text color for success message */
+    border: 1px solid #c3e6cb; /* Border for success message */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow for better visibility */
+    white-space: normal; /* Ensures the text wraps within the box */
+    z-index: 10; /* Ensures the alert appears on top of other elements */
+}
+
+/* Upload Card */
+.upload-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upload-header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.upload-body {
+    padding: 20px;
+}
+
+/* Existing Videos */
+.existing-videos-card {
+    height: 536px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.existing-videos-header {
+    background-color: #08a745;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.existing-videos-body {
+    padding: 15px;
+}
+
+.video-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-card video {
+    width: 100%;
+    height: auto;
+}
+
+.video-name {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

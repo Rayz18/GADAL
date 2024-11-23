@@ -1,0 +1,197 @@
+/* User Navigation Bar */
+.user-navigation-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #B19CD9;
+    padding: 10px 20px;
+    color: rgb(67, 24, 116);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Thin border for distinction */
+}
+
+.user-nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.user-logo {
+    height: 45px;
+    margin-right: 5px;
+}
+
+.user-nav-titles {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.user-nav-title {
+    font-family: Arial, sans-serif;
+    font-weight: bolder;
+    color: rgb(86, 28, 109);
+}
+
+.main-title {
+    font-size: 10px;
+}
+
+.sub-title {
+    font-size: 10px;
+}
+
+.user-nav-menu {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+}
+
+.user-nav-menu li {
+    display: inline;
+}
+
+.user-nav-menu li a {
+    font-family: Arial, sans-serif;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.user-nav-menu li a:hover {
+    color: #f0e6f7;
+}
+
+/* Profile Icon */
+.user-profile-icon {
+    display: block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.user-profile-icon img {
+    height: 33px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth scaling on hover */
+}
+
+.user-profile-icon img:hover {
+    transform: scale(1.1); /* Slight scaling effect on hover */
+}
+
+/* Profile Popup */
+.profile-popup {
+    position: absolute;
+    top: 50px; /* Adjust based on navbar */
+    right: 20px;
+    width: 250px;
+    background-color: #f9f5fc; /* Light purple background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Popup Title Styling */
+.popup-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #672280;
+    margin-bottom: 10px;
+}
+
+/* Popup Text */
+.popup-text {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+.popup-btn {
+    background-color: #b19cd9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+}
+
+.popup-btn:hover {
+    background-color: #a18acb;
+}
+
+/* Additional styling for the logout button */
+.popup-btn.logout-btn {
+    background-color: #FF5733; /* Example color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.popup-btn.logout-btn:hover {
+    background-color: #C44532; /* Darker shade for hover effect */
+}
+
+
+/* Separator (OR line) */
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.separator span {
+    font-size: 12px;
+    color: #000000;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: #000000;
+    margin: 0 10px;
+}
+
+/* Sign-in/Sign-up Specific Button Colors */
+.signin-btn {
+    background-color: #d1b3e3;
+}
+
+.signup-btn {
+    background-color: #8a56ac;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .profile-popup {
+        right: 10px; /* Adjust positioning for smaller screens */
+        width: 90%;   /* Ensure it fits better on mobile devices */
+    }
+}

@@ -1,0 +1,198 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f4f4f4, #eaeaea);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Ensure the body takes up full height */
+}
+
+/* Form heading inside the form */
+form h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #997eca; /* Set the title color to green */
+    margin-bottom: 20px;
+    font-weight: bold;
+    width: 100%;
+}
+
+form {
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically within the form */
+    margin: auto; /* Additional safety for alignment */
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    color: #333; /* Set labels to black */
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: left;
+}
+
+/* Input, textarea, select styling */
+input[type="text"],
+textarea,
+input[type="file"],
+select,
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+input[type="file"]:focus,
+select:focus,
+input[type="date"]:focus {
+    border-color: #70579e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Textarea styling */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Container for buttons */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    padding: 8px 16px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #603ea0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Back button styling to match Add Course button */
+.back-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #603ea0;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+input[type="submit"]:hover,
+.back-button:hover {
+    background-color: #4d2597;
+    transform: translateY(-2px);
+}
+
+input[type="submit"]:active,
+.back-button:active {
+    background-color: #4d2597;
+    transform: translateY(1px);
+}
+
+/* Success and error message styling */
+.success-message,
+.error-message {
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+    form {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.3rem;
+    }
+    input[type="submit"],
+    .back-button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px; /* Width when expanded */
+    transition: width 0.3s ease; /* Smooth transition */
+    background-color: #ffffff; /* Background color for the sidebar */
+    padding: 15px; /* Padding for the sidebar */
+    border-right: 1px solid #ddd; /* Right border for the sidebar */
+    height: 100vh; /* Full height */
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    overflow: hidden; /* Hide overflow */
+}
+
+.sidebar.collapsed {
+    width: 70px; /* Width when collapsed */
+}
+
+.content {
+    margin-left: 250px; /* Adjust for expanded sidebar */
+    transition: margin-left 0.3s ease; /* Smooth transition */
+}
+
+.content.collapsed {
+    margin-left: 70px; /* Adjust for collapsed sidebar */
+}
+
+/* Add any additional styles for your sidebar links/buttons */

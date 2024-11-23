@@ -1,0 +1,61 @@
+/* Override Bootstrap's text-primary color */
+.text-primary {
+    color: #B19CD9 !important;
+}
+
+/* Custom styling for the main section container */
+.section-container {
+    border: 1px solid #B19CD9;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for section headings */
+.section-container h2 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #B19CD9;
+    padding-bottom: 5px;
+}
+
+/* Sidebar hover effect */
+.list-group-item:hover {
+    background-color: #431876;
+    color: #ffffff;
+}
+
+/* Custom styling for individual containers in Organization Profile section */
+
+/* About Gender and Development Section */
+.about-gad {
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+/* GAD Plan and Budget Section */
+.gad-plan-budget {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* GAD Focal Person System Section */
+.gad-focal-system {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* Project, Activity, and Program Section */
+.project-activity-program {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* Ensure consistent spacing between text paragraphs within each container */
+.about-gad p,
+.gad-plan-budget p,
+.gad-focal-system p,
+.project-activity-program p {
+    margin-bottom: 10px;
+}

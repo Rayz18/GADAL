@@ -1,0 +1,166 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f4f4f4, #eaeaea);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Form heading inside the form */
+form h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #8A72C3; /* Darker purple for the title */
+    margin-bottom: 30px; /* Increased space below title */
+    font-weight: bold;
+    width: 100%;
+}
+
+/* Form container */
+form {
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px; /* Added space above each label */
+    margin-bottom: 5px; /* Space below each label */
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: left;
+}
+
+/* Input, textarea, select styling */
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 20px; /* Increased space below each input field */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+input[type="file"]:focus {
+    border-color: #8A72C3; /* Updated focus color to darker purple */
+    outline: none;
+    box-shadow: 0 0 5px rgba(138, 114, 195, 0.3); /* Updated shadow to match color */
+}
+
+/* Textarea styling */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Container for buttons */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px; /* Space between last input and buttons */
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    padding: 8px 16px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #8A72C3; /* Updated button color to darker purple */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Back button styling to match Add Program button */
+.back-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #8A72C3; /* Updated button color to darker purple */
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+input[type="submit"]:hover,
+.back-button:hover {
+    background-color: #6E5A9F; /* Even darker purple for hover */
+    transform: translateY(-2px);
+}
+
+input[type="submit"]:active,
+.back-button:active {
+    background-color: #594889; /* Darkest purple for active state */
+    transform: translateY(1px);
+}
+
+/* Success and error message styling */
+.success-message,
+.error-message {
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+}
+
+.success-message {
+    background-color: rgba(138, 114, 195, 0.2); /* Light background for success */
+    color: #8A72C3; /* Text color matching darker purple theme */
+    border: 1px solid #8A72C3; /* Border matching darker purple */
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+    form {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.3rem;
+    }
+    input[type="submit"],
+    .back-button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}

@@ -1,0 +1,105 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto;   /* Ensure vertical scrolling only */
+    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+}
+
+/* Apply box-sizing to all elements to prevent overflow */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Programs section */
+.container {
+    margin: 0 auto;
+    padding-top: 70px;
+    text-align: center;
+}
+
+/* Breadcrumb navigation */
+.breadcrumbs {
+    text-align: left; /* Align breadcrumbs to the left */
+    padding: 10px 5%;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Decorative certificate placeholder for creative design */
+.certificate-placeholder {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #dcdcdc;
+}
+
+/* Left-aligned certificate details */
+.certificate-details {
+    text-align: left;
+    padding-left: 11%;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.certificate-details p {
+    margin: 5px 0;
+    color: #000000;
+}
+
+/* Additional styles for certificate detail page */
+.certificate-preview {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.certificate-preview img {
+    max-width: 80%;
+    height: auto;
+    border: 2px solid #4949492d;
+    padding: 10px;
+}
+
+/* Download button section */
+.download-section {
+    margin-top: 20px;
+    text-align: right;
+    margin-right: 80px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #6a1b9a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.download-btn:hover {
+    background-color: #8247e5;
+}
+
+/* Customize scrollbar */
+::-webkit-scrollbar {
+    width: 6px; /* Set scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cac5d35d; /* Scrollbar color */
+    border-radius: 6px; /* Rounded scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4; /* Scrollbar track color */
+}

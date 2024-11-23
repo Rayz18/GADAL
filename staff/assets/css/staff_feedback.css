@@ -1,0 +1,38 @@
+/* Simple Feedback Message Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+.message-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.success {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.error {
+    color: #E63946;
+    font-weight: bold;
+}
+
+a.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #3182CE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.back-link:hover {
+    text-decoration: underline;
+}

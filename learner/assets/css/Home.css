@@ -1,0 +1,110 @@
+/* General styling for the body and html */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Ensure no horizontal scroll bars */
+    overflow-y: auto;   /* Enable vertical scrolling only */
+    padding-top: 1px; /* Adjust this value based on the height of the navigation bar */
+    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+}
+
+/* Apply box-sizing to all elements to prevent overflow */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px; /* Set scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cac5d35d; /* Scrollbar color */
+    border-radius: 6px; /* Rounded scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4; /* Scrollbar track color */
+}
+
+/* Slider CSS */
+.slider-container {
+    position: relative;
+    max-width: 100%;
+    margin: 70px auto; 
+}
+
+.slider img {
+    width: 100%;
+    height: 500px; /* Set a fixed height for all images */
+    object-fit: cover; /* Ensure the images maintain aspect ratio */
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.fade {
+    animation: fade 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+.card {
+    height: 130%; /* Ensure all cards stretch to the same height */
+    display: flex;
+    flex-direction: column; /* Arrange card content vertically */
+    justify-content: space-between; /* Evenly distribute content */
+}
+
+.card img {
+    object-fit: cover; /* Ensure images maintain proportions */
+    height: 300px; /* Set consistent height for images */
+}
+
+/* Adjust carousel control buttons */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Reduce button width for better alignment */
+}
+
+.carousel-control-prev {
+    left: -2%; /* Move the left button further to the left */
+}
+
+.carousel-control-next {
+    right: -2%; /* Move the right button further to the right */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 1.5rem; /* Adjust icon size if necessary */
+}

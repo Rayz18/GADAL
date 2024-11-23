@@ -1,0 +1,87 @@
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    transition: margin-left 0.3s ease;
+    margin-bottom: 200px;
+}
+
+/* Main Dashboard Container */
+.dashboard-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Header Styles */
+.dashboard-container h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.analytics-section h2 {
+    font-size: 1.8em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Chart Container */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f3f3f3;
+    border-radius: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 20px;
+    }
+
+    .dashboard-container h1 {
+        font-size: 1.8em;
+    }
+
+    .analytics-section h2 {
+        font-size: 1.5em;
+    }
+}

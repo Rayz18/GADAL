@@ -1,0 +1,92 @@
+/* General Layout */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container-fluid {
+    padding: 40px 20px;
+}
+
+.page-title {
+    color: #007bff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* Messages */
+.messages {
+    position: relative; /* Ensures child elements are positioned relative to this container */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.alert {
+    position: absolute; /* Allows the alert to overlay on top of the content */
+    top: -55px; /* Aligns the alert to the top of the messages container */
+    left: 50%; /* Centers the alert horizontally */
+    transform: translateX(-50%); /* Adjusts for the alert's width to keep it centered */
+    max-width: 600px; /* Restricts the alert's maximum width */
+    padding: 10px 20px; /* Adds padding for readability */
+    background-color: #d4edda; /* Default background for success message */
+    color: #155724; /* Default text color for success message */
+    border: 1px solid #c3e6cb; /* Border for success message */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow for better visibility */
+    white-space: normal; /* Ensures the text wraps within the box */
+    z-index: 10; /* Ensures the alert appears on top of other elements */
+}
+
+/* Add Form Card */
+.form-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-body {
+    padding: 20px;
+    height: 536px;
+}
+
+/* Existing Questions */
+.existing-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.existing-header {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.existing-body {
+    overflow-y: auto;
+    height: 536px;
+}
+
+.question-column {
+    width: 80%;
+}
+
+.answer-column {
+    width: 20%;
+}
+
+.answer-badge {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,342 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Light background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Wrapper container to align form and existing seminar details side-by-side */
+.wrapper-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Form and Existing Seminar Container Styling */
+.form-container, .existing-seminar-container {
+    border: 2px solid #B19CD9; /* More defined border */
+    border-radius: 12px; /* Smooth rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow for better definition */
+    padding: 25px; /* Enhanced padding for better spacing */
+    background-color: #ffffff; /* Ensure white background */
+}
+
+/* Title styling for both containers */
+.form-title {
+    color: #B19CD9; /* Light purple */
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center; /* Align titles to the left */
+    margin-bottom: 25px; /* Adds space below the title */
+    margin-left: 90px;
+}
+
+.existing-title {
+    color: #B19CD9; /* Light purple */
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center; /* Align titles to the left */
+    margin-bottom: 25px; /* Adds space below the title */
+    margin-left: 50px;
+}
+
+/* Label styling */
+.form-label {
+    font-weight: bold; /* Make labels bold */
+    margin-bottom: 5px; /* Add space below labels */
+    text-align: left; /* Align labels to the left */
+    width: 100%; /* Ensure labels take full width */
+}
+
+/* Existing seminar container styling with increased vertical height */
+.existing-seminar-container {
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    height: 800px !important; /* Increased height to make the container taller */
+    max-height: none !important;
+    background-color: #ffffff; /* White background */
+    flex: 1; /* Allow it to grow */
+    width: 500px; /* Keep the same width */
+    text-align: center; /* Center align the content */
+    padding: 20px; /* Add padding inside the container */
+    border: 1px solid #ccc; /* Add border for better visibility */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header title */
+.header-title {
+    color: #B19CD9; /* Light purple */
+    margin-top: 10px;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+/* Notification container */
+.notification-container {
+    position: absolute; /* Positioning absolute to not affect other elements */
+    top: 60px; /* Adjust top positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Success and error messages */
+.success-message, .error-message {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: 90%;
+    color: inherit; /* Inherit the color from the parent */
+    background-color: transparent; /* Remove background */
+    border: none; /* Remove border */
+}
+
+.success-message {
+    color: #28a745; /* Green for success */
+}
+
+.error-message {
+    color: #dc3545; /* Red for error */
+}
+
+/* "Seminar Title" input field styling */
+.form-container input[name="seminar_title"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Checkbox Styling */
+.form-check-input {
+    width: 20px; /* Larger checkbox */
+    height: 20px; /* Larger checkbox */
+    accent-color: #B19CD9; /* Set the checkbox color to light purple */
+    border: 2px solid #B19CD9; /* Define border for better visibility */
+    transition: transform 0.2s ease; /* Smooth animation */
+}
+
+.form-check-input:checked {
+    transform: scale(1.2); /* Slight zoom effect when checked */
+    box-shadow: 0 0 5px rgba(177, 156, 217, 0.75); /* Subtle glow when checked */
+}
+
+.form-check-label {
+    font-size: 1rem; /* Slightly larger font size */
+    margin-left: 8px; /* Add spacing between checkbox and label */
+    color: #333; /* Neutral text color */
+    font-weight: bold; /* Emphasize the label text */
+}
+
+/* Textarea styling for description */
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Button styling */
+.submit-button {
+    background-color: #8b71bd;
+    color: white;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 20px;
+    margin-left: auto; /* Align button to the right */
+}
+
+.submit-button:hover {
+    background-color: #634f8a; 
+    transform: scale(1.05);
+}
+
+.submit-button:active {
+    transform: scale(0.95);
+}
+
+/* Flexbox layout for form row */
+.form-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+/* Adjusted form row divs to set specific widths for Date, Time, Venue, and Poster */
+.form-row div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.date-container,
+.time-container,
+.poster-container,
+.venue-container {
+    flex: 1; /* Each container takes equal space */
+}
+
+.date-container {
+    width: 20%; /* Adjust as needed */
+}
+
+.time-container {
+    width: 18%; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.poster-container {
+    width: 25%; /* Adjust as needed */
+}
+
+.venue-container {
+    width: 36%; /* Adjust as needed */
+}
+
+/* Increase the height of the date input */
+.date-input {
+    height: 20px; /* Increase the height of the date input */
+}
+
+/* Increase the width of the venue input */
+.venue-input {
+    width: 98.5%; /* Make the venue input longer */
+    height: 20px;
+}
+
+/* Existing Seminar Details Section */
+.details-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details-item {
+    background-color: #D3D3D3; /* Light gray */
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 447px;
+}
+
+.details-item:hover {
+    transform: scale(1.02);
+    border-color: #765da3
+}
+
+.poster-image {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 5px;
+    margin-left: 50px;
+}
+
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+    .wrapper-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-container, .existing-seminar-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1.5rem;
+    }
+
+    .submit-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px; /* Width when expanded */
+    height: 100%; /* Full height */
+    background-color: #ffffff; /* Background color for the sidebar */
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    transition: left 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* Ensure sidebar is on top */
+}
+
+.sidebar.collapsed {
+    left: -180px; /* Move to the left when collapsed */
+}
+
+.content {
+    margin-left: 250px; /* Initial margin to accommodate the sidebar */
+    transition: margin-left 0.3s ease; /* Smooth transition */
+}
+
+.content.collapsed {
+    margin-left: 70px; /* Adjust margin when sidebar is collapsed */
+}
+
+.back-button {
+    position: absolute;
+    top: 20px; /* Adjusted positioning */
+    left: 13px; /* Align to the left */
+    font-size: 0.9rem; /* Slightly smaller font size */
+    padding: 6px 12px; /* Reduced padding for smaller button */
+    border-radius: 4px; /* Slightly smaller border radius */
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.back-button:hover {
+    background-color: #c4c4c4; /* Hover color */
+    transform: scale(1.05);
+}
+
+.back-button:active {
+    transform: scale(0.95);
+}
+

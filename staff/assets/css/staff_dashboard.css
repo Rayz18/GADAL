@@ -1,0 +1,112 @@
+.card {
+    height: 280px; /* Slightly smaller height */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Add a more prominent shadow */
+    z-index: 10; /* Bring the hovered card forward */
+    background-color: #fff; /* Ensure the background stays clear */
+}
+
+.card-body {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 12px; /* Reduced padding */
+    background-color: #f9f9f9;
+    border-top: 2px solid #B19CD9;
+    border-radius: 0 0 8px 8px;
+}
+
+.card-body ul {
+    max-height: 140px; /* Slightly smaller list height */
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.card-title.text-primary {
+    font-size: 1.1em; /* Slightly smaller font */
+    color: #7A5DAA !important;
+    font-weight: bold;
+}
+
+.course-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 4px 8px; /* Reduced padding */
+    margin-bottom: 4px; /* Reduced margin */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #007BFF;
+    font-weight: bold;
+    font-size: 0.9rem; /* Slightly smaller text */
+}
+
+.course-item span {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-left: 8px; /* Slightly smaller margin */
+    text-align: right;
+    color: #6c757d;
+}
+
+.course-item:hover {
+    background-color: #e9ecef;
+    cursor: default;
+}
+
+.course-item a {
+    text-decoration: none;
+    color: inherit;
+    pointer-events: none;
+}
+
+h1 {
+    width: 100%;
+    font-size: 1.9em; /* Slightly smaller font size */
+    color: #ffffff;
+    background: linear-gradient(90deg, #B19CD9, #C96A6A);
+    padding: 0.9rem 1.8rem; /* Slightly reduced padding */
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 1.2rem; /* Slightly reduced spacing */
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body ul {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+}
+
+.sidebar {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.sidebar:not(.collapsed) {
+    width: 250px; /* Slightly smaller expanded width */
+}
+
+main {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+}
+
+main.sidebar-open {
+    margin-left: 230px; /* Adjusted margin for smaller sidebar */
+}
