@@ -13,7 +13,7 @@
 
 <body>
     <div class="dashboard-wrapper">
-        <?php include '../../includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="main-content container">
             <h1 class="text-center mt-4 mb-5">Admin Dashboard</h1>
 

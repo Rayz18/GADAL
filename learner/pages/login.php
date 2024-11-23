@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="flex-container">
             <div class="logo-text">
                 <div class="logo-container">
-                    <img src="../../assets/images/BSU.png" alt="University Logo" class="logo">
-                    <img src="../../assets/images/GAD.png" alt="Department Logo" class="logo">
+                    <img src="../../public/assets/images/BSU.png" alt="University Logo" class="logo">
+                    <img src="../../public/assets/images/GAD.png" alt="Department Logo" class="logo">
                 </div>
                 <h1 class="heading">Empowering Equality, Advancing Development</h1>
             </div>
