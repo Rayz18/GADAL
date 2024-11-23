@@ -41,7 +41,6 @@ $query .= " ORDER BY created_at DESC";
 
 // Execute the query
 $programs_query = $conn->query($query);
-
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +56,7 @@ $programs_query = $conn->query($query);
 
 <body>
     <?php include '../../public/includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/header.php'; ?>
 
     <!-- Main Content Section -->
     <main class="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-gray p-5">

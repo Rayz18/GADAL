@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
