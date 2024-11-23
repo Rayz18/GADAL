@@ -35,7 +35,7 @@ if ($profile_result->num_rows > 0) {
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -67,7 +67,7 @@ if ($profile_result->num_rows > 0) {
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="staff_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+                        <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>
                         <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
                     </div>
                 </div>
