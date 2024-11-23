@@ -35,7 +35,7 @@ if ($profile_result->num_rows > 0) {
 </head>
 
 <body>
-    <?php include '../../includes/StaffNavBar.php'; ?>
+    <?php include '../../public/includes/StaffNavBar.php'; ?>
 
     <div class="container mt-5">
         <div class="row justify-content-center">

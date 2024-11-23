@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     // KPI Data for the four containers
     const kpiData = [
-        { title: "Total Attendees", value: "2,540", bgColor: "bg-light-purple" },
+        { title: "Total Attendees", value: "2,545", bgColor: "bg-light-purple" },
         { title: "Programs Conducted", value: "125", bgColor: "bg-purple" },
         { title: "Impacted Communities", value: "45", bgColor: "bg-dark-purple" },
         { title: "Active Campaigns", value: "8", bgColor: "bg-light-purple" }
@@ -182,36 +182,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Programs by Categories Chart
-    const ctxProgramsByCategory = document.getElementById('programsByCategoryChart');
-    if (ctxProgramsByCategory) {
-        new Chart(ctxProgramsByCategory.getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: ['Health', 'Education', 'Advocacy', 'Training'],
-                datasets: [
-                    {
-                        data: [30, 20, 25, 25],
-                        backgroundColor: ['#7a4ca1', '#b19cd9', '#d3bce3', '#9a73c7']
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Programs by Categories'
-                    }
-                }
-            }
-        });
-    }
-});
-
 window.addEventListener('resize', () => {
     Chart.helpers.each(Chart.instances, instance => {
         instance.resize();
     });
 });
 
+});
