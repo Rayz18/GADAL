@@ -1,3 +1,29 @@
+/* Profile Icon Styling */
+
+header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #B19CD9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions span {
+    font-size: 1rem;
+    color: #333;
+    margin-right: 15px;
+}
+
+.header-actions .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
 .card {
     height: 280px; /* Slightly smaller height */
     display: flex;
