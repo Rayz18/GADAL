@@ -89,10 +89,16 @@ function truncateProgramName($name, $limit = 15)
                                         <h6>Courses under this program:</h6>
                                         <div class="course-list">
                                             <?php
-                                            $courses_query = $conn->query("SELECT * FROM courses WHERE program_id = " . $program['program_id']);
+                                            $courses_query = $conn->query("
+                                                SELECT course_id, course_name, offered_mode, enable_registration, enable_attendance, enable_evaluation 
+                                                FROM courses 
+                                                WHERE program_id = " . $program['program_id']);
                                             if ($courses_query->num_rows > 0) {
                                                 while ($course = $courses_query->fetch_array()) {
-                                                    $offered_mode = $course['offered_mode']; // Fetch the offered mode
+                                                    $offered_mode = $course['offered_mode'];
+                                                    $enable_registration = $course['enable_registration'];
+                                                    $enable_attendance = $course['enable_attendance'];
+                                                    $enable_evaluation = $course['enable_evaluation'];
                                                     ?>
                                                     <div class="course-item mb-3">
                                                         <div class="d-flex justify-content-between align-items-center">
@@ -108,8 +114,18 @@ function truncateProgramName($name, $limit = 15)
                                                         </div>
                                                         <div class="course-options mt-2">
                                                             <?php if ($offered_mode == 'face_to_face'): ?>
-                                                                <a href="add_seminar.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Seminar</a>
+                                                                <?php if ($enable_registration): ?>
+                                                                    <a href="add_registration.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                        class="badge badge-info">Registration</a>
+                                                                <?php endif; ?>
+                                                                <?php if ($enable_attendance): ?>
+                                                                    <a href="add_attendance.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                        class="badge badge-info">Attendance</a>
+                                                                <?php endif; ?>
+                                                                <?php if ($enable_evaluation): ?>
+                                                                    <a href="add_evaluation.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                        class="badge badge-info">Evaluation</a>
+                                                                <?php endif; ?>
                                                             <?php elseif ($offered_mode == 'online'): ?>
                                                                 <a href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>"
                                                                     class="badge badge-info">Introduction</a>
