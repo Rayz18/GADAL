@@ -50,7 +50,7 @@ require_once "../../config/config.php";
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='photo-card'>";
                         echo "<a href='Course.php?program_id=" . $row['program_id'] . "'>";
-                        echo "<img src='../staff/upload/" . htmlspecialchars($row['program_img']) . "' 
+                        echo "<img src='../../staff/upload/" . htmlspecialchars($row['program_img']) . "' 
                                  onerror=\"this.src='../learner/assets/common/images/default-program.png'\" 
                                  alt='" . htmlspecialchars($row['program_name']) . "'></a>";
                         echo "<a class='photo-title'>" . htmlspecialchars($row['program_name']) . "</a>";

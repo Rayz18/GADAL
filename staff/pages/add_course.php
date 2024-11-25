@@ -9,6 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_name = $_POST['course_name'];
     $course_desc = $_POST['course_desc'];
     $course_date = $_POST['course_date'];
+    $offered_mode = $_POST['offered_mode'];
+
+    $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
+    $enable_attendance = isset($_POST['enable_attendance']) ? 1 : 0;
+    $enable_evaluation = isset($_POST['enable_evaluation']) ? 1 : 0;
 
     $course_img = '';
     if (!empty($_FILES['course_img']['name'])) {
@@ -19,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $stmt = $conn->prepare("INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("issss", $program_id, $course_name, $course_img, $course_desc, $course_date);
+    $stmt = $conn->prepare("INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssiii", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
     $stmt->execute();
     $stmt->close();
 
@@ -36,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Course</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -76,6 +80,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="course_date" class="form-label">Course Date:</label>
                                 <input type="date" id="course_date" name="course_date" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="offered_mode" class="form-label">Offered Mode:</label>
+                                <select id="offered_mode" name="offered_mode" class="form-control" required
+                                    onchange="toggleFaceToFaceOptions(this.value)">
+                                    <option value="online">Online</option>
+                                    <option value="face_to_face">Face to Face</option>
+                                </select>
+                            </div>
+                            <div id="face_to_face_options" class="mb-3 d-none">
+                                <label class="form-label">Face to Face Options:</label>
+                                <div class="form-check">
+                                    <input type="checkbox" id="enable_registration" name="enable_registration"
+                                        class="form-check-input">
+                                    <label for="enable_registration" class="form-check-label">Enable
+                                        Registration</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="enable_attendance" name="enable_attendance"
+                                        class="form-check-input">
+                                    <label for="enable_attendance" class="form-check-label">Enable Attendance</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="enable_evaluation" name="enable_evaluation"
+                                        class="form-check-input">
+                                    <label for="enable_evaluation" class="form-check-label">Enable Evaluation</label>
+                                </div>
+                            </div>
                             <div class="d-flex justify-content-between">
                                 <a href="manage_programs.php" class="btn btn-secondary">Back</a>
                                 <button type="submit" class="btn btn-primary">Add Course</button>
@@ -86,8 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleFaceToFaceOptions(value) {
+            const faceToFaceOptions = document.getElementById('face_to_face_options');
+            faceToFaceOptions.classList.toggle('d-none', value !== 'face_to_face');
+        }
+    </script>
 </body>
 
 </html>

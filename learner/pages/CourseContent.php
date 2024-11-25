@@ -60,13 +60,6 @@ $stmt->bind_param("i", $course_id);
 $stmt->execute();
 $post_test_questions = $stmt->get_result();
 
-// Fetch approved Seminar Details
-$query = "SELECT * FROM seminars WHERE course_id = ? AND status = 'approved'";
-$stmt->prepare($query);
-$stmt->bind_param("i", $course_id);
-$stmt->execute();
-$seminar = $stmt->get_result();
-
 // Convert result sets to arrays
 $pre_test_questions_array = [];
 while ($row = $pre_test_questions->fetch_assoc()) {
@@ -87,11 +80,6 @@ $post_test_questions_array = [];
 while ($row = $post_test_questions->fetch_assoc()) {
     $post_test_questions_array[] = $row;
 }
-
-$seminar_array = [];
-while ($row = $seminar->fetch_assoc()) {
-    $seminar_array[] = $row;
-}
 ?>
 
 <!DOCTYPE html>
@@ -101,19 +89,14 @@ while ($row = $seminar->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($course['course_name']); ?> - Course Interface</title>
-    <link rel="stylesheet" href="../../includes/assets/LearnerNavBar.css">
+    <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../learner/assets/css/CourseContent.css">
 </head>
 
 
 <body>
-    <?php if (isset($_GET['status']) && $_GET['status'] == 'success'): ?>
-        <div class="alert alert-success text-center">You have successfully registered for the seminar!</div>
-    <?php elseif (isset($_GET['status']) && $_GET['status'] == 'error'): ?>
-        <div class="alert alert-danger text-center">Registration failed. Please try again.</div>
-    <?php endif; ?>
 
-    <?php include '../../includes/LearnerNavBar.php'; ?>
+    <?php include '../../public/includes/LearnerNavBar.php'; ?>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -124,7 +107,6 @@ while ($row = $seminar->fetch_assoc()) {
             </li>
             <li><a href="#" class="menu-item" onclick="activateTab(this, 'videos')">Videos</a></li>
             <li><a href="#" class="menu-item" onclick="activateTab(this, 'post-test')">Post-Test</a></li>
-            <li><a href="#" class="menu-item" onclick="activateTab(this, 'seminar')">Seminar/Webinar</a></li>
         </ul>
     </div>
 
@@ -144,7 +126,6 @@ while ($row = $seminar->fetch_assoc()) {
             learning_materials: <?php echo json_encode($learning_materials_array); ?>,
             videos: <?php echo json_encode($videos_array); ?>,
             post_test_questions: <?php echo json_encode($post_test_questions_array); ?>,
-            seminars: <?php echo json_encode($seminar_array); ?>
         };
 
         const contentData = {
@@ -212,32 +193,6 @@ while ($row = $seminar->fetch_assoc()) {
                     </ol>
                     <button type="submit" class="submit-button">SUBMIT</button>
                 </form>
-            `,
-            seminar: `
-                <h2 class="page-title">Seminars/Webinars</h2>
-                ${courseData.seminars.length > 0
-                    ? courseData.seminars.map(seminar => `
-                            <div class="seminar-item">
-                                <img src="${seminar.poster_path}" alt="Seminar Banner" class="seminar-image">
-                                <div class="seminar-text">
-                                    <h1 class="seminar-title">${seminar.seminar_title}</h1>
-                                    <p class="seminar-description">${seminar.description.replace(/\n/g, '<br>')}</p>
-                                </div>
-                                <div class="seminar-details">
-                                    <p><strong>Date:</strong> ${seminar.date}</p>
-                                    <p><strong>Time:</strong> ${seminar.time}</p>
-                                    <p><strong>Venue:</strong> ${seminar.venue}</p>
-                                </div>
-                                <div class="seminar-buttons">
-                                    ${seminar.include_registration ? `<a href="register.php?seminar_id=${seminar.seminar_id}&course_id=<?php echo htmlspecialchars($course_id); ?>" class="seminar-button">REGISTER</a>` : ''}
-                                    ${seminar.include_attendance ? `<a href="attendance.php?seminar_id=${seminar.seminar_id}&course_id=<?php echo htmlspecialchars($course_id); ?>" class="seminar-button">ATTENDANCE</a>` : ''}
-                                    ${seminar.include_evaluation ? `<a href="evaluation.php?seminar_id=${seminar.seminar_id}&course_id=<?php echo htmlspecialchars($course_id); ?>" class="seminar-button">EVALUATION</a>` : ''}
-                                </div>
-                            </div>
-                            <hr>
-                        `).join('')
-                    : '<p>No seminars available for this course.</p>'
-                }
             `
         };
 

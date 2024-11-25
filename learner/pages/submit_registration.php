@@ -80,7 +80,7 @@ try {
     <div class="bg-white p-4 rounded shadow w-100" style="max-width: 600px;">
         <?php if ($registration_success): ?>
             <div class="alert alert-success text-center">Registration successful!</div>
-            <a href="CourseContent.php?course_id=<?php echo htmlspecialchars($course_id); ?>&tab=seminar"
+            <a href="Seminar.php?course_id=<?php echo htmlspecialchars($course_id); ?>"
                 class="btn btn-primary w-100 mt-3">View Seminar</a>
         <?php else: ?>
             <div class="alert alert-danger text-center">Failed to register. Please correct the following errors:</div>
