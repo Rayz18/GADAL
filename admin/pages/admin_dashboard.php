@@ -13,63 +13,83 @@
 
 <body>
     <div class="dashboard-wrapper">
+        <!-- Admin NavBar -->
         <?php include '../../public/includes/AdminNavBar.php'; ?>
-        <div class="main-content container">
-            <h1 class="text-center mt-4 mb-5">Admin Dashboard</h1>
 
-            <!-- KPI Cards Container -->
-            <div id="kpiCardsContainer" class="row"></div>
+        <div class="main-content container mt-4">
+            <h1 class="text-center mb-5">Admin Dashboard</h1>
+
+            <!-- KPI Cards -->
+            <div class="row" id="kpiCardsContainer">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card shadow-sm bg-light">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Total Attendees</h5>
+                            <h2 class="card-value" id="totalAttendees">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card shadow-sm bg-light">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Registered in Seminar</h5>
+                            <h2 class="card-value" id="registeredSeminar">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card shadow-sm bg-light">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Total Evaluations</h5>
+                            <h2 class="card-value" id="totalEvaluations">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card shadow-sm bg-light">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Active Programs</h5>
+                            <h2 class="card-value" id="activePrograms">0</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="row mt-4">
+                <!-- Pie Chart -->
+                <div class="col-md-6 mb-4">
+                    <div class="chart-container bg-light p-3 shadow-sm rounded">
+                        <canvas id="evaluationRatingsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Line Chart -->
+                <div class="col-md-6 mb-4">
+                    <div class="chart-container bg-light p-3 shadow-sm rounded">
+                        <canvas id="testScoresChart"></canvas>
+                    </div>
+                </div>
+            </div>
 
             <div class="row mt-4">
-                <!-- Gender Distribution Impact -->
-                <div class="col-md-6 col-lg-4 mb-4">
+                <!-- Vertical Bar Chart -->
+                <div class="col-md-6 mb-4">
                     <div class="chart-container bg-light p-3 shadow-sm rounded">
                         <canvas id="genderImpactChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Program Impact Analysis -->
-                <div class="col-md-6 col-lg-4 mb-4">
+                <!-- Horizontal Bar Chart -->
+                <div class="col-md-6 mb-4">
                     <div class="chart-container bg-light p-3 shadow-sm rounded">
                         <canvas id="programImpactChart"></canvas>
                     </div>
                 </div>
-
-                <!-- Total Attendees Over Time -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="chart-container bg-light p-3 shadow-sm rounded">
-                        <canvas id="attendeesOverTimeChart"></canvas>
-                    </div>
-                </div>
             </div>
-
-            <div class="row mt-4">
-                <!-- Community Reach Impact -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="chart-container bg-light p-3 shadow-sm rounded">
-                        <canvas id="communityReachChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Campaign Growth Trend -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="chart-container bg-light p-3 shadow-sm rounded">
-                        <canvas id="campaignGrowthChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <!-- Programs by Categories -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="chart-container bg-light p-3 shadow-sm rounded">
-                        <canvas id="programsByCategoryChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
+
     <script src="../../../includes/assets/js/sidebarToggle.js"></script>
 </body>
 

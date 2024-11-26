@@ -1,217 +1,142 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Gender Impact Chart
-    const ctxGenderImpact = document.getElementById('genderImpactChart');
-    if (ctxGenderImpact) {
-        new Chart(ctxGenderImpact.getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: ['Male', 'Female', 'Non-Binary'],
-                datasets: [{
-                    data: [40, 55, 5],
-                    backgroundColor: ['#7a4ca1', '#b19cd9', '#d3bce3']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Gender Distribution Impact'
-                    }
+    // Sample data for demonstration purposes
+    const sampleData = {
+        totalAttendees: 200,
+        registeredSeminar: 150,
+        totalEvaluations: 120,
+        activePrograms: 10,
+        evaluationRatings: {
+            labels: ['Poor', 'Fair', 'Good', 'Excellent'],
+            data: [10, 20, 30, 40]
+        },
+        testScores: {
+            labels: ['Module 1', 'Module 2', 'Module 3'],
+            preTest: [60, 70, 75],
+            postTest: [80, 85, 90]
+        },
+        genderDistribution: {
+            labels: ['Male', 'Female', 'Prefer not to say'],
+            data: [40, 50, 10]
+        },
+        programImpact: {
+            labels: ['Program A', 'Program B', 'Program C'],
+            data: [80, 70, 60]
+        }
+    };
+
+    // Populate KPI Cards
+    document.getElementById('totalAttendees').textContent = sampleData.totalAttendees;
+    document.getElementById('registeredSeminar').textContent = sampleData.registeredSeminar;
+    document.getElementById('totalEvaluations').textContent = sampleData.totalEvaluations;
+    document.getElementById('activePrograms').textContent = sampleData.activePrograms;
+
+    // Pie Chart: Evaluation Ratings
+    new Chart(document.getElementById('evaluationRatingsChart'), {
+        type: 'pie',
+        data: {
+            labels: sampleData.evaluationRatings.labels,
+            datasets: [{
+                data: sampleData.evaluationRatings.data,
+                backgroundColor: ['#ff7b7b', '#ffcc7b', '#7bcc7b', '#7b7bff']
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Evaluation Ratings Distribution'
                 }
             }
-        });
-    }
+        }
+    });
 
-    // Program Impact Chart
-    const ctxProgramImpact = document.getElementById('programImpactChart');
-    if (ctxProgramImpact) {
-        new Chart(ctxProgramImpact.getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: [
-                    'Leadership Training',
-                    'Women Empowerment',
-                    'Safe Spaces Act',
-                    'Youth Advocacy'
-                ],
-                datasets: [{
-                    label: 'Impact Score',
-                    data: [85, 90, 75, 95],
-                    backgroundColor: ['#9a73c7', '#b19cd9', '#cba7e5', '#7a4ca1']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Program Impact Analysis'
-                    }
-                },
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    }
-
-    // Attendees Over Time Chart
-    const ctxAttendeesOverTime = document.getElementById('attendeesOverTimeChart');
-    if (ctxAttendeesOverTime) {
-        new Chart(ctxAttendeesOverTime.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: ['2019', '2020', '2021', '2022', '2023'],
-                datasets: [{
-                    label: 'Total Attendees',
-                    data: [500, 700, 1000, 1800, 2540],
+    // Line Chart: Pre-test vs Post-test Scores
+    new Chart(document.getElementById('testScoresChart'), {
+        type: 'line',
+        data: {
+            labels: sampleData.testScores.labels,
+            datasets: [
+                {
+                    label: 'Pre-test',
+                    data: sampleData.testScores.preTest,
                     borderColor: '#7a4ca1',
                     backgroundColor: '#b19cd9',
                     fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Total Attendees Over Time'
-                    }
                 },
-                scales: {
-                    y: { beginAtZero: true }
+                {
+                    label: 'Post-test',
+                    data: sampleData.testScores.postTest,
+                    borderColor: '#4ca17a',
+                    backgroundColor: '#7bd9b1',
+                    fill: true
                 }
-            }
-        });
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // KPI Data for the four containers
-    const kpiData = [
-        { title: "Total Attendees", value: "2,540", bgColor: "bg-light-purple" },
-        { title: "Programs Conducted", value: "125", bgColor: "bg-purple" },
-        { title: "Impacted Communities", value: "45", bgColor: "bg-dark-purple" },
-        { title: "Active Campaigns", value: "8", bgColor: "bg-light-purple" }
-    ];
-
-    // Target container
-    const kpiContainer = document.getElementById("kpiCardsContainer");
-
-    // Generate KPI Cards
-    if (kpiContainer) {
-        kpiData.forEach(kpi => {
-            const card = document.createElement("div");
-            card.className = "col-lg-3 col-md-6 mb-4";
-
-            card.innerHTML = `
-                <div class="card shadow-sm ${kpi.bgColor}">
-                    <div class="card-body">
-                        <h5 class="card-title">${kpi.title}</h5>
-                        <h2 class="card-value">${kpi.value}</h2>
-                    </div>
-                </div>
-            `;
-            kpiContainer.appendChild(card);
-        });
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Community Reach Impact Chart
-    const ctxCommunityReach = document.getElementById('communityReachChart');
-    if (ctxCommunityReach) {
-        new Chart(ctxCommunityReach.getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: ['Health', 'Education', 'Employment', 'Advocacy'],
-                datasets: [
-                    {
-                        label: 'Communities Impacted',
-                        data: [20, 35, 40, 25],
-                        backgroundColor: ['#7a4ca1', '#b19cd9', '#cba7e5', '#9a73c7']
-                    }
-                ]
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Pre-test vs Post-test Scores'
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Community Reach Impact'
-                    }
-                },
-                indexAxis: 'y',
-                scales: {
-                    x: { beginAtZero: true }
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    }
+        }
+    });
 
-    // Campaign Growth Trend Chart
-    const ctxCampaignGrowth = document.getElementById('campaignGrowthChart');
-    if (ctxCampaignGrowth) {
-        new Chart(ctxCampaignGrowth.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: ['2019', '2020', '2021', '2022', '2023'],
-                datasets: [
-                    {
-                        label: 'Campaigns Conducted',
-                        data: [5, 10, 15, 20, 25],
-                        borderColor: '#7a4ca1',
-                        backgroundColor: '#b19cd9',
-                        fill: true
-                    }
-                ]
+    // Vertical Bar Chart: Gender Distribution
+    new Chart(document.getElementById('genderImpactChart'), {
+        type: 'bar',
+        data: {
+            labels: sampleData.genderDistribution.labels,
+            datasets: [{
+                data: sampleData.genderDistribution.data,
+                backgroundColor: ['#7a4ca1', '#b19cd9', '#d3bce3']
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Gender Distribution Impact'
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Campaign Growth Trend'
-                    }
-                },
-                scales: {
-                    y: { beginAtZero: true }
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    }
+        }
+    });
 
-    // Programs by Categories Chart
-    const ctxProgramsByCategory = document.getElementById('programsByCategoryChart');
-    if (ctxProgramsByCategory) {
-        new Chart(ctxProgramsByCategory.getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: ['Health', 'Education', 'Advocacy', 'Training'],
-                datasets: [
-                    {
-                        data: [30, 20, 25, 25],
-                        backgroundColor: ['#7a4ca1', '#b19cd9', '#d3bce3', '#9a73c7']
-                    }
-                ]
+    // Horizontal Bar Chart: Program Impact Analysis
+    new Chart(document.getElementById('programImpactChart'), {
+        type: 'bar',
+        data: {
+            labels: sampleData.programImpact.labels,
+            datasets: [{
+                label: 'Impact Score',
+                data: sampleData.programImpact.data,
+                backgroundColor: ['#7bcc7b', '#7b7bff', '#ffcc7b']
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Program Impact Analysis'
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Programs by Categories'
-                    }
+            scales: {
+                x: {
+                    beginAtZero: true
                 }
             }
-        });
-    }
-});
-
-window.addEventListener('resize', () => {
-    Chart.helpers.each(Chart.instances, instance => {
-        instance.resize();
+        }
     });
 });
-
+ 

@@ -1,4 +1,3 @@
-/* General styling for the body and html */
 html, body {
     width: 100%;
     height: 100%;
@@ -12,9 +11,74 @@ html, body {
     box-sizing: border-box; /* Ensure padding/margins are handled properly */
 }
 
+/* Custom Slider Section */
+.custom-slider-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.custom-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.custom-slide {
+    display: none;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.custom-slider-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Navigation Arrows */
+.custom-prev, .custom-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.custom-prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.custom-next {
+    right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.fade {
+    animation: fade 1.5s;
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
 /* Apply box-sizing to all elements to prevent overflow */
 *, *::before, *::after {
     box-sizing: inherit;
+}
+
+.hidden-card {
+    display: none; /* Hide extra cards by default */
 }
 
 /* Custom Scrollbar Styling */
@@ -31,17 +95,16 @@ html, body {
     background-color: #f4f4f4; /* Scrollbar track color */
 }
 
-/* Slider CSS */
+/* Slider Section */
 .slider-container {
-    position: relative;
-    max-width: 100%;
-    margin: 70px auto; 
+    margin: 70px auto;
+    text-align: center;
 }
 
 .slider img {
     width: 100%;
-    height: 500px; /* Set a fixed height for all images */
-    object-fit: cover; /* Ensure the images maintain aspect ratio */
+    height: 500px;
+    object-fit: cover;
 }
 
 .prev, .next {
@@ -85,9 +148,15 @@ html, body {
     justify-content: space-between; /* Evenly distribute content */
 }
 
-.card img {
-    object-fit: cover; /* Ensure images maintain proportions */
-    height: 300px; /* Set consistent height for images */
+.card-image {
+    width: 100%; /* Full width of the card */
+    height: 200px; /* Adjust this to control the height of the image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensures any overflow is hidden */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Center the image */
 }
 
 /* Adjust carousel control buttons */
@@ -107,4 +176,330 @@ html, body {
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-size: 1.5rem; /* Adjust icon size if necessary */
+}
+
+/* Mission Statement Container */
+.mission-statement {
+    background-color: #8A2BE2; /* Dark purple color */
+    color: white; /* White text for better readability */
+    text-align: center; /* Center-align the text */
+    padding: 20px; /* Add vertical padding for spacing */
+    margin: 0 0 10px 0; /* Reduce the bottom margin to bring it closer to the next section */
+    width: 100%; /* Ensure it spans the full width of the container */
+    border-radius: 0; /* Remove border radius for a rectangular shape */
+    font-size: 1.2rem; /* Slightly larger text for better readability */
+    line-height: 1.8; /* Improve line spacing */
+    font-weight: 600; /* Make the text slightly bolder */
+    box-sizing: border-box; /* Include padding/borders in total width */
+    margin-top: 15px;
+    overflow: hidden; /* Hide overflow for the split animation */
+
+    /* Hide animation initially */
+    opacity: 0;
+    clip-path: inset(50% 50% 50% 50%);
+    transition: opacity 1.5s ease-out, clip-path 1.5s ease-out;
+}
+
+/* When the mission statement is in view, animate */
+.mission-statement.animate {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+}
+
+/* Mission Statement Text */
+.mission-statement p {
+    opacity: 0; /* Initially hidden */
+    transform: translateY(10px); /* Slight initial offset */
+    animation: fadeInUp 1.5s ease-in-out, textTransitions 12s infinite ease-in-out;
+    animation-delay: 1.2s; /* Start after the container animation */
+    animation-fill-mode: both; /* Retain the final state */
+}
+
+/* Initial Fade-In and Upward Transition */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Endless Transitions for Text */
+@keyframes textTransitions {
+    0%, 20% {
+        transform: translateY(0);
+        color: #FFFFFF; /* White */
+    }
+    40% {
+        transform: scale(1.1);
+        color: #F5F5F5; /* Lighter Gray */
+    }
+    60% {
+        transform: translateY(-5px);
+        color: #D3D3D3; /* Soft Gray */
+    }
+    80% {
+        transform: scale(0.98);
+        color: #E6E6FA; /* Lavender */
+    }
+    100% {
+        transform: translateY(0);
+        color: #FFFFFF; /* Return to White */
+    }
+}
+
+/* Wrapper for the Latest Trainings section */
+.latest-trainings-wrapper {
+    margin: 20px auto; /* Center the wrapper with margin */
+    padding: 20px; /* Add padding around the section */
+    max-width: 1350px; /* Set a maximum width for the container */
+    background-color:#dcdbdb; /* White background */
+    border: 1px solid #ccc; /* Add a light gray border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+/* Adjust margin of the Latest Trainings title inside the wrapper */
+.latest-trainings-wrapper .section-title {
+    margin-top: 0; /* Remove any extra space at the top */
+    padding-top: 10px; /* Add slight padding for alignment */
+}
+
+.section-title {
+    font-size: 6rem; /* Increased font size for a larger header */
+    font-weight: bold;
+    margin-bottom: 40px !important;
+    color: #333; /* Maintains the original color */
+    text-align: center; /* Ensures it stays centered */
+    line-height: 1.2; /* Adjusts line height for better spacing */
+}
+
+.trainings-container {
+    display: grid; /* Use Grid for layout */
+    grid-template-columns: repeat(4, 1fr); /* Create 4 equal columns */
+    gap: 10px !important; /* Reduced gap between grid items */
+    justify-content: flex-start; /* Optional: Align to the left */
+    margin-bottom: 20px; /* Space below the container */
+}
+
+.training-cards {
+    display: flex;
+    flex-wrap: wrap; /* Ensure cards wrap into rows */
+    justify-content: center; /* Center the cards */
+    gap: 30px; /* Increase gap between cards */
+    margin-bottom: 20px; /* Add space below the cards for the button */
+}
+
+.training-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 300px;
+    height: 350px;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+    border: 1.5px solid #7b4cd2; /* Light gray border for card */
+    border-radius: 12px; /* Smooth corners */
+    overflow: hidden; /* Ensure ribbon corners are not visible */
+    background-color: #FFFFFF; /* White background for card */
+}
+
+.training-card:hover {
+    transform: scale(1.05); /* Slightly enlarge card */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.training-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-front {
+    background-size: cover;
+    background-position: center;
+}
+
+.card-back {
+    background-color: #B19CD9;
+    color: rgb(59, 59, 59);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px; /* Ensure consistent height for images */
+    object-fit: cover;
+    background-color: #FFFFFF; /* White background for missing images */
+}
+
+.card-content {
+    padding: 15px;
+    text-align: left;
+    background-color: #B19CD9; /* Light purple background */
+    color: #333;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-date {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: right;
+}
+
+.course-title {
+    font-weight: bold; /* Make the title bold */
+    font-size: 1.2rem; /* Adjust font size for visibility */
+    font-style: italic; 
+    text-align: center; /* Center the title */
+    margin-bottom: 10px; /* Add spacing below the title */
+}
+
+.course-title .quote {
+    color: #8A2BE2; /* Dark purple for quotations */
+    font-weight: bold;
+    font-size: 1.5rem; /* Slightly larger for emphasis */
+}
+
+.course-title .course-name {
+    color: #000000; /* Default color for the course name */
+}
+
+/* Position View Course button to the bottom-right */
+.view-course-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #8A2BE2; /* Purple color */
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.view-course-btn:hover {
+    background-color: #6f2398; /* Darker purple */
+}
+
+/* Adjust Ribbon Responsiveness */
+@media (max-width: 768px) {
+    .ribbon {
+        width: 100px;
+        height: 25px;
+        font-size: 12px;
+        line-height: 25px;
+    }
+}
+
+/* Add responsive design adjustments */
+@media (max-width: 768px) {
+    .training-cards {
+        max-width: 100%;
+        gap: 10px;
+    }
+
+    .training-card {
+        width: 260px; /* Adjust card width for smaller screens */
+        height: auto; /* Allow dynamic height on smaller screens */
+    }
+
+}
+
+/* Latest Trainings Header */
+.section-title {
+    font-size: 2.5rem; /* Increased font size for a larger header */
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #8A2BE2; /* Purple color for the header */
+    text-transform: uppercase; /* Ensures the text remains uppercase */
+    text-align: center;
+}
+
+.toggle-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.toggle-cards-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #8A2BE2; /* Purple color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-cards-btn:hover {
+    background-color: #6f2398; /* Darker purple on hover */
+}
+
+/* Ribbon Styling */
+.ribbon {
+    position: absolute;
+    top: 20px; /* Adjusted position to move ribbon down */
+    left: -35px; /* Maintain alignment */
+    width: 130px; /* Ribbon width */
+    height: 25px; /* Reduced ribbon height */
+    font-size: 12px; /* Reduced font size */
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px; /* Center-align text vertically */
+    transform: rotate(-45deg); /* Tilted placement */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+    border: 1.5px solid transparent; /* Default border to avoid collapsing */
+}
+
+.ribbon-available {
+    background-color: #28a745; /* Green for "Available" */
+    color: white;
+    border-color: #155724; /* Dark green border */
+}
+
+.ribbon-pending {
+    background-color: #dc3545; /* Red for "Pending" */
+    color: white;
+    border-color: #721c24; /* Dark red border */
+}
+
+/* Hide ribbon on card flip */
+.card-inner:hover .ribbon {
+    opacity: 0; /* Hide the ribbon when flipping */
+    transition: opacity 0.3s ease-in-out; /* Smooth hiding effect */
 }
