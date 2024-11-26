@@ -8,18 +8,8 @@ if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== tru
     exit;
 }
 
-// Fetch all programs, with the most recent one first
+// Fetch all programs
 $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC");
-
-// Function to truncate program names
-function truncateProgramName($name, $limit = 15)
-{
-    $words = explode(' ', $name);
-    if (count($words) > $limit) {
-        $name = implode(' ', array_slice($words, 0, $limit)) . '<br>' . implode(' ', array_slice($words, $limit));
-    }
-    return $name;
-}
 ?>
 
 <!DOCTYPE html>
@@ -29,148 +19,155 @@ function truncateProgramName($name, $limit = 15)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Programs and Courses</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../staff/assets/css/manage_programs.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
     <!-- Include the Staff Navigation Bar -->
     <?php include '../../public/includes/StaffNavBar.php'; ?>
 
-    <div class="layout">
-        <!-- Sidebar -->
-        <div class="sidebar collapsed" id="sidebar"></div>
+    <div class="container py-5">
+        <h1 class="text-center text-primary mb-4">Manage Programs and Courses</h1>
 
-        <!-- Page Content -->
-        <div id="content" class="content">
-            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+        <div class="text-end mb-3">
+            <a href="add_program.php" class="btn btn-success">Add New Program</a>
+        </div>
 
-            <div class="container my-5">
-                <h1 class="text-center text-white py-3 custom-header">Manage Programs and Courses</h1>
+        <!-- Program Tabs -->
+        <ul class="nav nav-tabs" id="programTabs" role="tablist">
+            <?php if ($programs_query->num_rows > 0) {
+                $is_first = true;
+                while ($program = $programs_query->fetch_array()) { ?>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link <?php echo $is_first ? 'active' : ''; ?>"
+                            id="tab-<?php echo $program['program_id']; ?>" data-bs-toggle="tab"
+                            data-bs-target="#content-<?php echo $program['program_id']; ?>" type="button" role="tab"
+                            aria-controls="content-<?php echo $program['program_id']; ?>"
+                            aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="<?php echo htmlspecialchars($program['program_name']); ?>">
+                            <span class="truncate"><?php echo htmlspecialchars($program['program_name']); ?></span>
+                        </button>
+                    </li>
+                    <?php $is_first = false;
+                }
+            } else { ?>
+                <li class="nav-item">
+                    <span class="nav-link text-danger">No Programs Available</span>
+                </li>
+            <?php } ?>
+        </ul>
 
-                <div class="text-right mb-4">
-                    <a href="add_program.php" class="btn btn-success">Add New Program</a>
-                </div>
-
-                <!-- Accordion for Programs -->
-                <div class="accordion" id="programAccordion">
-                    <?php if ($programs_query->num_rows > 0) {
-                        while ($program = $programs_query->fetch_array()) { ?>
-                            <div class="card mb-3 program-card">
-                                <div class="card-header d-flex justify-content-between align-items-center <?php echo isset($_GET['program_id']) && $_GET['program_id'] == $program['program_id'] ? 'active' : ''; ?>"
-                                    id="heading-<?php echo $program['program_id']; ?>">
-                                    <h5 class="mb-0 program-title">
-                                        <button class="btn btn-link toggle-link" type="button" data-toggle="collapse"
-                                            data-target="#collapse-<?php echo $program['program_id']; ?>" aria-expanded="false"
-                                            aria-controls="collapse-<?php echo $program['program_id']; ?>">
-                                            <?php echo truncateProgramName(htmlspecialchars($program['program_name']), 15); ?>
-                                        </button>
-                                    </h5>
-                                    <div class="d-flex program-buttons">
-                                        <?php if (isset($_GET['program_id']) && $_GET['program_id'] == $program['program_id']) { ?>
-                                            <span class="badge badge-primary">Selected</span>
-                                        <?php } ?>
-                                        <a href="edit_program.php?program_id=<?php echo $program['program_id']; ?>"
-                                            class="btn btn-primary btn-sm mr-2">Edit</a>
-                                        <a href="delete_program.php?program_id=<?php echo $program['program_id']; ?>"
-                                            class="btn btn-danger btn-sm">Delete</a>
-                                    </div>
-                                </div>
-                                <div id="collapse-<?php echo $program['program_id']; ?>"
-                                    class="collapse <?php echo isset($_GET['program_id']) && $_GET['program_id'] == $program['program_id'] ? 'show' : ''; ?>"
-                                    aria-labelledby="heading-<?php echo $program['program_id']; ?>"
-                                    data-parent="#programAccordion">
-                                    <div class="card-body">
-                                        <p class="program-desc"><?php echo nl2br(htmlspecialchars($program['program_desc'])); ?>
-                                        </p>
-
-                                        <h6>Courses under this program:</h6>
-                                        <div class="course-list">
-                                            <?php
-                                            $courses_query = $conn->query("
-                                                SELECT course_id, course_name, offered_mode, enable_registration, enable_attendance, enable_evaluation 
-                                                FROM courses 
-                                                WHERE program_id = " . $program['program_id']);
-                                            if ($courses_query->num_rows > 0) {
-                                                while ($course = $courses_query->fetch_array()) {
-                                                    $offered_mode = $course['offered_mode'];
-                                                    $enable_registration = $course['enable_registration'];
-                                                    $enable_attendance = $course['enable_attendance'];
-                                                    $enable_evaluation = $course['enable_evaluation'];
-                                                    ?>
-                                                    <div class="course-item mb-3">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <span class="course-name text-primary font-weight-bold">
-                                                                <?php echo htmlspecialchars($course['course_name']); ?>
-                                                            </span>
-                                                            <div class="course-actions">
-                                                                <a href="edit_course.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="btn btn-primary btn-sm">Edit</a>
-                                                                <a href="delete_course.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="btn btn-danger btn-sm">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="course-options mt-2">
-                                                            <?php if ($offered_mode == 'face_to_face'): ?>
-                                                                <?php if ($enable_registration): ?>
-                                                                    <a href="add_registration.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                        class="badge badge-info">Registration</a>
-                                                                <?php endif; ?>
-                                                                <?php if ($enable_attendance): ?>
-                                                                    <a href="add_attendance.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                        class="badge badge-info">Attendance</a>
-                                                                <?php endif; ?>
-                                                                <?php if ($enable_evaluation): ?>
-                                                                    <a href="add_evaluation.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                        class="badge badge-info">Evaluation</a>
-                                                                <?php endif; ?>
-                                                            <?php elseif ($offered_mode == 'online'): ?>
-                                                                <a href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Introduction</a>
-                                                                <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Pre-Test</a>
-                                                                <a href="add_learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Learning Materials</a>
-                                                                <a href="add_videos.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Videos</a>
-                                                                <a href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                    class="badge badge-info">Post-Test</a>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                <?php }
-                                            } else { ?>
-                                                <p class="text-danger">No courses available for this program.</p>
-                                            <?php } ?>
-                                        </div>
-                                        <a href="add_course.php?program_id=<?php echo $program['program_id']; ?>"
-                                            class="btn btn-success btn-sm mt-3">Add New Course</a>
-                                    </div>
+        <div class="tab-content" id="programContent">
+            <?php
+            $programs_query->data_seek(0); // Reset the pointer to reuse the query
+            $is_first = true;
+            while ($program = $programs_query->fetch_array()) { ?>
+                <div class="tab-pane fade <?php echo $is_first ? 'show active' : ''; ?>"
+                    id="content-<?php echo $program['program_id']; ?>" role="tabpanel"
+                    aria-labelledby="tab-<?php echo $program['program_id']; ?>">
+                    <div class="card mt-4">
+                        <div class="card-header bg-primary text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <span class="truncate text-white text-decoration-none" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="<?php echo htmlspecialchars($program['program_name']); ?>">
+                                        <?php echo htmlspecialchars($program['program_name']); ?>
+                                    </span>
+                                </h5>
+                                <div>
+                                    <a href="edit_program.php?program_id=<?php echo $program['program_id']; ?>"
+                                        class="btn btn-light btn-sm me-2">Edit Program</a>
+                                    <a href="delete_program.php?program_id=<?php echo $program['program_id']; ?>"
+                                        class="btn btn-danger btn-sm">Delete Program</a>
                                 </div>
                             </div>
-                        <?php }
-                    } else { ?>
-                        <div class="text-center text-danger">
-                            <p>No programs available. Add a new program to get started!</p>
                         </div>
-                    <?php } ?>
+                        <div class="card-body">
+                            <h6>Courses in this Program:</h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Course Name</th>
+                                            <th>Mode</th>
+                                            <th>Actions</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $courses_query = $conn->query("
+                                            SELECT course_id, course_name, offered_mode, enable_registration, enable_attendance, enable_evaluation 
+                                            FROM courses 
+                                            WHERE program_id = " . $program['program_id']);
+                                        if ($courses_query->num_rows > 0) {
+                                            while ($course = $courses_query->fetch_array()) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <span class="truncate" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="<?php echo htmlspecialchars($course['course_name']); ?>">
+                                                            <?php echo htmlspecialchars($course['course_name']); ?>
+                                                        </span>
+                                                    </td>
+                                                    <td><?php echo htmlspecialchars(ucwords($course['offered_mode'])); ?></td>
+                                                    <td>
+                                                        <a href="edit_course.php?course_id=<?php echo $course['course_id']; ?>"
+                                                            class="btn btn-primary btn-sm">Edit</a>
+                                                        <a href="delete_course.php?course_id=<?php echo $course['course_id']; ?>"
+                                                            class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($course['offered_mode'] == 'face_to_face') { ?>
+                                                            <a href="registration_form.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Registration</a>
+                                                            <a href="attendance_form.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Attendance</a>
+                                                            <a href="evaluation_form.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Evaluation</a>
+                                                        <?php } else { ?>
+                                                            <a href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Introduction</a>
+                                                            <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Pre-Test</a>
+                                                            <a href="add_learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Materials</a>
+                                                            <a href="add_videos.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Videos</a>
+                                                            <a href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="badge bg-info text-white">Post-Test</a>
+                                                        <?php } ?>
+                                                    </td>
+                                                </tr>
+                                            <?php }
+                                        } else { ?>
+                                            <tr>
+                                                <td colspan="4" class="text-center text-danger">No courses available.</td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="add_course.php?program_id=<?php echo $program['program_id']; ?>"
+                                class="btn btn-success btn-sm mt-3">Add New Course</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <?php $is_first = false;
+            } ?>
+        </div>
+    </div>
 
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const sidebar = document.getElementById("sidebar");
-                    const content = document.getElementById("content");
-                    const toggleButton = document.getElementById("toggle-sidebar");
-
-                    toggleButton.addEventListener("click", function () {
-                        sidebar.classList.toggle("collapsed");
-                        content.classList.toggle("shifted");
-                    });
-                });
-            </script>
+    <script>
+        // Initialize Bootstrap tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
 </body>
 
 </html>

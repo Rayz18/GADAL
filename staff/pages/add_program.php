@@ -4,7 +4,6 @@ require_once '../../config/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $program_name = $_POST['program_name'];
-    $program_desc = $_POST['program_desc'];
 
     // Handle file upload
     $program_img = '';
@@ -17,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Insert into the database
-    $stmt = $conn->prepare("INSERT INTO programs (program_name, program_img, program_desc) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $program_name, $program_img, $program_desc);
+    $stmt = $conn->prepare("INSERT INTO programs (program_name, program_img) VALUES (?, ?)");
+    $stmt->bind_param("ss", $program_name, $program_img);
     $stmt->execute();
     $stmt->close();
 
-    header('Location: staff_dashboard.php');  // Redirect to the staff dashboard after adding a program
+    header('Location: manage_programs.php');  // Redirect to the manage programs page after adding a program
     exit;
 }
 ?>
@@ -45,11 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <label for="program_name" class="form-label fw-bold">Program Name:</label>
             <input type="text" id="program_name" name="program_name" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="program_desc" class="form-label fw-bold">Program Description:</label>
-            <textarea id="program_desc" name="program_desc" class="form-control" rows="3" required></textarea>
         </div>
 
         <div class="mb-3">

@@ -112,13 +112,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $show_toggle = strlen($course_desc) > 100;
                     ?>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm <?php echo $is_enrolled ? 'border-success' : ''; ?>"
-                            style="cursor: pointer;">
-                            <img src="../../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
-                                class="card-img-top rounded" alt="<?php echo htmlspecialchars($course['course_name']); ?>">
+                        <div class="card h-100 shadow-sm <?php echo $is_enrolled ? 'border-success' : ''; ?>">
+                            <?php if ($is_enrolled): ?>
+                                <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
+                                    class="text-decoration-none">
+                                <?php endif; ?>
+                                <img src="../../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
+                                    class="card-img-top rounded" alt="<?php echo htmlspecialchars($course['course_name']); ?>">
+                                <?php if ($is_enrolled): ?>
+                                </a>
+                            <?php endif; ?>
                             <div class="card-body">
-                                <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
-                                <!-- Show date and mode above the description -->
+                                <?php if ($is_enrolled): ?>
+                                    <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
+                                        class="text-decoration-none">
+                                        <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
+                                    </a>
+                                <?php else: ?>
+                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
+                                <?php endif; ?>
                                 <p class="text-muted small mb-2">
                                     <strong>Date:</strong> <?php echo htmlspecialchars($course['course_date']); ?>
                                 </p>
@@ -142,11 +154,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php echo $course_desc; ?>
                                     <?php endif; ?>
                                 </p>
-                                <!-- Form for Enroll/Unenroll -->
                                 <form method="POST">
                                     <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
                                     <input type="hidden" name="offered_mode" value="<?php echo $offered_mode; ?>">
-                                    <!-- Pass the mode -->
                                     <?php if ($is_enrolled): ?>
                                         <button type="submit" name="unenroll" class="btn btn-danger btn-sm"
                                             onclick="confirmUnenroll(event)">Unenroll</button>
@@ -154,7 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <button type="submit" name="enroll" class="btn btn-primary btn-sm">Enroll</button>
                                     <?php endif; ?>
                                 </form>
-                                <!-- Display additional buttons for face-to-face courses -->
                                 <?php if ($is_enrolled && $offered_mode === 'face_to_face'): ?>
                                     <div class="face-to-face-options mt-3">
                                         <?php if ($course['enable_registration']): ?>
@@ -171,7 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
-                                <!-- End of Additional Buttons -->
                             </div>
                         </div>
                     </div>

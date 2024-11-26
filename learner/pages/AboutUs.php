@@ -15,7 +15,7 @@
 
     <!-- Header Image Section -->
     <div class="container-fluid p-0">
-        <img src="../../public/assets/images/Gender.jpg" alt="Header" class="img-fluid w-100">
+        <img src="../../public/assets/images/PROJECT_1.jpg" alt="Header" class="img-fluid w-100">
     </div>
 
     <!-- Content Section -->

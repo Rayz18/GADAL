@@ -1,80 +1,33 @@
 <?php
-include '../../config/config.php';
 session_start();
+include '../../config/config.php';
 
-$seminar_id = $_GET['seminar_id'] ?? null;
-$learner_id = $_SESSION['learner_id'] ?? null;
-$course_id = $_GET['course_id'] ?? null;
+// Validate course_id
+$course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
 
-if (!$course_id) {
-    $stmt = $conn->prepare("SELECT course_id FROM seminars WHERE seminar_id = ?");
-    $stmt->bind_param("i", $seminar_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $seminar = $result->fetch_assoc();
-    $course_id = $seminar['course_id'] ?? null;
+// Fetch course details
+$course_query = $conn->prepare("SELECT course_name FROM courses WHERE course_id = ?");
+$course_query->bind_param("i", $course_id);
+$course_query->execute();
+$course_result = $course_query->get_result();
+$course = $course_result->fetch_assoc();
+$course_name = $course ? htmlspecialchars($course['course_name']) : "Unknown Course";
 
-    if (!$course_id) {
-        die("Unable to retrieve course ID. Debug Info: seminar_id = " . htmlspecialchars($seminar_id));
-    }
-}
-
-// Check if the learner has an attendance record for the seminar
-$attendance_check = $conn->prepare("SELECT * FROM attendance WHERE seminar_id = ? AND learner_id = ?");
-$attendance_check->bind_param("ii", $seminar_id, $learner_id);
-$attendance_check->execute();
-$has_attended = $attendance_check->get_result()->num_rows > 0;
-$attendance_check->close();
-
-if (!$has_attended) {
-    die("You must submit attendance for this seminar to access evaluation.");
-}
-
-$seminar_title = 'Seminar';
-$evaluation_instructions = '';
-
-// Check if the learner has already submitted evaluation
-$evaluation_check = $conn->prepare("SELECT * FROM evaluations WHERE seminar_id = ? AND learner_id = ?");
-$evaluation_check->bind_param("ii", $seminar_id, $learner_id);
-$evaluation_check->execute();
-$evaluation_exists = $evaluation_check->get_result()->num_rows > 0;
-$evaluation_check->close();
-
-if ($evaluation_exists) {
-    $already_evaluated = true;
-
-    // Fetch seminar title for the evaluated seminar
-    $title_stmt = $conn->prepare("SELECT seminar_title FROM seminars WHERE seminar_id = ? LIMIT 1");
-    $title_stmt->bind_param("i", $seminar_id);
-    $title_stmt->execute();
-    $seminar_data = $title_stmt->get_result()->fetch_assoc();
-    if ($seminar_data) {
-        $seminar_title = $seminar_data['seminar_title'];
-    }
-    $title_stmt->close();
-} else {
-    $already_evaluated = false;
-
-    // Fetch seminar title and evaluation instructions
-    $title_stmt = $conn->prepare("SELECT seminar_title, evaluation_instructions FROM seminars WHERE seminar_id = ? LIMIT 1");
-    $title_stmt->bind_param("i", $seminar_id);
-    $title_stmt->execute();
-    $seminar_data = $title_stmt->get_result()->fetch_assoc();
-
-    if ($seminar_data) {
-        $seminar_title = $seminar_data['seminar_title'];
-        $evaluation_instructions = $seminar_data['evaluation_instructions'] ?? '';
-    }
-    $title_stmt->close();
-
-    // Fetch custom fields for the seminar's evaluation
-    $stmt = $conn->prepare("SELECT * FROM evaluation_fields WHERE seminar_id = ?");
-    $stmt->bind_param("i", $seminar_id);
-    $stmt->execute();
-    $fields = $stmt->get_result();
-    $fields_exist = $fields->num_rows > 0;
-    $stmt->close();
-}
+// Questions for evaluation
+$questions = [
+    "Overall, how would you rate the seminar/training?",
+    "How would you rate the appropriateness of time and the proper use of resources provided?",
+    "Objectives and expectations were clearly communicated and achieved.",
+    "Session activities were appropriate and relevant to the achievement of the learning objectives.",
+    "Sufficient time was allotted for group discussion and comments.",
+    "Materials and audio-visual aids provided were useful.",
+    "The resource person/trainer displayed thorough knowledge of, and provided relevant insights on the topic/s discussed.",
+    "The resource person/trainer thoroughly explained and processed the learning activities throughout the training.",
+    "The resource person/trainer created a good learning environment, sustained the attention of the participants, and encouraged their participation in the training duration.",
+    "The resource person/trainer managed the time well, including some adjustments in the training schedule, if needed.",
+    "The resource person/trainer demonstrated keenness to the participants’ needs and other requirements related to the training.",
+    "The venue or platform used was conducive for learning."
+];
 ?>
 
 <!DOCTYPE html>
@@ -83,71 +36,98 @@ if ($evaluation_exists) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seminar Evaluation</title>
+    <title>Evaluation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .instruction-text {
-            white-space: pre-wrap;
-            word-break: break-word;
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .description-box {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
-<body class="bg-light d-flex align-items-center justify-content-center min-vh-100">
-    <div class="bg-white col-md-6 col-lg-8 p-4 rounded shadow-sm">
-        <h1 class="fs-5 fw-semibold mb-5">Evaluation</h1>
-        <h2 class="fs-3 fw-bold mb-5"><?php echo htmlspecialchars($seminar_title); ?></h2>
+<body>
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <h1 class="text-primary">Evaluation Form</h1>
+            <h3><?php echo $course_name; ?></h3>
+        </div>
 
-        <?php if ($already_evaluated): ?>
-            <div class="alert alert-info text-center">
-                You've already submitted evaluation for the seminar "<?php echo htmlspecialchars($seminar_title); ?>"!
+        <div class="form-container mx-auto">
+            <div class="description-box">
+                <p>Dear Participants, <br> Please evaluate the training/seminar in accordance with the criteria
+                    specified below. We assure you that your responses will be kept in strict confidentiality. Thank
+                    you!</p>
             </div>
-            <a href="CourseContent.php?course_id=<?php echo htmlspecialchars($course_id); ?>&tab=seminar"
-                class="btn btn-primary w-100 mt-3">View Seminar</a>
-        <?php else: ?>
-            <p class="fs-6 text-muted mb-4 instruction-text"><?php echo htmlspecialchars($evaluation_instructions); ?></p>
 
-            <?php if (!$fields_exist): ?>
-                <div class="alert alert-warning text-center">
-                    Evaluation is not yet available.
-                </div>
-            <?php else: ?>
-                <form action="submit_evaluation.php" method="POST">
-                    <input type="hidden" name="seminar_id" value="<?php echo htmlspecialchars($seminar_id); ?>">
-                    <input type="hidden" name="course_id" value="<?php echo htmlspecialchars($course_id); ?>">
+            <form action="submit_evaluation.php" method="POST">
+                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
 
-                    <?php while ($field = $fields->fetch_assoc()): ?>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <?php echo htmlspecialchars($field['field_label']); ?>
-                                <?php if ($field['required']): ?><span class="text-danger">*</span><?php endif; ?>
-                            </label>
-
-                            <?php if ($field['field_type'] === 'text'): ?>
-                                <input type="text" name="field_<?php echo $field['field_id']; ?>" class="form-control" <?php echo $field['required'] ? 'required' : ''; ?>>
-                            <?php elseif ($field['field_type'] === 'textarea'): ?>
-                                <textarea name="field_<?php echo $field['field_id']; ?>" class="form-control" <?php echo $field['required'] ? 'required' : ''; ?>></textarea>
-                            <?php elseif ($field['field_type'] === 'radio' || $field['field_type'] === 'dropdown'): ?>
-                                <?php foreach (json_decode($field['options']) as $option): ?>
-                                    <div class="form-check">
-                                        <input type="<?php echo $field['field_type'] === 'radio' ? 'radio' : 'checkbox'; ?>[]"
-                                            name="field_<?php echo $field['field_id']; ?>" value="<?php echo htmlspecialchars($option); ?>"
-                                            class="form-check-input">
-                                        <label class="form-check-label"><?php echo htmlspecialchars($option); ?></label>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
-                    <?php endwhile; ?>
-
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary px-4 py-2">SUBMIT</button>
+                <?php foreach ($questions as $index => $question): ?>
+                    <div class="mb-3">
+                        <label class="form-label"><?php echo ($index + 1) . ". " . htmlspecialchars($question); ?></label>
+                        <select name="question_<?php echo $index + 1; ?>" class="form-select" required>
+                            <option value="" disabled selected>Select a rating</option>
+                            <option value="5">5 - Outstanding</option>
+                            <option value="4">4 - Very Satisfactory</option>
+                            <option value="3">3 - Satisfactory</option>
+                            <option value="2">2 - Unsatisfactory</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
                     </div>
-                </form>
-            <?php endif; ?>
-        <?php endif; ?>
-    </div>
+                <?php endforeach; ?>
 
+                <div class="mb-3">
+                    <label for="helpful_feedback" class="form-label">Was the training helpful for you in the practice of
+                        your profession? Why or why not?</label>
+                    <textarea id="helpful_feedback" name="helpful_feedback" class="form-control" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="helpful_aspect" class="form-label">What aspect of the training has been helpful to you?
+                        What other topics would you suggest for future trainings?</label>
+                    <textarea id="helpful_aspect" name="helpful_aspect" class="form-control" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comments" class="form-label">Comments/Commendations/Complaints</label>
+                    <textarea id="comments" name="comments" class="form-control" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

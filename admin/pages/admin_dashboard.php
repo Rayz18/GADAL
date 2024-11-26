@@ -15,6 +15,7 @@
     <div class="dashboard-wrapper">
         <!-- Admin NavBar -->
         <?php include '../../public/includes/AdminNavBar.php'; ?>
+<<<<<<< HEAD
 
         <div class="main-content container mt-4">
             <h1 class="text-center mb-5">Admin Dashboard</h1>
@@ -75,17 +76,41 @@
             <div class="row mt-4">
                 <!-- Vertical Bar Chart -->
                 <div class="col-md-6 mb-4">
+=======
+        <?php include '../../public/includes/AdminHeader.php'; ?>
+        <div class="main-content container">
+            <h1 class="text-center mt-4 mb-5">Admin Dashboard</h1>
+
+            <!-- Dashboard Content -->
+            <div id="kpiCardsContainer" class="row"></div>
+
+            <div class="row mt-4">
+                <!-- Charts -->
+                <div class="col-md-6 col-lg-4 mb-4">
+>>>>>>> 95e55cfb70c22696a5a81ea1cd4eec5d0992f39d
                     <div class="chart-container bg-light p-3 shadow-sm rounded">
                         <canvas id="genderImpactChart"></canvas>
                     </div>
                 </div>
+<<<<<<< HEAD
 
                 <!-- Horizontal Bar Chart -->
                 <div class="col-md-6 mb-4">
+=======
+                <div class="col-md-6 col-lg-4 mb-4">
+>>>>>>> 95e55cfb70c22696a5a81ea1cd4eec5d0992f39d
                     <div class="chart-container bg-light p-3 shadow-sm rounded">
                         <canvas id="programImpactChart"></canvas>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="chart-container bg-light p-3 shadow-sm rounded">
+                        <canvas id="attendeesOverTimeChart"></canvas>
+                    </div>
+                </div>
+>>>>>>> 95e55cfb70c22696a5a81ea1cd4eec5d0992f39d
             </div>
         </div>
     </div>

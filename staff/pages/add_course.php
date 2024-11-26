@@ -88,29 +88,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="face_to_face">Face to Face</option>
                                 </select>
                             </div>
-                            <div id="face_to_face_options" class="mb-3 d-none">
+                            <div id="face_to_face_options" class="mb-3">
                                 <label class="form-label">Face to Face Options:</label>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_registration" name="enable_registration"
-                                        class="form-check-input">
-                                    <label for="enable_registration" class="form-check-label">Enable
-                                        Registration</label>
+                                        class="form-check-input" disabled checked>
+                                    <label for="enable_registration" class="form-check-label">Enable Registration
+                                        (Predefined)</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_attendance" name="enable_attendance"
-                                        class="form-check-input">
-                                    <label for="enable_attendance" class="form-check-label">Enable Attendance</label>
+                                        class="form-check-input" disabled checked>
+                                    <label for="enable_attendance" class="form-check-label">Enable Attendance
+                                        (Predefined)</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_evaluation" name="enable_evaluation"
-                                        class="form-check-input">
-                                    <label for="enable_evaluation" class="form-check-label">Enable Evaluation</label>
+                                        class="form-check-input" disabled checked>
+                                    <label for="enable_evaluation" class="form-check-label">Enable Evaluation
+                                        (Predefined)</label>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="manage_programs.php" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary">Add Course</button>
-                            </div>
+
                         </form>
                     </div>
                 </div>

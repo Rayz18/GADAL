@@ -23,6 +23,7 @@ body {
 
 h1.text-primary {
     color: #6b46c1 !important; /* Match your original purple */
+    margin-top: 60px;
 }
 
 .btn-danger:hover {
