@@ -1,95 +1,66 @@
 <?php
-include '../../config/config.php';
 session_start();
+include '../../config/config.php';
 
-$seminar_id = $_POST['seminar_id'] ?? null;
-$learner_id = $_SESSION['learner_id'] ?? null;
-$course_id = $_POST['course_id'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $course_id = intval($_POST['course_id']);
+    $learner_id = isset($_SESSION['learner_id']) ? intval($_SESSION['learner_id']) : 0;
 
-if (!$seminar_id || !$learner_id || !$course_id) {
-    die("Invalid seminar, learner, or course ID.");
-}
-
-$errors = [];
-$evaluation_success = false;
-
-$conn->begin_transaction();
-
-try {
-    // Insert the evaluation record
-    $stmt = $conn->prepare("INSERT INTO evaluations (seminar_id, learner_id) VALUES (?, ?)");
-    $stmt->bind_param("ii", $seminar_id, $learner_id);
-    $stmt->execute();
-    $evaluation_id = $stmt->insert_id;
-    $stmt->close();
-
-    // Retrieve the fields for the seminar's evaluation
-    $stmt = $conn->prepare("SELECT * FROM evaluation_fields WHERE seminar_id = ?");
-    $stmt->bind_param("i", $seminar_id);
-    $stmt->execute();
-    $fields_result = $stmt->get_result();
-    $stmt->close();
-
-    while ($field = $fields_result->fetch_assoc()) {
-        $field_id = $field['field_id'];
-        $field_label = $field['field_label'];
-        $field_type = $field['field_type'];
-        $is_required = $field['required'];
-        $response = $_POST["field_$field_id"] ?? null;
-
-        if ($is_required && empty($response)) {
-            $errors[] = "The field '$field_label' is required.";
-            continue;
-        }
-
-        if (is_array($response)) {
-            $response = implode(", ", $response);
-        }
-
-        $stmt = $conn->prepare("INSERT INTO evaluation_responses (evaluation_id, field_id, response) VALUES (?, ?, ?)");
-        $stmt->bind_param("iis", $evaluation_id, $field_id, $response);
-        $stmt->execute();
-        $stmt->close();
+    // Collect answers to questions (default to 0 if not set)
+    $answers = [];
+    for ($i = 1; $i <= 12; $i++) {
+        $answers["question_$i"] = isset($_POST["question_$i"]) ? intval($_POST["question_$i"]) : 0;
     }
 
-    if (empty($errors)) {
-        $conn->commit();
-        $evaluation_success = true;
+    // Other inputs
+    $helpful_feedback = isset($_POST['helpful_feedback']) ? $_POST['helpful_feedback'] : '';
+    $helpful_aspect = isset($_POST['helpful_aspect']) ? $_POST['helpful_aspect'] : '';
+    $comments = isset($_POST['comments']) ? $_POST['comments'] : '';
+
+    // Prepare the SQL query
+    $query = $conn->prepare("
+        INSERT INTO evaluations 
+        (course_id, learner_id, question_1, question_2, question_3, question_4, question_5, 
+         question_6, question_7, question_8, question_9, question_10, question_11, question_12, 
+         helpful_feedback, helpful_aspect, comments) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+
+    if (!$query) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    // Bind parameters
+    $bind_success = $query->bind_param(
+        "iiiiiiiiiiiiiisss",
+        $course_id,
+        $learner_id,
+        $answers['question_1'],
+        $answers['question_2'],
+        $answers['question_3'],
+        $answers['question_4'],
+        $answers['question_5'],
+        $answers['question_6'],
+        $answers['question_7'],
+        $answers['question_8'],
+        $answers['question_9'],
+        $answers['question_10'],
+        $answers['question_11'],
+        $answers['question_12'],
+        $helpful_feedback,
+        $helpful_aspect,
+        $comments
+    );
+
+    if (!$bind_success) {
+        die("Bind failed: " . $query->error);
+    }
+
+    // Execute the query
+    if ($query->execute()) {
+        header("Location: success_page.php?message=Evaluation submitted!");
+        exit();
     } else {
-        $conn->rollback();
+        die("Execution failed: " . $query->error);
     }
-} catch (Exception $e) {
-    $conn->rollback();
-    $errors[] = "Failed to submit evaluation: " . $e->getMessage();
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluation Submission</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-light py-5 d-flex justify-content-center">
-    <div class="bg-white p-4 rounded shadow w-100" style="max-width: 600px;">
-        <?php if ($evaluation_success): ?>
-            <div class="alert alert-success text-center">Evaluation successfully submitted!</div>
-            <a href="CourseContent.php?course_id=<?php echo htmlspecialchars($course_id); ?>&tab=seminar"
-                class="btn btn-primary w-100 mt-3">View Seminar</a>
-        <?php else: ?>
-            <div class="alert alert-danger text-center">Failed to submit evaluation. Please correct the following errors:
-            </div>
-            <ul class="text-danger">
-                <?php foreach ($errors as $error): ?>
-                    <li><?php echo htmlspecialchars($error); ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </div>
-</body>
-
-</html>

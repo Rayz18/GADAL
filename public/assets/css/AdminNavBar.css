@@ -1,4 +1,4 @@
-/* Global styles for the entire layout */
+/* Global Styles */
 html, body {
     width: 100%;
     height: 100%;
@@ -6,9 +6,11 @@ html, body {
     padding: 0;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-/* Sidebar styling */
+/* Sidebar */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -24,123 +26,48 @@ html, body {
     z-index: 2;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
     border-right: 2px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 10px;
 }
 
 .sidebar.expanded {
     width: 250px;
 }
 
-/* Responsive sidebar overlay for mobile screens */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 0;
-        position: fixed;
-        left: -250px;
-        transition: left 0.3s ease;
-    }
-
-    .sidebar.expanded {
-        width: 250px;
-        left: 0;
-    }
-
-    .content {
-        margin-left: 0;
-        transition: margin-left 0.3s ease;
-    }
-
-    .content.shifted {
-        margin-left: 0;
-    }
-
-    /* Overlay to darken the main content when sidebar is open */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        z-index: 1;
-        display: none;
-    }
-
-    .overlay.active {
-        display: block;
-    }
-}
-
-/* Logo and title section */
-.logo {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    padding: 1px 0;
-}
-
-.user-logo {
-    width: 95px;
-    height: auto;
-    max-width: 100%;
-    border-radius: 50%;
-    margin-bottom: 0;
-}
-
-/* Sidebar title styling */
-.sidebar-title {
-    text-align: center;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    line-height: .1px;
-    padding: 10px 0;
-    margin: 0;
-    white-space: nowrap;
-}
-
-/* Container around logo and title for consistent alignment */
-.sidebar-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 0;
-}
-
-/* Menu styling */
+/* Sidebar Menu */
 .menu {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
+    margin: 50px 0 0 0;
 }
 
 .menu-item {
-    padding: 15px 20px;
-    font-size: 14px;
-    color: white;
     text-decoration: none;
+    font-size: 16px;
+    color: white;
+    padding: 15px 20px;
     display: block;
     transition: background-color 0.3s, padding-left 0.3s;
 }
 
 .menu-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    text-decoration: none;
     padding-left: 25px;
 }
 
-/* Logout button styling */
+.menu-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    color: #FFD700;
+}
+
+/* Logout Button */
 .logout {
     background-color: transparent;
     color: white;
+    text-align: center;
+    padding: 15px;
     font-weight: bold;
     text-decoration: none;
-    text-align: center;
-    padding: 10px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    transition: color 0.3s, background-color 0.3s;
     margin-top: auto;
 }
 
@@ -149,21 +76,21 @@ html, body {
     color: #ffdddd;
 }
 
-/* Toggle button for expanding/collapsing the sidebar */
+/* Sidebar Toggle */
 .sidebar-toggle {
     position: fixed;
     top: 15px;
     left: 0;
-    background-color: #B19CD9;
-    border-radius: 0 50% 50% 0;
     width: 30px;
     height: 30px;
+    background-color: #B19CD9;
+    border-radius: 0 50% 50% 0;
+    cursor: pointer;
+    z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    transition: left 0.3s ease;
-    z-index: 3;
+    transition: left 0.3s;
 }
 
 .sidebar-toggle::before {
@@ -180,7 +107,7 @@ html, body {
     content: '❮';
 }
 
-/* Content Area */
+/* Content */
 .content {
     margin-left: 0;
     padding: 20px;
@@ -189,4 +116,23 @@ html, body {
 
 .content.shifted {
     margin-left: 250px;
+}
+
+.content-title {
+    color: #9370DB;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content-section {
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+}
+
+/* Sections */
+.section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }

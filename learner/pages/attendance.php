@@ -1,71 +1,16 @@
 <?php
-include '../../config/config.php';
 session_start();
+include '../../config/config.php';
 
-$seminar_id = $_GET['seminar_id'] ?? null;
-$learner_id = $_SESSION['learner_id'] ?? null;
-$course_id = $_GET['course_id'] ?? null; // Ensure course_id is passed
+// Validate course_id
+$course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
 
-if (!$seminar_id || !$course_id) {
-    die("Invalid seminar or course ID.");
-}
-
-// Check if the learner has registered for the seminar
-$registration_check = $conn->prepare("SELECT * FROM registrations WHERE seminar_id = ? AND learner_id = ?");
-$registration_check->bind_param("ii", $seminar_id, $learner_id);
-$registration_check->execute();
-$is_registered = $registration_check->get_result()->num_rows > 0;
-$registration_check->close();
-
-if (!$is_registered) {
-    die("You must register for this seminar to access attendance.");
-}
-
-$seminar_title = 'Seminar';
-$attendance_instructions = '';
-
-// Check if the learner has already submitted attendance
-$attendance_check = $conn->prepare("SELECT * FROM attendance WHERE seminar_id = ? AND learner_id = ?");
-$attendance_check->bind_param("ii", $seminar_id, $learner_id);
-$attendance_check->execute();
-$attendance_exists = $attendance_check->get_result()->num_rows > 0;
-$attendance_check->close();
-
-if ($attendance_exists) {
-    $already_attended = true;
-
-    // Fetch seminar title for the attended seminar
-    $title_stmt = $conn->prepare("SELECT seminar_title FROM seminars WHERE seminar_id = ? LIMIT 1");
-    $title_stmt->bind_param("i", $seminar_id);
-    $title_stmt->execute();
-    $seminar_data = $title_stmt->get_result()->fetch_assoc();
-    if ($seminar_data) {
-        $seminar_title = $seminar_data['seminar_title'];
-    }
-    $title_stmt->close();
-} else {
-    $already_attended = false;
-
-    // Fetch seminar title and attendance instructions
-    $title_stmt = $conn->prepare("SELECT seminar_title, attendance_instructions FROM seminars WHERE seminar_id = ? LIMIT 1");
-    $title_stmt->bind_param("i", $seminar_id);
-    $title_stmt->execute();
-    $seminar_data = $title_stmt->get_result()->fetch_assoc();
-
-    if ($seminar_data) {
-        $seminar_title = $seminar_data['seminar_title'];
-        $attendance_instructions = $seminar_data['attendance_instructions'] ?? '';
-    }
-    $title_stmt->close();
-
-    // Fetch custom fields for the seminar's attendance
-    $stmt = $conn->prepare("SELECT * FROM attendance_fields WHERE seminar_id = ?");
-    $stmt->bind_param("i", $seminar_id);
-    $stmt->execute();
-    $fields = $stmt->get_result();
-    $fields_exist = $fields->num_rows > 0;
-    $stmt->close();
-}
+// Fetch attendance description
+$attendance_query = $conn->prepare("SELECT description FROM attendance WHERE course_id = ?");
+$attendance_query->bind_param("i", $course_id);
+$attendance_query->execute();
+$attendance_result = $attendance_query->get_result();
+$description = $attendance_result->fetch_assoc()['description'] ?? 'Attendance for the course.';
 ?>
 
 <!DOCTYPE html>
@@ -74,71 +19,54 @@ if ($attendance_exists) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seminar Attendance</title>
+    <title>Attendance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .instruction-text {
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-    </style>
 </head>
 
-<body class="bg-light d-flex align-items-center justify-content-center min-vh-100">
-    <div class="bg-white col-md-6 col-lg-8 p-4 rounded shadow-sm">
-        <h1 class="fs-5 fw-semibold mb-5">Attendance</h1>
-        <h2 class="fs-3 fw-bold mb-5"><?php echo htmlspecialchars($seminar_title); ?></h2>
-
-        <?php if ($already_attended): ?>
-            <div class="alert alert-info text-center">
-                You've already submitted attendance for the seminar "<?php echo htmlspecialchars($seminar_title); ?>"!
+<body>
+    <div class="container py-5">
+        <h1 class="text-center text-primary mb-4">Attendance</h1>
+        <form action="submit_attendance.php" method="POST">
+            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" readonly><?php echo htmlspecialchars($description); ?></textarea>
             </div>
-            <a href="CourseContent.php?course_id=<?php echo htmlspecialchars($course_id); ?>&tab=seminar"
-                class="btn btn-primary w-100 mt-3">View Seminar</a>
-        <?php else: ?>
-            <p class="fs-6 text-muted mb-4 instruction-text"><?php echo htmlspecialchars($attendance_instructions); ?></p>
-
-            <?php if (!$fields_exist): ?>
-                <div class="alert alert-warning text-center">
-                    Attendance is not yet available.
-                </div>
-            <?php else: ?>
-                <form action="submit_attendance.php" method="POST">
-                    <input type="hidden" name="seminar_id" value="<?php echo htmlspecialchars($seminar_id); ?>">
-                    <input type="hidden" name="course_id" value="<?php echo htmlspecialchars($course_id); ?>">
-
-                    <?php while ($field = $fields->fetch_assoc()): ?>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <?php echo htmlspecialchars($field['field_label']); ?>
-                                <?php if ($field['required']): ?><span class="text-danger">*</span><?php endif; ?>
-                            </label>
-
-                            <?php if ($field['field_type'] === 'text'): ?>
-                                <input type="text" name="field_<?php echo $field['field_id']; ?>" class="form-control" <?php echo $field['required'] ? 'required' : ''; ?>>
-                            <?php elseif ($field['field_type'] === 'textarea'): ?>
-                                <textarea name="field_<?php echo $field['field_id']; ?>" class="form-control" <?php echo $field['required'] ? 'required' : ''; ?>></textarea>
-                            <?php elseif ($field['field_type'] === 'radio' || $field['field_type'] === 'dropdown'): ?>
-                                <?php foreach (json_decode($field['options']) as $option): ?>
-                                    <div class="form-check">
-                                        <input type="<?php echo $field['field_type'] === 'radio' ? 'radio' : 'checkbox'; ?>"
-                                            name="field_<?php echo $field['field_id']; ?>[]"
-                                            value="<?php echo htmlspecialchars($option); ?>" class="form-check-input">
-                                        <label class="form-check-label"><?php echo htmlspecialchars($option); ?></label>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
-                    <?php endwhile; ?>
-
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary px-4 py-2">SUBMIT</button>
-                    </div>
-                </form>
-            <?php endif; ?>
-        <?php endif; ?>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input type="number" name="age" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <select name="gender" class="form-select" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Position/Designation</label>
+                <input type="text" name="position_designation" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Office/Affiliation</label>
+                <input type="text" name="office_affiliation" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contact Number</label>
+                <input type="text" name="contact_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email_address" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
