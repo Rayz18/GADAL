@@ -1,3 +1,4 @@
+/* General body styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -80,12 +81,14 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative; /* Relative position for error-message placement */
 }
 
 .form-group {
     margin-bottom: 15px;
     width: 100%;
     max-width: 330px;
+    position: relative; /* Relative position for error-message placement */
 }
 
 .form-input {
@@ -118,7 +121,7 @@ form {
     font-size: 16px;
     cursor: pointer;
     border: none;
-    margin-top: 20px;
+    margin-top: 50px;
     transition: background-color 0.3s;
 }
 
@@ -130,4 +133,17 @@ p {
     color: red;
     font-size: 14px;
     margin-top: 15px;
+}
+
+.error-message {
+    position: absolute; /* Position error message absolutely */
+    top: 50%; /* Center it within the form-group */
+    left: 100px;
+    width: 100%; /* Make it take up the full width of the form-group */
+    transform: translateY(-50%); /* Vertically align text in the middle */
+    font-size: 14px;
+    color: red;
+    text-align: left; /* Align error message to the left */
+    white-space: normal; /* Allow text to wrap */
+    pointer-events: none; /* Prevent interference with input fields */
 }

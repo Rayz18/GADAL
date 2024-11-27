@@ -16,48 +16,86 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Staff</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../admin/assets/css/manage_staff.css">
 </head>
 
 <body>
-    <div class="dashboard-wrapper">
-        <?php include '../../public/includes/AdminNavBar.php'; ?>
-        <div class="main-content">
-            <div class="manage-staff-container container mt-5">
-                <h1 class="text-center">MANAGE STAFF ACCOUNTS</h1>
-                <div class="text-right mb-3">
-                    <a href="add_staff.php" class="btn btn-primary add-staff">Add New Staff</a>
-                </div>
-                <div class="staff-list">
-                    <table class="table table-striped table-hover shadow-sm">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Staff Name</th>
-                                <th>Username</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($staff = $staff_accounts_query->fetch_assoc()): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($staff['staff_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($staff['username']); ?></td>
-                                    <td>
-                                        <a href="edit_staff.php?staff_id=<?php echo $staff['staff_id']; ?>"
-                                            class="btn btn-sm btn-info edit">Edit</a>
-                                        <a href="delete_staff.php?staff_id=<?php echo $staff['staff_id']; ?>"
-                                            class="btn btn-sm btn-danger delete">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
+<?php include '../../public/includes/AdminNavBar.php'; ?>
+    <!-- Notification Section -->
+    <div id="notification-container" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050; width: 90%; max-width: 500px;">
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center text-primary fw-bold">Manage Staff Accounts</h2>
+        <div class="text-end mb-3">
+    <a href="add_staff.php" class="btn btn-success">+ Add Staff</a>
+</div>
+
+        <div class="staff-list table-responsive">
+            <table class="table table-striped align-middle table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">Staff Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($staff = $staff_accounts_query->fetch_assoc()): ?>
+                        <tr>
+                            <td class="fw-semibold"><?php echo htmlspecialchars($staff['staff_name']); ?></td>
+                            <td class="text-muted"><?php echo htmlspecialchars($staff['username']); ?></td>
+                            <td class="text-center">
+                                <a href="edit_staff.php?staff_id=<?php echo $staff['staff_id']; ?>"
+                                    class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="javascript:void(0);"
+                                    class="btn btn-sm btn-danger delete-button"
+                                    data-href="delete_staff.php?staff_id=<?php echo $staff['staff_id']; ?>">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
         </div>
     </div>
-    <script src="../../../includes/assets/sidebarToggle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Attach click event to delete buttons
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const deleteUrl = this.getAttribute('data-href');
+                const confirmDelete = confirm("Are you sure you want to delete this staff account?");
+                if (confirmDelete) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+
+        // Auto-hide notifications after 5 seconds
+        setTimeout(() => {
+            const notifications = document.querySelectorAll('.alert');
+            notifications.forEach(notification => {
+                notification.classList.add('fade');
+                setTimeout(() => notification.remove(), 150);
+            });
+        }, 5000);
+    </script>
 </body>
 
 </html>

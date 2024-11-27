@@ -32,6 +32,7 @@ foreach ($content_types as $type => $query) {
     <title>Content Moderation</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../admin/assets/css/content_moderation.css">
+    
     <style>
         /* Additional styles for dynamic color coding */
         .custom-card {

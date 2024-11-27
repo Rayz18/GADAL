@@ -9,10 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt = $conn->prepare("INSERT INTO staff_accounts (staff_name, username, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $staff_name, $username, $password);
-    $stmt->execute();
+
+    if ($stmt->execute()) {
+        $_SESSION['success_message'] = "Staff account created successfully!";
+    } else {
+        $_SESSION['error_message'] = "Failed to create staff account.";
+    }
+
     $stmt->close();
 
-    header('Location: admin_dashboard.php');
+    // Redirect to manage_staff.php
+    header('Location: manage_staff.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -22,27 +30,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Staff</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../admin/assets/css/add_staff.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Add Staff Account</h2>
-        <form action="add_staff.php" method="POST" class="bg-white p-4 rounded shadow-sm mx-auto"
+        <!-- Back Button -->
+        <a href="manage_staff.php" class="btn btn-outline-secondary mb-3">← Back</a>
+
+        <h2 class="text-center text-primary fw-bold">Add Staff Account</h2>
+        <form action="add_staff.php" method="POST" class="bg-white p-5 rounded-4 shadow-lg mx-auto"
             style="max-width: 500px;">
-            <div class="form-group">
-                <label for="staff_name">Staff Name:</label>
-                <input type="text" id="staff_name" name="staff_name" class="form-control" required>
+            <div class="mb-3">
+                <label for="staff_name" class="form-label text-secondary fw-bold">Staff Name:</label>
+                <input type="text" id="staff_name" name="staff_name" class="form-control" placeholder="Enter full name" required>
             </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" required>
+            <div class="mb-3">
+                <label for="username" class="form-label text-secondary fw-bold">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" class="form-control" required>
+            <div class="mb-3">
+                <label for="password" class="form-label text-secondary fw-bold">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Create Account</button>
         </form>
     </div>
 </body>

@@ -109,7 +109,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                         <div class='card-front' style='background-color: #D3D3D3;'></div>
                         <div class='card-back'>
                             <p>To be approved.</p>
-                            <a href='#' class='view-course'>Learn More</a>
+                            <a href='./learner/pages/AboutUs.php' class='view-course'>Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                         <div class='card-front' style='background-color: #D3D3D3;'></div>
                         <div class='card-back'>
                             <p>To be approved.</p>
-                            <a href='#' class='view-course'>Learn More</a>
+                            <a href='./learner/pages/AboutUs.php' class='view-course'>Learn More</a>
                         </div>
                     </div>
                 </div>

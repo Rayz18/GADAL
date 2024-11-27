@@ -44,23 +44,27 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
 }
 
-/* Form Container */
+/* Adjusting the form-container */
 .form-container {
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
-    text-align: left; /* Align text inside the form */
+    text-align: left;
     margin: auto;
-    max-width: 850px; /* Increase the width of the form */
+    max-width: 850px; /* Keeps the size fixed */
+    position: relative; /* Enables the use of left property */
+    left: -100px; /* Adjusts the container further to the left by 100px */
 }
 
+/* For the form buttons */
 .form-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
+/* Adjusting the textarea */
 textarea.form-control {
     border: 2px solid #007bff;
     border-radius: 5px;

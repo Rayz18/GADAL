@@ -109,7 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         (Predefined)</label>
                                 </div>
                             </div>
-
+                                 <!-- Submit Button -->
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Add Course</button>
+                                <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>
+                            </div>
                         </form>
                     </div>
                 </div>

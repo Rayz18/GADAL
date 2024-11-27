@@ -7,101 +7,93 @@
     <title>About Us</title>
     <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../learner/assets/css/AboutUs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../learner/assets/css/AboutUs.css"> 
 </head>
 
 <body>
+    <!-- Include Navbar -->
     <?php include '../../public/includes/LearnerNavBar.php'; ?>
 
     <!-- Header Image Section -->
-    <div class="container-fluid p-0">
+    <div class="header-image">
         <img src="../../public/assets/images/PROJECT_1.jpg" alt="Header" class="img-fluid w-100">
     </div>
 
-    <!-- Content Section -->
-    <div class="container mt-4">
-        <div class="row">
+    <!-- Main Content Section -->
+    <div class="container my-5 d-flex">
+        <!-- Left Content -->
+        <div class="content w-75">
+            <p>
+                In 1993, the National Economic and Development Authority (NEDA) and the National Commission on the Role of Filipino Women (NCRFW), now known as the Philippine Commission on Women (PCW), collaborated with various government agencies to develop the <strong>Guidelines for Developing and Implementing Gender-Responsive Programs and Projects</strong>. This groundbreaking document was created to align with Republic Act (RA) No. 7192, the <em>Women in Development and Nation-Building Act</em>, and its Implementing Rules and Regulations. 
+            </p>
+            <p>
+                The guidelines sought to address critical gaps in development planning, including the lack of sex-disaggregated data and statistics essential for effective programming. It also aimed to integrate a <strong>Gender and Development (GAD)</strong> perspective across all stages of the development project cycle.
+            </p>
 
-            <!-- Sidebar Section -->
-            <aside class="col-md-3">
-                <div class="card">
-                    <div class="card-header text-white text-center" style="background-color: #B19CD9;">
-                        ABOUT US
+            <h3 class="mt-4 text-primary">The Role of Official Development Assistance (ODA)</h3>
+            <p>
+                During the mid-1990s, international development agencies recognized the importance of gender inclusivity. Most <strong>Official Development Assistance (ODA)</strong> donors introduced their own GAD frameworks, helping local partners incorporate gender-sensitive approaches into program design and implementation.
+            </p>
+            <p>
+                By the early 2000s, Philippine government agencies faced challenges due to the overlapping and inconsistent GAD checklists from various donors and agencies. To address this, in 2003, NEDA and the ODA-GAD Network initiated a harmonization process, producing a common set of guidelines that aligned the priorities of donors and the Philippine government.
+            </p>
+
+            <h3 class="mt-4 text-primary">Evolution from Women in Development (WID) to Gender and Development (GAD)</h3>
+            <p>
+                The shift from the <strong>Women in Development (WID)</strong> framework to the more inclusive <strong>Gender and Development (GAD)</strong> approach reflects a growing emphasis on women's rights and gender equity. WID primarily focused on integrating women into development programs, whereas GAD promotes a more holistic approach, addressing systemic barriers to gender equality and empowering all individuals regardless of gender.
+            </p>
+            <p>
+                The current GAD guidelines reflect this evolution and incorporate lessons learned over the decades. These guidelines emphasize gender mainstreaming in national development strategies and underscore the importance of recognizing women as equal partners in nation-building.
+            </p>
+
+            <h3 class="mt-4 text-primary">Significance of the Guidelines</h3>
+            <p>
+                The GAD guidelines are more than just a set of rules; they are a testament to the Philippine government’s commitment to achieving gender equality. These guidelines provide a roadmap for implementing gender-responsive governance and sustainable development. By fostering collaboration between government agencies, donors, and civil society, the guidelines aim to create a more inclusive society where every individual can realize their full potential.
+            </p>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar w-25 ms-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#goalsContent" aria-expanded="false">
+                        <i class="fas fa-bullseye me-2"></i> Goals
+                    </button>
+                    <div class="collapse" id="goalsContent">
+                        <p class="sidebar-content">Highlighting the primary goals of our organization ensures clarity and alignment with our mission and vision.</p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action" onclick="showSection('goals')">Goals</li>
-                        <li class="list-group-item list-group-item-action"
-                            onclick="showSection('organization-profile')">Organization Profile</li>
-                        <li class="list-group-item list-group-item-action" onclick="showSection('privacy-notice')">
-                            Privacy Notice</li>
-                        <li class="list-group-item list-group-item-action" onclick="showSection('laws-and-policies')">
-                            Laws and Policies</li>
-                    </ul>
-                </div>
-            </aside>
-
-            <!-- Main Content Section -->
-            <main class="col-md-9">
-                <div id="goals" class="section-container">
-                    <h2 class="text-primary">GOALS</h2>
-                    <p>The Gender and Development Unit at Batangas State University aims to promote gender equality
-                        through policies, programs, and initiatives that empower women and men alike.</p>
-                </div>
-
-                <div id="organization-profile" class="section-container d-none">
-                    <!-- Independent Containers for Organization Profile Subsections -->
-                    <div class="about-gad mb-4">
-                        <h2 class="text-primary">About Gender and Development</h2>
-                        <p>The Gender and Development (GAD) Unit seeks to address the various needs and issues related
-                            to gender equality, creating an inclusive environment for everyone at Batangas State
-                            University.</p>
-                        <p>Our goal is to mainstream gender issues and promote gender-responsive governance through
-                            active collaboration with different university units and external partners.</p>
+                </li>
+                <li class="list-group-item">
+                    <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#profileContent" aria-expanded="false">
+                        <i class="fas fa-user-circle me-2"></i> Organizational Profile
+                    </button>
+                    <div class="collapse" id="profileContent">
+                        <p class="sidebar-content">The organizational profile section provides insights into our structure, history, and guiding principles that shape our identity.</p>
                     </div>
-
-                    <div class="gad-plan-budget mb-4">
-                        <h2 class="text-primary">GAD Plan and Budget</h2>
-                        <p>Our GAD Plan and Budget includes strategic initiatives to address gender issues through
-                            sustainable projects and capacity-building activities.</p>
+                </li>
+                <li class="list-group-item">
+                    <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#privacyContent" aria-expanded="false">
+                        <i class="fas fa-shield-alt me-2"></i> Privacy Notice
+                    </button>
+                    <div class="collapse" id="privacyContent">
+                        <p class="sidebar-content">We prioritize user privacy by adhering to transparent and secure data management policies, outlined in this section.</p>
                     </div>
-
-                    <div class="gad-focal-system mb-4">
-                        <h2 class="text-primary">GAD Focal Person System</h2>
-                        <p>The GAD Focal Person System is established to coordinate and implement gender programs within
-                            various university departments.</p>
+                </li>
+                <li class="list-group-item">
+                    <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#policiesContent" aria-expanded="false">
+                        <i class="fas fa-book me-2"></i> Laws and Policies
+                    </button>
+                    <div class="collapse" id="policiesContent">
+                        <p class="sidebar-content">Explore the legal framework and policies governing our operations to ensure compliance and accountability.</p>
                     </div>
-
-                    <div class="project-activity-program mb-4">
-                        <h2 class="text-primary">Project, Activity, and Program</h2>
-                        <p>A variety of projects, activities, and programs are organized to address gender issues and
-                            advocate for equality within the campus and community.</p>
-                    </div>
-                </div>
-
-                <div id="privacy-notice" class="section-container d-none">
-                    <h2 class="text-primary">PRIVACY NOTICE</h2>
-                    <p>Our privacy notice outlines the information we collect, how it is used, and the steps we take to
-                        ensure the protection of your data.</p>
-                </div>
-
-                <div id="laws-and-policies" class="section-container d-none">
-                    <h2 class="text-primary">LAWS AND POLICIES</h2>
-                    <p>Learn more about the national laws and institutional policies supporting gender equality and
-                        development.</p>
-                </div>
-            </main>
+                </li>
+            </ul>
         </div>
     </div>
 
+    <!-- Bootstrap JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // JavaScript to toggle sections
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section-container');
-            sections.forEach(section => section.classList.add('d-none'));
-            document.getElementById(sectionId).classList.remove('d-none');
-        }
-    </script>
 </body>
 
 </html>
