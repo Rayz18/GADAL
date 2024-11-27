@@ -52,23 +52,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="login-box">
                 <h2 class="login-title">Staff Login</h2>
-                <?php if (isset($error_message)): ?>
-                    <p style="color: red;"><?= htmlspecialchars($error_message) ?></p>
-                <?php endif; ?>
                 <form action="staff_login.php" method="POST">
                     <div class="form-group">
-                        <input type="text" id="username" name="username" class="form-input" placeholder="Username"
-                            required>
+                        <input type="text" id="username" name="username" class="form-input" placeholder="Username" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-input" placeholder="Password"
-                            required>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Password" required>
                     </div>
-                    <button type="submit" class="submit-btn">Login</button>
+                    <!-- Error message placed below the password field -->
+                    <?php if (isset($error_message)): ?>
+                        <p id="error-message" class="error-message"><?= htmlspecialchars($error_message) ?></p>
+                    <?php endif; ?>
+                    <div class="form-group mt-auto">
+                        <button type="submit" class="submit-btn">Login</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Automatically hide the error message after 3 seconds
+        document.addEventListener("DOMContentLoaded", () => {
+            const errorMessage = document.getElementById("error-message");
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.style.display = "none"; // Hide the error message
+                }, 3000); // 3 seconds
+            }
+        });
+    </script>
 </body>
 
 </html>

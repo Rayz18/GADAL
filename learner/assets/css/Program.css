@@ -1,3 +1,4 @@
+/* Global styles */
 html, body {
     width: 100%;
     height: 100%;
@@ -6,121 +7,65 @@ html, body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
     overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto;   /* Ensure vertical scrolling only */
-    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+    box-sizing: border-box; /* Ensure consistent sizing */
 }
 
-/* Apply box-sizing to all elements to prevent overflow */
-*, *::before, *::after {
-    box-sizing: inherit;
+/* Program title styling */
+.h1 {
+    margin-top: 100px !important; /* Added margin to push the title down */
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4b0082; /* Adjusted color for consistency */
 }
 
-/* Programs section */
-.program-container {
-    margin: 0 auto;
-    padding-top: 70px; 
-    text-align: center;
+/* Search bar styling */
+.form-control {
+    border: 1px solid #4b0082; /* Purple border for the search bar */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: none; /* Remove default shadow */
 }
 
-.term-search {
+.form-control:focus {
+    border-color: #4b0082; /* Purple outline when focused */
+    box-shadow: 0 0 5px #4b0082; /* Subtle purple glow on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Image styling for programs */
+.program-image {
+    border: 1.5px solid #744eb9;
+    border-radius: 5px;
+    width: 100%; /* Ensures the image takes full width of its container */
+    height: 300px; /* Fixed height for consistent layout */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    margin-bottom: 10px; /* Add spacing below each image */
+}
+
+/* Placeholder for programs without images */
+.default-placeholder {
+    background-color: #f0f0f0;
+    color: #888;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 30px 0; /* Reduced margin to move everything upwards */
-}
-
-h1 {
-    color: rgb(86, 28, 109);
-    font-size: 26px;
-    margin-bottom: 12px; /* Adjusted margin for title */
-}
-
-.search-container {
-    display: flex;
-    align-items: right;
-    margin-left: 1000px;
-    
-}
-
-.search-container input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid rgba(213, 213, 216, 0.849);
-    border-radius: 5px;
-    width: 200px;
-}
-
-.search-container button {
-    background-color: rgba(213, 213, 216, 0.849);
-    color: white;
-    border: none;
-    padding: 8px;
-    margin-left: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.search-container button:hover {
-    background-color: #B19CD9;
-}
-
-.photo-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 5px;
-    row-gap: 50px;
-    justify-items: center;
-    padding: 100px;
-    padding-top: 20px;   
-}
-
-.photo-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 450;
-}
-
-.photo-card img {
     width: 100%;
-    max-width: 450px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    height: 300px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-.photo-card img:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-.photo-title {
-    margin-top: 10px;
-    font-size: 15px;
+/* Program title under each image */
+h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
     color: #3182ce;
-    text-decoration: none;
-    max-width: 100%; /* Ensure title doesn't exceed card width */
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide the overflowed text */
-    text-overflow: ellipsis; /* Add ellipsis to overflowed text */
+    text-align: center;
+    margin-top: 5px; /* Reduced margin to bring the title closer to the image */
+    margin-bottom: 0; /* Remove unnecessary space below */
 }
 
-.photo-title:hover {
-    text-decoration: underline;
-}
-
-/* Customize scrollbar */
+/* Optional: Remove default scrollbars */
 ::-webkit-scrollbar {
-    width: 6px; /* Set scrollbar width */
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #cac5d35d; /* Scrollbar color */
-    border-radius: 6px; /* Rounded scrollbar */
-}
-
-::-webkit-scrollbar-track {
-    background-color: #f4f4f4; /* Scrollbar track color */
+    width: 0; /* Hide scrollbar */
 }

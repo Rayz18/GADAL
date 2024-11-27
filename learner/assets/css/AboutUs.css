@@ -1,61 +1,159 @@
-/* Override Bootstrap's text-primary color */
-.text-primary {
-    color: #B19CD9 !important;
+/* Global Styles */
+html, body {
+    background-color: #f5f5f5; /* Light gray background */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* Custom styling for the main section container */
-.section-container {
-    border: 1px solid #B19CD9;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: #fff;
-    margin-bottom: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Header Image Section */
+.header-image img {
+    width: 100%;
+    height: 500px; /* Slightly reduce the height for balance */
+    object-fit: cover; /* Ensure image scales properly */
+    margin-bottom: -2rem; /* Pull content closer to the image */
 }
 
-/* Styling for section headings */
-.section-container h2 {
-    margin-bottom: 15px;
-    border-bottom: 2px solid #B19CD9;
-    padding-bottom: 5px;
+/* Custom Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 6px; /* Set scrollbar width */
 }
 
-/* Sidebar hover effect */
-.list-group-item:hover {
-    background-color: #431876;
-    color: #ffffff;
+body::-webkit-scrollbar-thumb {
+    background-color: #f4f4f4; /* Scrollbar track color */
+    border-radius: 3px; /* Rounded scrollbar thumb */
 }
 
-/* Custom styling for individual containers in Organization Profile section */
-
-/* About Gender and Development Section */
-.about-gad {
-    margin-bottom: 50px;
-    padding: 10px;
+body::-webkit-scrollbar-track {
+    background-color: #f5f5f5; /* Match background color */
 }
 
-/* GAD Plan and Budget Section */
-.gad-plan-budget {
-    margin-bottom: 20px;
-    padding: 10px;
+.content, .sidebar {
+    scrollbar-width: thin; /* Use thin scrollbar for Firefox */
+    scrollbar-color: #8A2BE2 #f5f5f5; /* Thumb and track colors for Firefox */
 }
 
-/* GAD Focal Person System Section */
-.gad-focal-system {
-    margin-bottom: 20px;
-    padding: 10px;
+/* Content and Sidebar Container Adjustments */
+.container {
+    display: flex; /* Ensure proper layout */
+    gap: 2rem; /* Adjust gap between content and sidebar */
+    align-items: flex-start; /* Align the content and sidebar at the top */
+    margin: 1rem auto; /* Center the container */
+    padding: 1rem 2rem; /* Adjust padding inside the container */
+    background: #f5f5f5; /* Clean white container background */
+    position: relative; /* Ensure proper alignment under the image */
+    top: -15px; /* Move container upward */
 }
 
-/* Project, Activity, and Program Section */
-.project-activity-program {
-    margin-bottom: 20px;
-    padding: 10px;
+/* Content Section */
+.content {
+    flex: 3; /* Give more space to the main content */
+    background-color: #f5f5f5; /* White background */
+    padding: 1.5rem;
 }
 
-/* Ensure consistent spacing between text paragraphs within each container */
-.about-gad p,
-.gad-plan-budget p,
-.gad-focal-system p,
-.project-activity-program p {
-    margin-bottom: 10px;
+.content h2 {
+    color: #6f42c1; /* Bootstrap purple */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    flex: 1.5; /* Increase flex value for a wider sidebar */
+    background-color: #f5f5f5; /* White background */
+    padding: 1rem;
+    max-width: 350px; /* Optional: Set a maximum width for consistency */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Sidebar Content */
+.sidebar-content {
+    background: #e1d7e5;
+    border-left: 5px solid #4b0082; /* Dark purple border */
+    padding: 1.5rem; /* Increased padding for taller and wider container */
+    margin-top: 1rem; /* Increased spacing between items */
+    border-radius: 0 5px 5px 5px;
+    font-size: 1rem; /* Slightly larger text */
+    color: #333;
+    line-height: 1.8; /* Adjusted line height for readability */
+    width: 100%; /* Ensure the content stretches within the sidebar width */
+}
+
+/* Sidebar Items */
+.sidebar-item {
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    color: #4b0082; /* Dark purple */
+    font-weight: bold;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0.7rem 1rem; /* Adjusted padding for a more prominent look */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px; /* Rounded corners for better design */
+    box-shadow: none; /* Default no shadow */
+}
+
+.sidebar-item:hover {
+    color: #8a2be2; /* Brighter purple for hover */
+    background-color: #f0e6f7; /* Subtle background color change */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Dropdown Button */
+.dropdown-toggle::after {
+    color: #4b0082; /* Dark purple dropdown arrow */
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Sidebar Icons */
+.sidebar-item i {
+    color: #4b0082; /* Dark purple icon color */
+}
+
+.sidebar-item:hover i {
+    color: #8a2be2; /* Brighter purple icon color on hover */
+}
+
+/* Increase Spacing Between Sidebar Items */
+.list-group-item {
+    background: transparent;
+    border: none;
+    padding: 1rem 0; /* Increased vertical padding for spacing */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack content and sidebar vertically */
+    }
+
+    .content,
+    .sidebar {
+        width: 100%; /* Full width for smaller screens */
+    }
+}
+
+/* Adjust Navbar Title Styling */
+.navbar-title {
+    font-size: 1.2rem; /* Adjust font size if needed */
+    font-weight: bold;
+    color: #4b0082; /* Dark purple */
+    text-align: center; /* Center-align the text */
+    line-height: 4.2; /* Reduce the line height */
+    margin: 0; /* Remove extra spacing around the title */
 }

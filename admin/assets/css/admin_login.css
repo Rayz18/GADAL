@@ -1,3 +1,4 @@
+/* General body styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -45,11 +46,14 @@ body {
     background-color: white;
     padding: 20px;
     max-width: 450px;
-    width: 125%;
-    height: 450px;
+    width: 125%; /* Maintained width */
+    height: 450px; /* Maintained height */
     display: flex;
     flex-direction: column;
-    margin-left: -50px;
+    margin-left: -40px; /* Slightly adjusted left position */
+    margin-top: 20px; /* Added top margin to move it down slightly */
+    position: relative; /* Ensures precise adjustments without affecting size */
+    transform: translateY(-10px); /* Fine-tuned positioning without affecting layout */
 }
 
 /* Make the "Admin Login" text bolder and larger */
@@ -60,24 +64,23 @@ h2 {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
 .form-control::placeholder {
     color: #999;
     font-size: 14px;
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2);
+    box-shadow: 0 0 0 0.2rem rgba(167, 139, 250, 0.2);
     outline: none;
 }
 
 .btn-primary {
     background-color: #a78bfa;
     border: none;
-    margin-bottom: 200px;
+    margin-top: auto; /* Ensures button sticks to the bottom */
+    padding: 8px 12px; /* Reduced padding for a shorter height */
+    font-size: 16px; /* Keep the font size readable */
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -89,4 +92,17 @@ h2 {
     text-align: center;
     margin-bottom: 10px;
     font-size: 14px;
+    word-wrap: break-word; /* Ensures error text wraps properly */
+    white-space: normal; /* Allows wrapping within container */
+}
+
+.error-message {
+    margin-top: -10px; /* Slightly move up to reduce spacing */
+    margin-bottom: 10px; /* Add space below the message */
+    margin-left: 90px;
+    font-size: 14px;
+    word-wrap: break-word; /* Ensure the text wraps within the container */
+    white-space: normal; /* Allow wrapping */
+    text-align: left; /* Align with input fields */
+    color: red; /* Highlight the error message */
 }

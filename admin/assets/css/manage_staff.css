@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+/* General Reset */
 *,
 *::before,
 *::after {
@@ -7,138 +7,142 @@
     padding: 0;
 }
 
+/* Body Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Dashboard Wrapper */
+.dashboard-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align content to the top */
     min-height: 100vh;
+    background-color: #f1f3f4;
+}
+
+/* Main Content */
+.main-content {
     padding: 20px;
 }
 
-.dashboard-wrapper {
-    display: flex;
-    width: 100%;
-    min-height: 100vh; /* Ensure it takes the full viewport height */
-}
-
-.main-content {
-    flex: 1;
-    margin-bottom: 20px; /* Adjust for spacing below */
-    transition: margin-left 0.3s ease; /* Smooth transition for expanding and compressing */
-    min-height: calc(100vh - 40px); /* Dynamic height based on viewport */
-}
-
-/* Manage Staff Container */
-.manage-staff-container {
-    width: 100%;
-    max-width: 900px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35); /* Darker shadow with higher opacity */
-    padding: 30px;
-    margin-top: 100px; /* Space from the top */
-    margin-bottom: 50px; /* Add space below */
-}
-
-/* Header Styles */
-.manage-staff-container h1 {
-    font-size: 2em;
-    color: #333; /* Changed to a darker color */
-    font-weight: 200 !important; /* Made the font bold */
-    text-align: center;
-}
-
-/* Add Staff Section */
-.add-staff-section h2 {
-    font-size: 1.5em;
-    color: #666;
-    margin-bottom: 15px;
-}
-
-/* Button Styles */
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #ffffff;
+/* Smaller Add Staff Button */
+.manage-staff-container .btn-success {
+    background-color: #198754;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+    font-size: 0.9rem; /* Reduced font size */
+    padding: 8px 16px; /* Reduced padding */
+    border-radius: 4px; /* Slightly smaller radius */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.add-staff {
-    background-color: #6c63ff;
+.manage-staff-container .btn-success:hover {
+    background-color: #146c43;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Styling */
+.manage-staff-container h1 {
+    font-size: 2rem;
+    color: #007bff;
+    text-transform: uppercase;
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
-.add-staff:hover {
-    background-color: #5048e5;
+.manage-staff-container .btn-success {
+    background-color: #198754;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-.edit {
-    background-color: #4caf50;
+.manage-staff-container .btn-success:hover {
+    background-color: #146c43;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.edit:hover {
-    background-color: #388e3c;
-}
-
-.delete {
-    background-color: #f44336;
-}
-
-.delete:hover {
-    background-color: #d32f2f;
-}
-
-/* Table Styles */
-.staff-list {
-    margin-top: 20px;
-    overflow-x: auto;
-}
-
+/* Table Styling */
 .staff-list table {
-    width: 100%;
     border-collapse: collapse;
-    border: 1px solid #ddd;
-}
-
-.staff-list th,
-.staff-list td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    width: 100%;
+    font-size: 0.95rem;
 }
 
 .staff-list th {
-    background-color: #f2f2f2;
-    font-weight: 600;
-    color: #666;
+    background-color: #d1e7dd;
+    color: #155724;
+    font-weight: 700;
+    padding: 15px;
+    text-align: left;
+}
+
+.staff-list td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    color: #495057;
+}
+
+.staff-list td.text-muted {
+    color: #6c757d;
 }
 
 .staff-list tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f8f9fa;
+}
+
+/* Action Buttons */
+.staff-list .btn-outline-primary,
+.staff-list .btn-outline-danger {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    border-width: 2px;
+}
+
+.staff-list .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.staff-list .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .manage-staff-container {
         padding: 20px;
     }
 
-    .add-staff {
-        padding: 8px 16px;
-    }
-
-    .staff-list th, 
-    .staff-list td {
+    .staff-list th, .staff-list td {
+        font-size: 0.85rem;
         padding: 8px;
     }
+
+    .manage-staff-container .btn-success {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
 }
+
+/* General Notification Styling */
+#notification-container .alert {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.5s ease;
+}
+
+/* Slide-down animation for notifications */
+@keyframes slideDown {
+    0% {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+

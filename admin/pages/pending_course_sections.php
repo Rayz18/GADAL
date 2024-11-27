@@ -19,7 +19,7 @@ if (!$sections_query) {
 <head>
     <meta charset="UTF-8">
     <title>Pending Course Sections</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>

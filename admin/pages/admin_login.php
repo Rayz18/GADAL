@@ -32,46 +32,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../admin/assets/css/admin_login.css">
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row justify-content-between align-items-center w-100">
-            <!-- Logo and Heading Section (Left) -->
-            <div class="col-md-6 d-flex flex-column align-items-start p-3">
-                <div class="d-flex mb-3">
-                    <img src="../../public/assets/images/BSU.png" alt="University Logo" class="logo mr-2">
-                    <img src="../../public/assets/images/GAD.png" alt="Department Logo" class="logo">
-                </div>
-                <h1 class="text-white display-4 font-weight-bold quote-text">Empowering Equality, Advancing Development
-                </h1>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row justify-content-between align-items-center w-100">
+        <!-- Logo and Heading Section (Left) -->
+        <div class="col-md-6 d-flex flex-column align-items-start p-3">
+            <div class="d-flex mb-3">
+                <img src="../../public/assets/images/BSU.png" alt="University Logo" class="logo me-2">
+                <img src="../../public/assets/images/GAD.png" alt="Department Logo" class="logo">
             </div>
+            <h1 class="text-white display-4 fw-bold quote-text">Empowering Equality, Advancing Development</h1>
+        </div>
 
-            <!-- Login Form Section (Right) -->
-            <div class="col-md-4">
-                <div class="card login-card p-4 shadow-sm d-flex flex-column justify-content-between">
-                    <h2 class="text-center mb-4">Admin Login</h2>
+        <!-- Login Form Section (Right) -->
+        <div class="col-md-4">
+            <div class="card login-card p-4 shadow-sm d-flex flex-column justify-content-between">
+                <h2 class="text-center mb-4">Admin Login</h2>
+                <form action="admin_login.php" method="POST" class="d-flex flex-column h-100">
+                    <div class="mb-3">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="mb-4">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <!-- Error message placed only below the password field -->
                     <?php if (!empty($error_message)): ?>
-                        <p class="text-danger text-center"><?= htmlspecialchars($error_message) ?></p>
+                        <p id="error-message" class="text-danger error-message"><?= htmlspecialchars($error_message) ?></p>
                     <?php endif; ?>
-                    <form action="admin_login.php" method="POST"
-                        class="d-flex flex-column justify-content-between h-100">
-                        <div class="form-group">
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
-                                required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <input type="password" id="password" name="password" class="form-control"
-                                placeholder="Password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-auto">Login</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto">Login</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    // Automatically hide the error message after 4 seconds
+    document.addEventListener("DOMContentLoaded", () => {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+            setTimeout(() => {
+                errorMessage.style.display = "none"; // Hides the error message
+            }, 3000); // 4 seconds
+        }
+    });
+</script>
 </body>
 
 </html>

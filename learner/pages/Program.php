@@ -11,36 +11,7 @@ require_once "../../config/config.php";
     <title>Programs Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
-    <style>
-        .fixed-card {
-            height: 300px;
-            max-height: 300px;
-        }
-
-        .fixed-image {
-            height: 300px;
-            max-height: 300px;
-            width: 100%;
-            object-fit: cover;
-            /* Ensures the image covers the area proportionally */
-
-        }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        .default-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f0f0f0;
-            color: #888;
-            height: 300px;
-            max-height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="../../learner/assets/css/Program.css"> <!-- External CSS -->
 </head>
 
 <body>
@@ -48,7 +19,7 @@ require_once "../../config/config.php";
 
     <div class="container mt-5">
         <div class="text-center mb-4">
-            <h1 class="text-primary">PROGRAMS</h1>
+            <h1 class="h1">PROGRAMS</h1>
         </div>
 
         <div class="row justify-content-center mb-4">
@@ -61,7 +32,7 @@ require_once "../../config/config.php";
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="row row-cols-1 row-cols-md-2 g-4"> <!-- Ensure 2 columns per row for medium screens -->
             <?php
             // Fetch only approved programs or filter by search term
             $approved = 'approved';
@@ -79,25 +50,21 @@ require_once "../../config/config.php";
             // Check if any programs exist
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo '<div class="col">';
-                    echo '    <div class="card fixed-card shadow-sm">';
-                    echo '        <a href="Course.php?program_id=' . $row['program_id'] . '">';
+                    echo '<div class="col">'; // Bootstrap column
+                    echo '    <a href="Course.php?program_id=' . $row['program_id'] . '" class="d-block text-center">';
                     if (!empty($row['program_img'])) {
-                        echo '            <img src="../../staff/upload/' . htmlspecialchars($row['program_img']) . '" 
-                                            class="fixed-image" 
-                                            alt="' . htmlspecialchars($row['program_name']) . '">';
+                        echo '        <img src="../../staff/upload/' . htmlspecialchars($row['program_img']) . '" 
+                                      class="program-image img-fluid" 
+                                      alt="' . htmlspecialchars($row['program_name']) . '">';
                     } else {
-                        echo '            <div class="default-placeholder">No Image Available</div>';
+                        echo '        <div class="default-placeholder">No Image Available</div>';
                     }
+                    echo '    </a>';
+                    echo '    <h5 class="mt-2 text-center">';
+                    echo '        <a href="Course.php?program_id=' . $row['program_id'] . '" class="text-decoration-none text-primary">';
+                    echo '            ' . htmlspecialchars($row['program_name']);
                     echo '        </a>';
-                    echo '        <div class="card-body text-center">';
-                    echo '            <h5 class="card-title">';
-                    echo '                <a href="Course.php?program_id=' . $row['program_id'] . '" class="text-decoration-none text-primary">';
-                    echo '                    ' . htmlspecialchars($row['program_name']);
-                    echo '                </a>';
-                    echo '            </h5>';
-                    echo '        </div>';
-                    echo '    </div>';
+                    echo '    </h5>';
                     echo '</div>';
                 }
             } else {
