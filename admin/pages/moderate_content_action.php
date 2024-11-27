@@ -27,8 +27,7 @@ $content_type_mapping = [
     'learning materials' => 'material',
     'course videos' => 'course_video',
     'post-test questions' => 'post_test',
-    'pre-test questions' => 'pre_test',
-    'seminars' => 'seminar'
+    'pre-test questions' => 'pre_test'
 ];
 
 $content_mappings = [
@@ -39,7 +38,6 @@ $content_mappings = [
     'course_video' => ['table' => 'course_videos', 'id_field' => 'course_videos_id'],
     'post_test' => ['table' => 'post_test_questions', 'id_field' => 'post_test_id'],
     'pre_test' => ['table' => 'pre_test_questions', 'id_field' => 'pre_test_id'],
-    'seminar' => ['table' => 'seminars', 'id_field' => 'seminar_id'],
 ];
 
 // Map content type to table and ID field

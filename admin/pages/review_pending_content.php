@@ -23,7 +23,6 @@ $content_queries = [
     "Course Videos" => "SELECT * FROM course_videos WHERE status = 'pending'",
     "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
     "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
-    "Seminars" => "SELECT * FROM seminars WHERE status = 'pending'",
 ];
 
 $query = $content_queries[$content_type] ?? null;
@@ -201,7 +200,9 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
             };
 
         </script>
-    <div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script></div>
+        <div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
 </body>
 
 </html>

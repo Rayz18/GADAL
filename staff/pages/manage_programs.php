@@ -23,6 +23,25 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../staff/assets/css/manage_programs.css">
+    <style>
+        .truncate {
+            display: inline-block;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+
+        .card-header h5 {
+            display: inline-block;
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,7 +66,9 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                             data-bs-target="#content-<?php echo $program['program_id']; ?>" type="button" role="tab"
                             aria-controls="content-<?php echo $program['program_id']; ?>"
                             aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>">
-                            <span class="truncate"><?php echo htmlspecialchars($program['program_name']); ?></span>
+                            <span class="truncate" title="<?php echo htmlspecialchars($program['program_name']); ?>">
+                                <?php echo mb_strimwidth(htmlspecialchars($program['program_name']), 0, 20, '...'); ?>
+                            </span>
                         </button>
                     </li>
                     <?php $is_first = false;
@@ -70,8 +91,8 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                     <div class="card mt-4">
                         <div class="card-header bg-primary text-white">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">
-                                    <?php echo htmlspecialchars($program['program_name']); ?>
+                                <h5 class="mb-0" title="<?php echo htmlspecialchars($program['program_name']); ?>">
+                                    <?php echo mb_strimwidth(htmlspecialchars($program['program_name']), 0, 25, '...'); ?>
                                 </h5>
                                 <div>
                                     <a href="edit_program.php?program_id=<?php echo $program['program_id']; ?>"
@@ -83,6 +104,19 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                         </div>
                         <div class="card-body">
                             <h6>Courses in this Program:</h6>
+
+                            <div class="mb-3">
+                                <div class="btn-group filter-courses" role="group"
+                                    data-program-id="<?php echo $program['program_id']; ?>">
+                                    <button type="button" class="btn btn-outline-primary active" data-filter="all">Show
+                                        All</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        data-filter="online">Online</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        data-filter="face_to_face">Face-to-Face</button>
+                                </div>
+                            </div>
+
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -93,7 +127,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                             <th>Options</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="courses-<?php echo $program['program_id']; ?>">
                                         <?php
                                         $courses_query = $conn->query("
                                             SELECT course_id, course_name, offered_mode, enable_registration, enable_attendance, enable_evaluation 
@@ -101,7 +135,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                             WHERE program_id = " . $program['program_id']);
                                         if ($courses_query->num_rows > 0) {
                                             while ($course = $courses_query->fetch_array()) { ?>
-                                                <tr>
+                                                <tr data-mode="<?php echo $course['offered_mode']; ?>">
                                                     <td>
                                                         <?php echo htmlspecialchars($course['course_name']); ?>
                                                     </td>
@@ -152,17 +186,15 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                                                     <?php } ?>
                                                                 </ul>
                                                             </div>
-                                                        <?php } else { ?>
-                                                            <a href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="badge bg-info text-white">Introduction</a>
-                                                            <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="badge bg-info text-white">Pre-Test</a>
-                                                            <a href="add_learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="badge bg-info text-white">Materials</a>
-                                                            <a href="add_videos.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="badge bg-info text-white">Videos</a>
-                                                            <a href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="badge bg-info text-white">Post-Test</a>
+                                                        <?php } else if ($course['offered_mode'] === 'online') { ?>
+                                                                <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                    class="badge bg-info text-white">Pre-Test</a>
+                                                                <a href="manage_learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                    class="badge bg-info text-white">Learning Materials</a>
+                                                                <a href="add_quiz.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                    class="badge bg-info text-white">Quiz</a>
+                                                                <a href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                    class="badge bg-info text-white">Post-Test</a>
                                                         <?php } ?>
                                                     </td>
                                                 </tr>
@@ -186,10 +218,29 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
     </div>
 
     <script>
-        // Initialize Bootstrap tooltips
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
+        // Filter courses based on the selected mode
+        document.querySelectorAll('.filter-courses').forEach(group => {
+            const buttons = group.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const programId = group.getAttribute('data-program-id');
+                    const selectedMode = this.getAttribute('data-filter');
+                    const rows = document.querySelectorAll(`#courses-${programId} tr`);
+
+                    // Highlight the active button
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter the courses
+                    rows.forEach(row => {
+                        if (selectedMode === 'all' || row.getAttribute('data-mode') === selectedMode) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
     </script>
 </body>

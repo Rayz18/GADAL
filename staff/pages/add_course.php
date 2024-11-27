@@ -84,32 +84,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="offered_mode" class="form-label">Offered Mode:</label>
                                 <select id="offered_mode" name="offered_mode" class="form-control" required
                                     onchange="toggleFaceToFaceOptions(this.value)">
-                                    <option value="online">Online</option>
                                     <option value="face_to_face">Face to Face</option>
+                                    <option value="online">Online</option>
                                 </select>
                             </div>
                             <div id="face_to_face_options" class="mb-3">
                                 <label class="form-label">Face to Face Options:</label>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_registration" name="enable_registration"
-                                        class="form-check-input" disabled checked>
+                                        class="form-check-input" checked readonly>
                                     <label for="enable_registration" class="form-check-label">Enable Registration
                                         (Predefined)</label>
+                                    <input type="hidden" name="enable_registration_hidden" value="1">
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_attendance" name="enable_attendance"
-                                        class="form-check-input" disabled checked>
+                                        class="form-check-input" checked readonly>
                                     <label for="enable_attendance" class="form-check-label">Enable Attendance
                                         (Predefined)</label>
+                                    <input type="hidden" name="enable_attendance_hidden" value="1">
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_evaluation" name="enable_evaluation"
-                                        class="form-check-input" disabled checked>
+                                        class="form-check-input" checked readonly>
                                     <label for="enable_evaluation" class="form-check-label">Enable Evaluation
                                         (Predefined)</label>
+                                    <input type="hidden" name="enable_evaluation_hidden" value="1">
                                 </div>
                             </div>
-                                 <!-- Submit Button -->
+
+                            <!-- Submit Button -->
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Add Course</button>
                                 <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>

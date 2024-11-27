@@ -15,7 +15,6 @@ $content_types = [
     "Course Videos" => "SELECT * FROM course_videos WHERE status = 'pending'",
     "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
     "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
-    "Seminars" => "SELECT * FROM seminars WHERE status = 'pending'",
 ];
 
 $content_data = [];
@@ -32,7 +31,7 @@ foreach ($content_types as $type => $query) {
     <title>Content Moderation</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../admin/assets/css/content_moderation.css">
-    
+
     <style>
         /* Additional styles for dynamic color coding */
         .custom-card {
@@ -40,13 +39,17 @@ foreach ($content_types as $type => $query) {
         }
 
         .pending {
-            background-color: #ffcccc; /* Light red for pending items */
-            border-color: #ff6b6b; /* Darker red for border */
+            background-color: #ffcccc;
+            /* Light red for pending items */
+            border-color: #ff6b6b;
+            /* Darker red for border */
         }
 
         .no-pending {
-            background-color: #ccffcc; /* Light green for no pending items */
-            border-color: #6bff6b; /* Darker green for border */
+            background-color: #ccffcc;
+            /* Light green for no pending items */
+            border-color: #6bff6b;
+            /* Darker green for border */
         }
 
         .card-text {
@@ -68,11 +71,11 @@ foreach ($content_types as $type => $query) {
                             <div class="card-body">
                                 <h5 class="card-title">Pending <?php echo htmlspecialchars($type); ?></h5>
                                 <p class="card-text">
-                                    <?php echo $count; ?> 
+                                    <?php echo $count; ?>
                                     <?php echo $count === 1 ? 'Pending ' . htmlspecialchars($type) : 'Pending ' . htmlspecialchars($type) . 's'; ?>
                                 </p>
-                                <a href="review_pending_content.php?type=<?php echo urlencode($type); ?>" 
-                                   class="btn btn-primary view-button">View</a>
+                                <a href="review_pending_content.php?type=<?php echo urlencode($type); ?>"
+                                    class="btn btn-primary view-button">View</a>
                             </div>
                         </div>
                     <?php endforeach; ?>

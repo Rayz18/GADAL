@@ -21,7 +21,6 @@ $content_queries = [
     "Course Videos" => "SELECT * FROM course_videos WHERE status = 'pending'",
     "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
     "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
-    "Seminars" => "SELECT * FROM seminars WHERE status = 'pending'",
 ];
 
 $query = $content_queries[$content_type] ?? null;

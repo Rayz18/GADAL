@@ -170,16 +170,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <a href="register.php?course_id=<?php echo $course_id; ?>"
                                                 class="btn btn-info btn-sm">Registration</a>
                                         <?php endif; ?>
-                                        <?php if ($course['enable_attendance']): ?>
-                                            <a href="attendance.php?course_id=<?php echo $course_id; ?>"
-                                                class="btn btn-info btn-sm">Attendance</a>
-                                        <?php endif; ?>
-                                        <?php if ($course['enable_evaluation']): ?>
-                                            <a href="evaluation.php?course_id=<?php echo $course_id; ?>"
-                                                class="btn btn-info btn-sm">Evaluation</a>
-                                        <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
