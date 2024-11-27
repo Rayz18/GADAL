@@ -14,10 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $learner_id = $_SESSION['learner_id']; // Ensure learner_id is stored in session after login
 
+    // Insert attendance details into the database
     $query = $conn->prepare("
         INSERT INTO attendance 
-        (course_id, learner_id, name, age, gender, position_designation, office_affiliation, contact_number, email_address) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (course_id, learner_id, name, age, gender, position_designation, office_affiliation, contact_number, email_address, is_completed) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
     ");
     $query->bind_param(
         "iisssssss",
@@ -33,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if ($query->execute()) {
-        header("Location: success_page.php?message=Attendance recorded!");
+        // Redirect to evaluation form
+        header("Location: ../pages/evaluation.php?course_id=$course_id");
         exit();
     } else {
         echo "Error: " . $query->error;

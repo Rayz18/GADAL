@@ -4,6 +4,30 @@ include '../../config/config.php';
 
 // Validate course_id
 $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+$learner_id = $_SESSION['learner_id'] ?? 0;
+
+// Check if attendance is completed
+$attendance_query = $conn->prepare("SELECT is_completed FROM attendance WHERE course_id = ? AND learner_id = ?");
+$attendance_query->bind_param("ii", $course_id, $learner_id);
+$attendance_query->execute();
+$attendance_result = $attendance_query->get_result();
+$attendance = $attendance_result->fetch_assoc();
+
+if (!$attendance || $attendance['is_completed'] == 0) {
+    die("Access Denied: Please complete the attendance before accessing the evaluation form.");
+}
+
+// Check if evaluation is already completed
+$evaluation_query = $conn->prepare("SELECT COUNT(*) AS count FROM evaluations WHERE course_id = ? AND learner_id = ?");
+$evaluation_query->bind_param("ii", $course_id, $learner_id);
+$evaluation_query->execute();
+$evaluation_result = $evaluation_query->get_result();
+$evaluation = $evaluation_result->fetch_assoc();
+
+if ($evaluation && $evaluation['count'] > 0) {
+    header("Location: success_page.php?message=Evaluation already completed!");
+    exit();
+}
 
 // Fetch course details
 $course_query = $conn->prepare("SELECT course_name FROM courses WHERE course_id = ?");

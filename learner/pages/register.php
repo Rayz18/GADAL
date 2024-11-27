@@ -4,13 +4,27 @@ include '../../config/config.php';
 
 // Validate course_id
 $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+$learner_id = $_SESSION['learner_id'] ?? 0;
+
+// Check if registration is already completed
+$registration_query = $conn->prepare("SELECT is_completed FROM registrations WHERE course_id = ? AND learner_id = ?");
+$registration_query->bind_param("ii", $course_id, $learner_id);
+$registration_query->execute();
+$registration_result = $registration_query->get_result();
+$registration = $registration_result->fetch_assoc();
+
+if ($registration && $registration['is_completed'] == 1) {
+    header("Location: success_page.php?message=Registration already completed!");
+    exit();
+}
 
 // Fetch course details
-$course_query = $conn->prepare("SELECT description FROM registrations WHERE course_id = ?");
+$course_query = $conn->prepare("SELECT course_name FROM courses WHERE course_id = ?");
 $course_query->bind_param("i", $course_id);
 $course_query->execute();
 $course_result = $course_query->get_result();
-$description = $course_result->fetch_assoc()['description'] ?? 'Registration for the course.';
+$course = $course_result->fetch_assoc();
+$course_name = $course ? htmlspecialchars($course['course_name']) : "Unknown Course";
 ?>
 
 <!DOCTYPE html>
@@ -63,11 +77,14 @@ $description = $course_result->fetch_assoc()['description'] ?? 'Registration for
     <div class="container py-5">
         <div class="text-center mb-4">
             <h1 class="text-primary">Registration Form</h1>
+            <h3><?php echo $course_name; ?></h3>
         </div>
 
         <div class="form-container mx-auto">
             <div class="description-box">
-                <p><?php echo htmlspecialchars($description); ?></p>
+                <p>Dear Participants, <br> Please complete this registration form. We assure you that your responses
+                    will be kept in strict confidentiality. Thank
+                    you!</p>
             </div>
 
             <form action="submit_registration.php" method="POST">
@@ -75,7 +92,7 @@ $description = $course_result->fetch_assoc()['description'] ?? 'Registration for
 
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" required>
+                    <input type="text" name="name" class="form-control" placeholder="ex. Dela Cruz, Juan, A." required>
                 </div>
 
                 <div class="mb-3">
@@ -89,7 +106,7 @@ $description = $course_result->fetch_assoc()['description'] ?? 'Registration for
                         <option value="" disabled selected>Select your gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="Other">Prefer not to say</option>
                     </select>
                 </div>
 
