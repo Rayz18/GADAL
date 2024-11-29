@@ -189,7 +189,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                                         <?php } else if ($course['offered_mode'] === 'online') { ?>
                                                                 <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>"
                                                                     class="badge bg-info text-white">Pre-Test</a>
-                                                                <a href="manage_learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                <a href="learning_materials.php?course_id=<?php echo $course['course_id']; ?>"
                                                                     class="badge bg-info text-white">Learning Materials</a>
                                                                 <a href="add_quiz.php?course_id=<?php echo $course['course_id']; ?>"
                                                                     class="badge bg-info text-white">Quiz</a>

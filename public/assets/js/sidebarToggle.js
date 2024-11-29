@@ -1,24 +1,41 @@
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const content = document.getElementById('content');
-    const toggleButton = document.getElementById('sidebar-toggle');
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleButton = document.querySelector(".sidebar-toggle");
+    const contentArea = document.querySelector(".content-area");
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
 
-    if (sidebar.classList.contains('expanded')) {
-        // Collapse the sidebar
-        sidebar.classList.remove('expanded');
-        content.classList.remove('shifted');
-        toggleButton.style.left = '0';
-    } else {
-        // Expand the sidebar
-        sidebar.classList.add('expanded');
-        content.classList.add('shifted');
-        toggleButton.style.left = '250px';
-    }
-}
+    document.body.appendChild(overlay);
 
-window.onload = function () {
-    const toggleButton = document.getElementById('sidebar-toggle');
-    if (toggleButton) {
-        toggleButton.addEventListener('click', toggleSidebar);
+    // Ensure initial state matches the default expanded sidebar
+    sidebar.classList.add("expanded");
+    contentArea.classList.add("shifted");
+    overlay.classList.add("active");
+
+    function openSidebar() {
+        sidebar.classList.add("expanded");
+        contentArea.classList.add("shifted");
+        overlay.classList.add("active");
     }
-};
+
+    function closeSidebar() {
+        sidebar.classList.remove("expanded");
+        contentArea.classList.remove("shifted");
+        overlay.classList.remove("active");
+    }
+
+    function toggleSidebar() {
+        if (sidebar.classList.contains("expanded")) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    }
+
+    toggleButton.addEventListener("click", toggleSidebar);
+
+    // Close sidebar when clicking outside (on overlay)
+    overlay.addEventListener("click", function () {
+        closeSidebar();
+    });
+});

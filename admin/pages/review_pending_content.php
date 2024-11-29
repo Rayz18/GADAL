@@ -18,9 +18,7 @@ if (!$content_type) {
 $content_queries = [
     "Programs" => "SELECT * FROM programs WHERE status = 'pending'",
     "Courses" => "SELECT * FROM courses WHERE status = 'pending'",
-    "Sections" => "SELECT * FROM course_sections WHERE status = 'pending'",
     "Learning Materials" => "SELECT * FROM learning_materials WHERE status = 'pending'",
-    "Course Videos" => "SELECT * FROM course_videos WHERE status = 'pending'",
     "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
     "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
 ];

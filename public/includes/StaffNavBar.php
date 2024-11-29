@@ -22,7 +22,7 @@ if (!isset($_SESSION['staff_logged_in'])) {
     <link rel="stylesheet" href="../../public/assets/css/StaffNavBar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../../public/assets/js/sidebarToggle.js" defer></script>
+    <script src="../../public/assets/js/staffToggle.js" defer></script>
 
 </head>
 

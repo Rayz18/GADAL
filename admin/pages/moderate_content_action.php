@@ -25,7 +25,6 @@ $content_type_mapping = [
     'courses' => 'course',
     'sections' => 'section',
     'learning materials' => 'material',
-    'course videos' => 'course_video',
     'post-test questions' => 'post_test',
     'pre-test questions' => 'pre_test'
 ];
@@ -35,7 +34,6 @@ $content_mappings = [
     'course' => ['table' => 'courses', 'id_field' => 'course_id'],
     'section' => ['table' => 'course_sections', 'id_field' => 'section_id'],
     'material' => ['table' => 'learning_materials', 'id_field' => 'LM_id'],
-    'course_video' => ['table' => 'course_videos', 'id_field' => 'course_videos_id'],
     'post_test' => ['table' => 'post_test_questions', 'id_field' => 'post_test_id'],
     'pre_test' => ['table' => 'pre_test_questions', 'id_field' => 'pre_test_id'],
 ];
