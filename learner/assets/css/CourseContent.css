@@ -1,26 +1,111 @@
 body {
-    background-color: #f4f4f4;
     font-family: Arial, sans-serif;
+    background-color: #F5F5F5;
 }
 
-.card {
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
+.content-area {
+    padding: 40px;
+    background-color: #FFFFFF;
+    min-height: 100vh;
+    margin-top: 70px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card video {
-    border-radius: 10px;
-}
-
-.text-primary {
-    color: #9370DB !important;
-}
-
-h1 {
-    color: #9370DB; /* Same primary color */
-    font-size: 2.5rem; /* Adjust size for visibility */
-    font-weight: bold;
+.course-header {
+    padding: 15px;
+    background: linear-gradient(135deg, #B19CD9, #C96A6A);
+    color: #FFFFFF;
     text-align: center;
-    margin-top: 700px;
+    border-radius: 8px;
+    margin-top: 33px;
+    margin-bottom: 38px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.course-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+}
+
+.accordion-button {
+    background-color: lightgray;
+    color: gray;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #B19CD9;
+    color: white;
+}
+
+.accordion-body {
+    background-color: #F5F5F5;
+    color: #333333;
+    padding: 15px;
+}
+
+.accordion-body p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fffcfd; 
+    padding: 15px; /* Reduced padding */
+    border-radius: 6px; /* Slightly smaller corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 700px; /* Optional: Limit the container width */
+    margin: auto; /* Center the container */
+    transition: transform 0.2s ease;
+}
+
+.video-container:hover {
+    transform: scale(1.01); /* Subtle hover effect */
+}
+
+.video-title {
+    font-size: 1rem; /* Slightly smaller text */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px; /* Reduced spacing */
+}
+
+.pdf-container {
+    text-align: center;
+}
+
+.pdf-container .pdf-button {
+    width: 900px; /* Uniform width */
+    height: 40px; /* Uniform height */
+    background-color: #c0808096; /* Minimalist style */
+    border: 1px solid #C96A6A;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: lowercase;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
+.pdf-container .pdf-button:hover {
+    background-color: #C96A6A;
+    color: #FFFFFF;
 }

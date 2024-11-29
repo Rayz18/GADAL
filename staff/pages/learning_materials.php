@@ -13,6 +13,16 @@ if (!isset($_GET['course_id']) || empty($_GET['course_id'])) {
 }
 $course_id = (int) $_GET['course_id'];
 
+// Fetch the course name from the database
+$course_query = $conn->prepare("SELECT course_name FROM courses WHERE course_id = ?");
+$course_query->bind_param("i", $course_id);
+$course_query->execute();
+$course_result = $course_query->get_result();
+if ($course_result->num_rows === 0) {
+    die("<h1>Error: Invalid Course ID.</h1>");
+}
+$course_name = $course_result->fetch_assoc()['course_name'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     header('Content-Type: application/json');
 
@@ -20,11 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         // Add Material
         if ($_POST['action'] === 'add') {
             $module_title = $_POST['module_title'];
-            $module_description = $_POST['module_description'];
+            $module_discussion = $_POST['module_discussion'];
+            $video_title = $_POST['video_title'] ?? null;
+            $pdf_title = $_POST['pdf_title'] ?? null;
 
             // Validate inputs
-            if (empty($module_title) || empty($module_description)) {
-                echo json_encode(["status" => "error", "message" => "Module title and description are required."]);
+            if (empty($module_title) || empty($module_discussion)) {
+                echo json_encode(["status" => "error", "message" => "Module title and discussion are required."]);
                 exit;
             }
 
@@ -54,11 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
             }
 
-            $stmt = $conn->prepare("INSERT INTO learning_materials (course_id, module_title, module_description, video_url, pdf_url) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare(
+                "INSERT INTO learning_materials (course_id, module_title, module_discussion, video_url, video_title, pdf_url, pdf_title) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
             if (!$stmt) {
                 throw new Exception("Database prepare failed: " . $conn->error);
             }
-            $stmt->bind_param("issss", $course_id, $module_title, $module_description, $video_path, $pdf_path);
+            $stmt->bind_param("issssss", $course_id, $module_title, $module_discussion, $video_path, $video_title, $pdf_path, $pdf_title);
 
             if ($stmt->execute()) {
                 echo json_encode(["status" => "success", "message" => "Material added successfully."]);
@@ -120,7 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,112 +143,127 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Learning Materials</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../staff/assets/css/learning_materials.css">
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1>Manage Learning Materials</h1>
-        <h4 class="text-secondary">Course ID: <span id="courseIdDisplay"></span></h4>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Manage Learning Materials</h1>
+            <h4 class="text-light">Course: <span
+                    id="courseNameDisplay"><?php echo htmlspecialchars($course_name); ?></span></h4>
+        </div>
 
-        <!-- Form to Add Material -->
-        <form id="addMaterialForm" enctype="multipart/form-data">
-            <input type="hidden" id="courseId" value="">
-            <div class="mb-3">
-                <label for="moduleTitle" class="form-label">Module Title</label>
-                <input type="text" id="moduleTitle" name="module_title" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="moduleDescription" class="form-label">Module Description</label>
-                <textarea id="moduleDescription" name="module_description" class="form-control" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="videoFile" class="form-label">Video File</label>
-                <input type="file" id="videoFile" name="video_file" class="form-control" accept="video/*">
-            </div>
-            <div class="mb-3">
-                <label for="pdfFile" class="form-label">PDF File</label>
-                <input type="file" id="pdfFile" name="pdf_file" class="form-control" accept="application/pdf">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Material</button>
-        </form>
+        <!-- Add Material Form -->
+        <div class="form-container">
+            <h4 class="section-title">Add New Learning Material</h4>
+            <form id="addMaterialForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="moduleTitle" class="form-label">Module Title</label>
+                    <input type="text" id="moduleTitle" name="module_title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="moduleDiscussion" class="form-label">Module Discussion</label>
+                    <textarea id="moduleDiscussion" name="module_discussion" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="videoFile" class="form-label">Upload Video</label>
+                    <input type="file" id="videoFile" name="video_file" class="form-control" accept="video/*">
+                </div>
+                <div class="mb-3">
+                    <label for="videoTitle" class="form-label">Video Title</label>
+                    <input type="text" id="videoTitle" name="video_title" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="pdfFile" class="form-label">Upload PDF</label>
+                    <input type="file" id="pdfFile" name="pdf_file" class="form-control" accept="application/pdf">
+                </div>
+                <div class="mb-3">
+                    <label for="pdfTitle" class="form-label">PDF Title</label>
+                    <input type="text" id="pdfTitle" name="pdf_title" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100">Add Material</button>
+            </form>
+        </div>
 
-        <!-- List of Materials -->
-        <div id="materialList" class="mt-4">
-            <h2>Existing Materials</h2>
-            <ul id="materials"></ul>
+        <!-- Existing Materials Section -->
+        <div class="materials-container">
+            <h4 class="section-title">Existing Learning Materials</h4>
+            <div id="materialList">
+                <div class="accordion" id="materialsAccordion"></div>
+            </div>
         </div>
     </div>
 
     <script>
         const courseId = new URLSearchParams(window.location.search).get("course_id");
-        document.getElementById("courseId").value = courseId;
-        document.getElementById("courseIdDisplay").textContent = courseId;
-
-        // Add Material
         document.getElementById("addMaterialForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-
             const formData = new FormData(e.target);
             formData.append("action", "add");
 
-            try {
-                const response = await fetch("learning_materials.php?course_id=" + courseId, {
-                    method: "POST",
-                    body: formData,
-                });
-
-                const result = await response.json();
-                alert(result.message);
-                fetchMaterials(); // Refresh the material list
-            } catch (error) {
-                console.error("Error adding material:", error);
-                alert("An error occurred. Please try again.");
-            }
+            const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
+            const result = await response.json();
+            alert(result.message);
+            fetchMaterials();
         });
 
-        // Fetch Materials
         async function fetchMaterials() {
             const formData = new FormData();
             formData.append("action", "fetch");
-
-            const response = await fetch("learning_materials.php?course_id=" + courseId, {
-                method: "POST",
-                body: formData,
-            });
-
+            const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
             const materials = await response.json();
-            const materialList = document.getElementById("materials");
-            materialList.innerHTML = ""; // Clear the list before adding new items
-            materials.forEach((material) => {
+            const materialList = document.getElementById("materialsAccordion");
+            materialList.innerHTML = "";
+
+            materials.forEach((material, index) => {
+                let videoHTML = "";
+                let pdfHTML = "";
+
+                // Add video HTML only if video_url is present
+                if (material.video_url) {
+                    videoHTML = `
+                        <div class="video-container mt-3">
+                            <h5>${material.video_title || "Video"}</h5>
+                            <video controls>
+                                <source src="${material.video_url}" type="video/mp4">
+                                Your browser does not support video playback.
+                            </video>
+                        </div>
+                    `;
+                }
+
+                // Add PDF HTML only if pdf_url is present
+                if (material.pdf_url) {
+                    pdfHTML = `
+                        <div class="file-container mt-3">
+                            <h5>${material.pdf_title || "PDF File"}</h5>
+                            <a href="${material.pdf_url}" target="_blank" class="btn btn-secondary">View PDF</a>
+                        </div>
+                    `;
+                }
+
                 materialList.innerHTML += `
-                    <li>
-                        <strong>${material.module_title}</strong> - ${material.module_description}
-                        <br>
-                        <a href="${material.video_url}" target="_blank">Video</a> | 
-                        <a href="${material.pdf_url}" target="_blank">PDF</a>
-                        <button onclick="deleteMaterial(${material.LM_id})" class="btn btn-danger btn-sm">Delete</button>
-                    </li>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading${index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                ${material.module_title}
+                            </button>
+                        </h2>
+                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#materialsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Discussion:</strong> ${material.module_discussion}</p>
+                                ${videoHTML}
+                                ${pdfHTML}
+                            </div>
+                        </div>
+                    </div>
                 `;
             });
         }
 
-        // Delete Material
-        async function deleteMaterial(LM_id) {
-            const formData = new FormData();
-            formData.append("action", "delete");
-            formData.append("LM_id", LM_id);
 
-            const response = await fetch("learning_materials.php?course_id=" + courseId, {
-                method: "POST",
-                body: formData,
-            });
-
-            const result = await response.json();
-            alert(result.message);
-            fetchMaterials(); // Refresh the material list
-        }
-
-        // Fetch materials on page load
         fetchMaterials();
     </script>
 
