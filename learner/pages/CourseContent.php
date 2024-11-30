@@ -43,6 +43,34 @@ $stmt->bind_param("i", $course_id);
 $stmt->execute();
 $pre_test_questions = $stmt->get_result();
 
+// Check if the learner has already completed the post-test
+$query = "SELECT * FROM post_test_results WHERE learner_id = ? AND course_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ii", $learner_id, $course_id);
+$stmt->execute();
+$post_test_result = $stmt->get_result()->fetch_assoc();
+
+// Fetch approved Post-Test Questions
+$query = "SELECT * FROM post_test_questions WHERE course_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $course_id);
+$stmt->execute();
+$post_test_questions = $stmt->get_result();
+
+// Check if the learner has already completed the quiz
+$query = "SELECT * FROM quiz_results WHERE learner_id = ? AND course_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ii", $learner_id, $course_id);
+$stmt->execute();
+$quiz_result = $stmt->get_result()->fetch_assoc();
+
+// Fetch approved Quiz Questions
+$query = "SELECT * FROM quiz_questions WHERE course_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $course_id);
+$stmt->execute();
+$quiz_questions = $stmt->get_result();
+
 // Fetch learning materials for the course
 $query = "SELECT * FROM learning_materials WHERE course_id = ?";
 $stmt = $conn->prepare($query);
@@ -96,10 +124,6 @@ while ($row = $materials_result->fetch_assoc()) {
                                 <strong><?php echo htmlspecialchars($pre_test_result['correct_answers']); ?></strong> /
                                 <?php echo htmlspecialchars($pre_test_result['total_questions']); ?>
                             </p>
-                            <a href="CourseContent.php?course_id=<?php echo $course_id; ?>&tab=learning-materials"
-                                class="btn btn-primary mt-4">
-                                Proceed to Learning Materials
-                            </a>
                         </div>
                     <?php elseif ($pre_test_questions->num_rows > 0): ?>
                         <!-- Show Pre-Test Questions if not yet completed -->
@@ -149,6 +173,129 @@ while ($row = $materials_result->fetch_assoc()) {
                         </form>
                     <?php else: ?>
                         <p class="text-center text-muted">No Pre-Test questions available at the moment.</p>
+                    <?php endif; ?>
+                <?php elseif ($tab === 'post-test'): ?>
+                    <h2 class="text-secondary">Post-Test</h2>
+                    <?php if ($post_test_result): ?>
+                        <!-- Show Post-Test Results if already completed -->
+                        <div class="text-center">
+                            <h1 class="mb-4">Post-Test Results</h1>
+                            <p class="lead">Your performance:</p>
+                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($post_test_result['score']); ?>%</h2>
+                            <p class="lead">Correct Answers:
+                                <strong><?php echo htmlspecialchars($post_test_result['correct_answers']); ?></strong> /
+                                <?php echo htmlspecialchars($post_test_result['total_questions']); ?>
+                            </p>
+                        </div>
+                    <?php elseif ($post_test_questions->num_rows > 0): ?>
+                        <!-- Show Post-Test Questions if not yet completed -->
+                        <form method="POST" action="submit_post_test.php" style="max-width: 800px; margin: auto;">
+                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                            <p class="text-muted text-center mb-4">"Now that you’ve completed the course, take this post-test to
+                                evaluate what you’ve learned."</p>
+                            <?php
+                            $counter = 1;
+                            while ($row = $post_test_questions->fetch_assoc()): ?>
+                                <div class="mb-4 d-flex align-items-start question-container">
+                                    <span class="question-counter"><?php echo $counter; ?>.</span>
+                                    <div>
+                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="a" required>
+                                            <label class="form-check-label">
+                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="b">
+                                            <label class="form-check-label">
+                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="c">
+                                            <label class="form-check-label">
+                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $counter++;
+                            endwhile; ?>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary px-5 py-2"
+                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    <?php else: ?>
+                        <p class="text-center text-muted">No Post-Test questions available at the moment.</p>
+                    <?php endif; ?>
+                <?php elseif ($tab === 'quiz'): ?>
+                    <h2 class="text-secondary">Quiz</h2>
+                    <?php if ($quiz_result): ?>
+                        <!-- Show Quiz Results if already completed -->
+                        <div class="text-center">
+                            <h1 class="mb-4">Quiz Results</h1>
+                            <p class="lead">Your performance:</p>
+                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($quiz_result['score']); ?>%</h2>
+                            <p class="lead">Correct Answers:
+                                <strong><?php echo htmlspecialchars($quiz_result['correct_answers']); ?></strong> /
+                                <?php echo htmlspecialchars($quiz_result['total_questions']); ?>
+                            </p>
+                        </div>
+                    <?php elseif ($quiz_questions->num_rows > 0): ?>
+                        <!-- Show Quiz Questions if not yet completed -->
+                        <form method="POST" action="submit_quiz.php" style="max-width: 800px; margin: auto;">
+                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                            <p class="text-muted text-center mb-4">"Complete this quiz to test your understanding."</p>
+                            <?php
+                            $counter = 1;
+                            while ($row = $quiz_questions->fetch_assoc()): ?>
+                                <div class="mb-4 d-flex align-items-start question-container">
+                                    <span class="question-counter"><?php echo $counter; ?>.</span>
+                                    <div>
+                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="a" required>
+                                            <label class="form-check-label">
+                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="b">
+                                            <label class="form-check-label">
+                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="c">
+                                            <label class="form-check-label">
+                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $counter++;
+                            endwhile; ?>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary px-5 py-2"
+                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    <?php else: ?>
+                        <p class="text-center text-muted">No Quiz questions available at the moment.</p>
                     <?php endif; ?>
                 <?php elseif ($tab === 'learning-materials'): ?>
                     <h2 class="text-secondary">Learning Materials</h2>
