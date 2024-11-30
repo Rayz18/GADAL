@@ -76,7 +76,7 @@ foreach ($content_types as $type => $query) {
                                 <h5 class="card-title">Pending <?php echo htmlspecialchars($type); ?></h5>
                                 <p class="card-text">
                                     <?php echo $count; ?>
-                                    <?php echo $count === 1 ? 'Pending ' . htmlspecialchars($type) : 'Pending ' . htmlspecialchars($type) . 's'; ?>
+                                    <?php echo $count === 1 ? 'Pending ' . htmlspecialchars($type) : 'Pending ' . htmlspecialchars($type) ?>
                                 </p>
                                 <a href="review_pending_content.php?type=<?php echo urlencode($type); ?>"
                                     class="btn btn-primary view-button">View</a>
