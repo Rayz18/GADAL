@@ -183,10 +183,17 @@ $result = $stmt->get_result();
 </head>
 
 <body>
-    <?php include '../../public/includes/StaffNavBar.php'; ?>
-
-    <div class="container mt-4">
-        <h1 class="page-title">Manage Quiz Questions</h1>
+<div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
+        </div>
+        <?php include '../../public/includes/StaffNavBar.php'; ?>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="page-title">MANAGE QUIZ QUESTIONS</h1>
 
         <!-- Success/Error Messages -->
         <div class="messages">
@@ -304,6 +311,23 @@ $result = $stmt->get_result();
             if (errorMessage) errorMessage.style.display = 'none';
         }, 3000);
     </script>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
 </body>
 
 </html>

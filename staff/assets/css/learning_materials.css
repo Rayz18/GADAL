@@ -97,7 +97,6 @@ body {
     background-color: #B19CD9;
 }
 
-/* Sidebar Styling */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -160,3 +159,4 @@ body {
 .content.shifted {
     margin-left: 250px; /* Shifts content when sidebar is open */
 }
+

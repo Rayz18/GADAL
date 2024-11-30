@@ -334,7 +334,7 @@ $result = $stmt->get_result();
             if (errorMessage) errorMessage.style.display = 'none';
         }, 3000);
     </script>
-     <script>document.addEventListener("DOMContentLoaded", function () {
+    <script>document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const content = document.getElementById("content");
     const toggleButton = document.getElementById("toggle-sidebar");
