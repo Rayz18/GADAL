@@ -109,3 +109,60 @@ body {
     background-color: #C96A6A;
     color: #FFFFFF;
 }
+
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.question-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.question-counter {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.question-text {
+    margin: 0;
+    flex: 1;
+    line-height: 1.6;
+    word-break: break-word;
+    font-weight: bold;
+}
+
+.form-check-label {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+button[type="submit"] {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #b392c7;
+}
+
+.mb-4 p {
+overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
