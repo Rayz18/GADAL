@@ -7,11 +7,25 @@
                 Pre-Test
             </a>
         </li>
-        <li>
-            <a href="CourseContent.php?course_id=<?php echo $course_id; ?>&tab=learning-materials"
-                class="menu-item <?php echo (isset($_GET['tab']) && $_GET['tab'] === 'learning-materials') ? 'active' : ''; ?>">
+        <li class="dropdown">
+            <a href="javascript:void(0);" class="menu-item dropdown-toggle" id="learning-materials-toggle">
                 Learning Materials
             </a>
+            <?php if (!empty($learning_materials)): ?>
+                <ul class="submenu list-unstyled mt-2 ms-3 <?php echo (isset($_GET['tab']) && $_GET['tab'] === 'learning-materials') ? 'visible' : ''; ?>"
+                    id="learning-materials-submenu">
+                    <?php foreach ($learning_materials as $index => $material): ?>
+                        <li>
+                            <a href="CourseContent.php?course_id=<?php echo $course_id; ?>&tab=learning-materials&module=<?php echo urlencode($index); ?>"
+                                class="menu-item <?php echo (isset($_GET['module']) && $_GET['module'] == $index) ? 'active' : ''; ?>">
+                                <?php echo htmlspecialchars($material['module_title'] ?? 'Untitled Module'); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p class="text-muted ms-3">No materials available.</p>
+            <?php endif; ?>
         </li>
         <li>
             <a href="CourseContent.php?course_id=<?php echo $course_id; ?>&tab=quiz"

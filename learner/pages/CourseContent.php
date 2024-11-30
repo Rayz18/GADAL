@@ -72,6 +72,7 @@ $stmt->execute();
 $quiz_questions = $stmt->get_result();
 
 // Fetch learning materials for the course
+$learning_materials = [];
 $query = "SELECT * FROM learning_materials WHERE course_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $course_id);
@@ -94,6 +95,7 @@ while ($row = $materials_result->fetch_assoc()) {
     <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="../../public/assets/css/Sidebar.css">
     <script src="../../public/assets/js/sidebarToggle.js" defer></script>
+    <script src="../../public/assets/js/syncSidebar.js" defer></script>
     <link rel="stylesheet" href="../../learner/assets/css/CourseContent.css">
 </head>
 
@@ -111,6 +113,7 @@ while ($row = $materials_result->fetch_assoc()) {
                 <?php
                 // Load content based on the selected tab
                 $tab = $_GET['tab'] ?? 'pre-test';
+                $selected_module_id = $_GET['module'] ?? null;
 
                 if ($tab === 'pre-test'): ?>
                     <h2 class="text-secondary">Pre-Test</h2>
@@ -301,15 +304,21 @@ while ($row = $materials_result->fetch_assoc()) {
                     <h2 class="text-secondary">Learning Materials</h2>
                     <div class="accordion" id="materialsAccordion">
                         <?php foreach ($learning_materials as $index => $material): ?>
+                            <?php
+                            // Use the $index as a unique identifier
+                            $is_expanded = (isset($_GET['module']) && $_GET['module'] == $index);
+                            ?>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading<?php echo $index; ?>">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse<?php echo $index; ?>" aria-expanded="false"
+                                    <button class="accordion-button <?php echo $is_expanded ? '' : 'collapsed'; ?>"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $index; ?>"
+                                        aria-expanded="<?php echo $is_expanded ? 'true' : 'false'; ?>"
                                         aria-controls="collapse<?php echo $index; ?>">
                                         <?php echo htmlspecialchars($material['module_title']); ?>
                                     </button>
                                 </h2>
-                                <div id="collapse<?php echo $index; ?>" class="accordion-collapse collapse"
+                                <div id="collapse<?php echo $index; ?>"
+                                    class="accordion-collapse collapse <?php echo $is_expanded ? 'show' : ''; ?>"
                                     aria-labelledby="heading<?php echo $index; ?>" data-bs-parent="#materialsAccordion">
                                     <div class="accordion-body">
                                         <p><?php echo htmlspecialchars($material['module_discussion']); ?></p>
