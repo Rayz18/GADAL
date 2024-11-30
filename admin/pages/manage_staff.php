@@ -39,8 +39,17 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
         <?php endif; ?>
     </div>
 
-    <div class="container mt-5">
-        <h2 class="text-center text-primary fw-bold">Manage Staff Accounts</h2>
+    <div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
+        </div>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="learning-title text-primary text-center">Manage Staff Account</h1>
+
         <div class="text-end mb-3">
     <a href="add_staff.php" class="btn btn-success">+ Add Staff</a>
 </div>
@@ -96,6 +105,23 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
             });
         }, 5000);
     </script>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
 </body>
 
 </html>

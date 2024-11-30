@@ -147,13 +147,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 </head>
 
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <h1>Manage Learning Materials</h1>
-            <h4 class="text-light">Course: <span
-                    id="courseNameDisplay"><?php echo htmlspecialchars($course_name); ?></span></h4>
+<div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
         </div>
+        <?php include '../../public/includes/StaffNavBar.php'; ?>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="learning-title text-primary text-center" style="font-weight: bold;">MANAGE LEARNING MATERIALS</h1>
+        <h4 class="text-secondary">Course ID: <span id="courseIdDisplay"></span></h4>
 
         <!-- Add Material Form -->
         <div class="form-container">
@@ -266,6 +271,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         fetchMaterials();
     </script>
+     <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

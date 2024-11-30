@@ -55,7 +55,6 @@ html, body {
     margin-bottom: 10px;
 }
 
-/* Program title under each image */
 h5 {
     font-size: 1.2rem;
     font-weight: bold;
@@ -63,9 +62,13 @@ h5 {
     text-align: center;
     margin-top: 5px; /* Reduced margin to bring the title closer to the image */
     margin-bottom: 0; /* Remove unnecessary space below */
+    white-space: normal; /* Allow text to wrap if too long */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+    word-wrap: break-word; /* Ensure long words break properly */
 }
 
-/* Optional: Remove default scrollbars */
-::-webkit-scrollbar {
-    width: 0; /* Hide scrollbar */
+/* Row container spacing */
+.row-cols-1, .row-cols-md-2 {
+    row-gap: 20px; /* Add space between rows */
 }

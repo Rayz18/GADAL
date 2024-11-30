@@ -173,3 +173,67 @@ form {
 .signup-link:hover {
     text-decoration: underline;
 }
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column; /* Stack the elements vertically */
+        gap: 10px; /* Reduce the gap between sections */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .logo-container {
+        justify-content: flex-start; /* Align logos to the left */
+        margin-bottom: 5px; /* Reduce spacing between logos and heading */
+        padding-left: 75px; /* Add slight padding to shift the logos */
+    }
+
+    .logo {
+        width: 80px; /* Reduce logo size */
+    }
+
+    .heading {
+        font-size: 24px; /* Adjust font size for smaller screens */
+        text-align: left; /* Align heading text with logos */
+        margin: 0 0 15px 75px; /* Add margin to align with logos */
+        margin-left: 30px;
+        line-height: 1.2; /* Adjust line spacing for better readability */
+    }
+
+    .heading::first-line {
+        text-indent: 20px !important; /* Indent the first line slightly to the right */
+    }
+
+    .login-box {
+        margin: 0 auto; /* Center align login box */
+        max-width: 90%; /* Reduce width for smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+
+    .login-title {
+        font-size: 20px; /* Adjust title font size */
+    }
+
+    .form-input {
+        font-size: 14px; /* Adjust font size */
+        padding: 8px; /* Reduce padding */
+    }
+
+    .submit-btn {
+        font-size: 14px; /* Adjust button font size */
+        padding: 8px; /* Adjust button padding */
+    }
+
+    .form-footer {
+        justify-content: center; /* Center align forgot password link */
+    }
+
+    .signup-text {
+        font-size: 12px; /* Adjust font size */
+        margin-top: 30px; /* Adjust spacing above */
+    }
+
+    .signup-link {
+        font-size: 12px; /* Adjust link font size */
+    }
+}

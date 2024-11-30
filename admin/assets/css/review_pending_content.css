@@ -1,3 +1,4 @@
+
 /* General container styling */
 .review-content-container {
     max-width: 100%;
@@ -51,8 +52,12 @@ table {
     margin-top: 15px;
 }
 
+/* Adjusted table cell styling for better alignment and spacing */
 table, th, td {
     border: 1px solid #B19CD9;
+    padding: 12px; /* Increased padding for better spacing */
+    text-align: center; /* Ensures content is centered in all cells */
+    vertical-align: middle; /* Ensures content is vertically centered */
 }
 
 th, td {
@@ -66,22 +71,38 @@ th, td {
     text-overflow: ellipsis; /* Add ellipsis for overflowed text */
 }
 
+/* Adjusted header styling */
 th {
     background-color: #C96A6A;
     color: white;
     font-weight: bold;
     height: 50px;
-    text-align: center; /* Center-aligns the text in header cells */
+    padding: 14px; /* Additional padding for headers */
+    text-align: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Table rows alternate color for readability */
+tr:nth-child(even) td {
+    background-color: #D3D3D3;
 }
 
 td {
-    max-width: 200px;
+    max-width: 250px;
+    white-space: nowrap; /* Prevent text from wrapping in cells */
+    overflow: hidden; /* Ensure text doesn't overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed text */
 }
 
 td.long-text:hover {
     cursor: pointer;
     color: blue;
     text-decoration: underline;
+}
+
+/* Adjusted content column widths */
+td:last-child, th:last-child {
+    min-width: 250px; /* Adjust this value to match your content size */
 }
 
 /* Modal styles */
@@ -133,23 +154,16 @@ img, video {
     border-radius: 5px;
 }
 
-/* Button styling */
+/* Button styling inside table cells */
 form button {
-    width: 95px;
-    height: 38px;
-    padding: 4px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px !important;
-    margin: 3px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    transition: background-color 0.2s, transform 0.2s;
+    width: 100px; /* Adjust button width */
+    height: 40px; /* Adjust button height */
+    margin: 5px; /* Add spacing between buttons */
+    padding: 6px 10px; /* Additional padding for buttons */
+    font-size: 14px; /* Consistent button text size */
+    display: inline-block;
 }
+
 
 /* Approve button specific styling */
 form button.approve-btn {
@@ -163,9 +177,9 @@ form button.decline-btn {
     color: white;
 }
 
-/* Button hover effects */
+/* Hover effects for better user feedback */
 form button:hover {
-    opacity: 0.95;
+    opacity: 0.9;
     transform: scale(1.05);
 }
 
@@ -229,4 +243,3 @@ img.table-image {
 img.table-image:hover {
     transform: scale(1.1); /* Scale up the image by 10% on hover */
 }
-

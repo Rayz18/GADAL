@@ -22,6 +22,7 @@ require_once "../../config/config.php";
             <h1 class="h1">PROGRAMS</h1>
         </div>
 
+        <!-- Search Bar -->
         <div class="row justify-content-center mb-4">
             <div class="col-md-6">
                 <form class="d-flex" method="GET" action="program.php">
@@ -32,7 +33,8 @@ require_once "../../config/config.php";
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4"> <!-- Ensure 2 columns per row for medium screens -->
+        <!-- Program List -->
+        <div class="row row-cols-1 row-cols-md-2 g-4"> <!-- Two columns for medium screens -->
             <?php
             // Fetch only approved programs or filter by search term
             $approved = 'approved';

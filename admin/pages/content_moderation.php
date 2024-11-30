@@ -57,11 +57,17 @@ foreach ($content_types as $type => $query) {
 </head>
 
 <body>
-    <div class="dashboard-wrapper">
+<div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
+        </div>
         <?php include '../../public/includes/AdminNavBar.php'; ?>
-        <div class="main-content">
-            <div class="content-moderation-container container mt-5">
-                <h1 class="text-center">Content Moderation</h1>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="learning-title text-primary text-center">Content Moderation</h1>
                 <div class="card-container">
                     <?php foreach ($content_data as $type => $count): ?>
                         <div class="custom-card card text-center mb-4 shadow-sm 
@@ -81,6 +87,23 @@ foreach ($content_types as $type => $query) {
             </div>
         </div>
     </div>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
     <script src="../../../includes/assets/sidebarToggle.js"></script>
 </body>
 

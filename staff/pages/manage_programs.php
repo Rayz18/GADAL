@@ -45,11 +45,18 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
 </head>
 
 <body>
-    <!-- Include the Staff Navigation Bar -->
-    <?php include '../../public/includes/StaffNavBar.php'; ?>
+<div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
+        </div>
+        <?php include '../../public/includes/StaffNavBar.php'; ?>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="page-title">Manage Programs and Courses</h1>
 
-    <div class="container py-5">
-        <h1 class="text-center text-primary mb-4">Manage Programs and Courses</h1>
 
         <div class="text-end mb-3">
             <a href="add_program.php" class="btn btn-success">Add New Program</a>
@@ -243,6 +250,23 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
             });
         });
     </script>
+     <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
 </body>
 
 </html>

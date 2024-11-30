@@ -187,3 +187,58 @@ form {
 .login-link:hover {
     text-decoration: underline;
 }
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .logo-container {
+        justify-content: flex-start;
+        margin-bottom: 5px;
+        padding-left: 75px;
+    }
+
+    .logo {
+        width: 80px;
+    }
+
+    .heading {
+        font-size: 24px; /* Adjust font size for smaller screens */
+        text-align: left; /* Align heading text with logos */
+        margin: 0 0 15px 75px; /* Add margin to align with logos */
+        margin-left: 30px;
+        line-height: 1.2; /* Adjust line spacing for better readability */
+    }
+
+    .signup-box {
+        margin: 0 auto;
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 3px; /* Reduce gap between first name and last name fields */
+    }
+
+    .form-group {
+        margin-bottom: 10px; /* Reduce bottom margin to make the layout more compact */
+    }
+
+    .form-input {
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
+    }
+
+    .login-footer-text {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+}

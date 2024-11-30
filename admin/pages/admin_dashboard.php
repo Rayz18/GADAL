@@ -12,12 +12,18 @@
 </head>
 
 <body>
-    <div class="dashboard-wrapper">
-        <!-- Admin NavBar -->
+<div class="layout">
+        <!-- Sidebar -->
+        <div id="toggle-sidebar" class="toggle-sidebar">
+            <!-- Sidebar content can go here -->
+        </div>
         <?php include '../../public/includes/AdminNavBar.php'; ?>
-
-        <div class="main-content container mt-4">
-            <h1 class="text-center mb-5">Admin Dashboard</h1>
+        <?php include '../../public/includes/AdminHeader.php'; ?>
+        <!-- Main Content -->
+        <div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            <h1 class="learning-title text-primary text-center">Admin Dashboard</h1>
 
             <!-- KPI Cards -->
             <div class="row" id="kpiCardsContainer">
@@ -89,6 +95,23 @@
             </div>
         </div>
     </div>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
 
     <script src="../../../includes/assets/js/sidebarToggle.js"></script>
 </body>

@@ -111,3 +111,67 @@ canvas {
 .row > .col-md-6, .row > .col-lg-4 {
     margin-bottom: 20px; /* Ensure proper spacing between rows */
 }
+
+/* Sidebar Styling */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 0; /* Initially hidden */
+    background: linear-gradient(180deg, #B19CD9, #C96A6A);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.expanded {
+    width: 250px; /* Sidebar expands to 250px */
+}
+
+/* Toggle Button Styling */
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 0;
+    background-color: #B19CD9;
+    border-radius: 0 50% 50% 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: left 0.3s ease;
+    z-index: 3;
+}
+
+.sidebar-toggle::before {
+    content: '❯';
+    font-size: 20px;
+    color: white;
+}
+
+.sidebar.expanded + .sidebar-toggle {
+    left: 250px;
+}
+
+.sidebar.expanded + .sidebar-toggle::before {
+    content: '❮';
+}
+
+/* Content Area */
+.content {
+    margin-left: 0; /* Default position when sidebar is closed */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.content.shifted {
+    margin-left: 250px; /* Shifts content when sidebar is open */
+}
