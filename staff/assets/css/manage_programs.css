@@ -1,3 +1,8 @@
+header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #B19CD9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .page-title {
     color: #007bff;

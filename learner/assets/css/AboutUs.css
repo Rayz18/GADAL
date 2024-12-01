@@ -157,3 +157,166 @@ body::-webkit-scrollbar-track {
     line-height: 4.2; /* Reduce the line height */
     margin: 0; /* Remove extra spacing around the title */
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    /* Container adjustments for smaller screens */
+    .container {
+        flex-direction: column; /* Stack content and sidebar vertically */
+        padding: 1rem; /* Reduce padding for better spacing on small screens */
+    }
+
+    .header-image img {
+        height: auto; /* Allow the image to scale naturally */
+        object-fit: contain; /* Ensure the entire image fits within the space */
+        margin-top: 115px;
+    }
+
+    /* Content Section */
+    .content {
+        width: 100%; /* Full width on mobile */
+        padding: 1rem; /* Adjust padding for mobile */
+    }
+
+    .content p {
+        font-size: 1rem; /* Slightly smaller text for better readability */
+        line-height: 1.5; /* Adjust line height */
+    }
+
+    .content h3 {
+        font-size: 1.2rem; /* Reduce heading size for smaller screens */
+        margin-bottom: 1rem;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        width: 100%; /* Full width on mobile */
+        margin-top: 2rem; /* Add space between content and sidebar */
+        padding: 1rem;
+    }
+
+    /* Sidebar Items */
+    .sidebar-item {
+        font-size: 0.9rem; /* Adjust sidebar button text size */
+        padding: 0.5rem; /* Reduce padding for smaller buttons */
+    }
+
+    .sidebar-content {
+        font-size: 0.9rem; /* Adjust sidebar content text size */
+        line-height: 1.5;
+        padding: 1rem; /* Reduce padding for better fit */
+    }
+
+    /* Sidebar Icons */
+    .sidebar-item i {
+        font-size: 0.8rem; /* Reduce icon size */
+    }
+
+    /* Dropdown Button */
+    .dropdown-toggle::after {
+        font-size: 0.7rem; /* Smaller dropdown arrow */
+    }
+}
+
+/* Mobile Sidebar Styling */
+.mobile-sidebar {
+    background-color: #f5f5f5; /* Light background color for the sidebar */
+    padding: 1rem;
+}
+
+.mobile-list-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.5rem; /* Add spacing between buttons */
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.mobile-list-group-item {
+    background-color: #f5f5f5; /* Button background */
+    border: 1px solid #ddd; /* Button border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 0.5rem 1rem; /* Inner padding */
+    font-size: 0.9rem; /* Adjust font size for mobile */
+    display: flex; /* Flex layout for alignment */
+    justify-content: space-between; /* Align text and icon */
+    align-items: center; /* Vertically center items */
+}
+
+.mobile-dropdown-toggle {
+    background: none; /* No background for the toggle */
+    border: none; /* Remove border */
+    color: #333; /* Text color */
+    text-align: left; /* Align text to the left */
+    width: 100%; /* Full-width button */
+}
+
+.mobile-dropdown-toggle i {
+    font-size: 1rem; /* Adjust icon size */
+    margin-right: 0.5rem; /* Space between icon and text */
+}
+
+.mobile-sidebar-content {
+    font-size: 0.9rem; /* Adjust text size for collapsible content */
+    line-height: 1.5;
+    padding: 0.5rem; /* Padding around the content */
+}
+
+/* Hide the desktop sidebar on mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; /* Hide the desktop sidebar */
+    }
+}
+
+/* Hide the mobile sidebar on desktop */
+@media (min-width: 768px) {
+    .mobile-sidebar {
+        display: none; /* Hide the mobile sidebar */
+    }
+}
+
+/* Mobile Content Section */
+.mobile-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem; /* Add spacing */
+    background-color: #f5f5f5; /* Ensure a white background for readability */
+    margin-top: -73px; /* Move content closer to the image */
+}
+
+.mobile-content {
+    width: 100%; /* Full width on mobile */
+    font-size: 1rem; /* Adjust font size */
+    line-height: 1.6; /* Add proper line height for readability */
+    padding: 1rem;
+    background-color: #f5f5f5; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.mobile-content h3 {
+    color: #4B0082; /* Deep purple headings */
+    font-size: 1.2rem; /* Adjust heading size */
+    margin-top: 1rem;
+}
+
+.mobile-content p {
+    margin-bottom: 1rem; /* Space between paragraphs */
+    color: #333; /* Dark text color for better contrast */
+}
+
+/* Hide the desktop content on mobile */
+@media (max-width: 768px) {
+    .content {
+        display: none;
+    }
+}
+
+/* Hide the mobile content on desktop */
+@media (min-width: 768px) {
+    .mobile-container {
+        display: none;
+    }
+}

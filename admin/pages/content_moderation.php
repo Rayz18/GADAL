@@ -63,6 +63,7 @@ foreach ($content_types as $type => $query) {
             <!-- Sidebar content can go here -->
         </div>
         <?php include '../../public/includes/AdminNavBar.php'; ?>
+        <?php include '../../public/includes/AdminHeader.php'; ?>
         <!-- Main Content -->
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->

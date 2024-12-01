@@ -72,3 +72,71 @@ h5 {
 .row-cols-1, .row-cols-md-2 {
     row-gap: 20px; /* Add space between rows */
 }
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+    /* Move the Program title down for mobile */
+    .h1 {
+        margin-top: 150px !important; /* Increased margin for mobile view */
+        font-size: 1.5rem; /* Smaller font size for mobile for better scaling */
+    }
+
+    /* Stack the program items for mobile screens */
+    .row-cols-1 {
+        column-count: 1; /* Force a single column for small screens */
+    }
+
+    /* Adjust image size for mobile screens */
+    .program-image {
+        height: 250px; /* Reduced height for mobile */
+    }
+
+    /* Adjust program title font size for mobile */
+    h5 {
+        font-size: 1rem; /* Smaller font size for program title */
+    }
+
+    /* Mobile-friendly padding and spacing */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Make sure the programs list is not too wide */
+    .program-list {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Adjust search bar height for mobile */
+    .form-control {
+        border: 1px solid #4b0082; /* Purple border for consistency */
+        border-radius: 5px 0 0 5px; /* Rounded corners only on the left */
+        box-shadow: none; /* Remove default shadow */
+        height: 45px; /* Ensure consistent height */
+    }
+
+    .form-control:focus {
+        border-color: #4b0082; /* Purple outline when focused */
+        box-shadow: 0 0 5px #4b0082; /* Subtle purple glow on focus */
+        outline: none; /* Remove default outline */
+    }
+
+    /* Adjust search icon button height for mobile */
+    .btn-outline-primary {
+        border: 1px solid #4b0082; /* Match border color of search bar */
+        border-radius: 0 5px 5px 0; /* Rounded corners only on the right */
+        height: 45px; /* Match the height of the search bar */
+        padding: 0 12px; /* Adjust padding for alignment */
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center the icon inside the button */
+        box-shadow: none; /* Remove default shadow */
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #4b0082; /* Add hover effect */
+        color: #fff; /* White text on hover */
+    }
+}

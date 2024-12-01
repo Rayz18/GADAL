@@ -40,8 +40,8 @@ $columns = $result->num_rows > 0 ? array_keys($result->fetch_assoc()) : [];
 $result->data_seek(0);
 
 $image_columns = ['program_img', 'course_img', 'material_path', 'poster_path'];
-$video_columns = ['video_path', 'course_video_path'];
-$file_columns = ['file_path']; // Add any columns that should be clickable file paths
+$video_columns = ['video_path', 'course_video_path', 'video_url'];
+$file_columns = ['file_path', 'pdf_url']; // Add any columns that should be clickable file paths
 ?>
 
 <!DOCTYPE html>
@@ -53,9 +53,14 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
     <link rel="stylesheet" href="../../admin/assets/css/review_pending_content.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../../includes/assets/Toggle.js" defer></script>
+    <?php include '../../public/includes/AdminHeader.php'; ?>
 </head>
-
+        
 <body>
+<!-- Main Content -->
+<div id="content" class="content">
+            <!-- Toggle Sidebar Icon -->
+            <div id="toggle-sidebar" class="toggle-sidebar"></div>
     <div class="dashboard-wrapper">
         <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="review-content-container">
@@ -90,7 +95,7 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
                                         <img src="<?php echo $image_path; ?>" alt="Image" class="table-image">
                                         <?php
                                     } elseif (in_array(strtolower($column), $video_columns) && !empty($row[$column])) {
-                                        $video_path = "../videos/" . htmlspecialchars($row[$column]);
+                                        $video_path = '../../upload/materials/' . htmlspecialchars($row[$column]);
                                         ?>
                                         <video width="150" height="100" controls>
                                             <source src="<?php echo $video_path; ?>" type="video/mp4">
@@ -98,7 +103,7 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
                                         </video>
                                         <?php
                                     } elseif (in_array(strtolower($column), $file_columns) && !empty($row[$column])) {
-                                        $file_path = "../add_learning_materials/" . htmlspecialchars($row[$column]);
+                                        $file_path = '../../upload/materials/' . htmlspecialchars($row[$column]);
                                         $file_name = basename($row[$column]);
                                         ?>
                                         <a href="<?php echo $file_path; ?>" target="_blank">
@@ -198,6 +203,23 @@ $file_columns = ['file_path']; // Add any columns that should be clickable file 
             };
 
         </script>
+        <script>document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+    const toggleButton = document.getElementById("toggle-sidebar");
+
+    toggleButton.addEventListener("click", function () {
+        if (sidebar.classList.contains("open")) {
+            // Close the sidebar
+            sidebar.classList.remove("open");
+            content.classList.remove("shifted");
+        } else {
+            // Open the sidebar
+            sidebar.classList.add("open");
+            content.classList.add("shifted");
+        }
+    });
+});</script>
         <div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         </div>
