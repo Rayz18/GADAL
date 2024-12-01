@@ -51,6 +51,8 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
             <!-- Sidebar content can go here -->
         </div>
         <?php include '../../public/includes/StaffNavBar.php'; ?>
+        <?php include '../../public/includes/header.php'; ?>
+        
         <!-- Main Content -->
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->

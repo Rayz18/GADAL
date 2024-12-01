@@ -22,6 +22,7 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
 
 <body>
 <?php include '../../public/includes/AdminNavBar.php'; ?>
+<?php include '../../public/includes/AdminHeader.php'; ?>
     <!-- Notification Section -->
     <div id="notification-container" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050; width: 90%; max-width: 500px;">
         <?php if (isset($_SESSION['success_message'])): ?>
