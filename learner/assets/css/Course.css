@@ -45,3 +45,50 @@ h1.text-primary {
 .see-more-link:hover {
     color: #563d7c; /* Slightly darker shade for hover */
 }
+
+/* Desktop-specific styles (unchanged) */
+h1.text-primary {
+    color: #6b46c1 !important; /* Match your original purple */
+    margin-top: 115px !important;
+}
+
+/* Responsive design for mobile view */
+@media (max-width: 768px) {
+    /* Adjust program name position for mobile */
+    .program-name-container {
+        background-color: #6b46c1; /* Make it prominent with the purple background */
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    .program-name {
+        color: white !important;
+        font-size: 1.2rem;
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .container.my-5 {
+        padding-top: -90px !important; /* Ensure content is not overlapped by the fixed program name */
+    }
+
+    .card {
+        margin: 10px 0; /* Add spacing between cards */
+    }
+
+    .card-img-top {
+        max-height: 150px; /* Adjust image height for smaller screens */
+    }
+
+    .btn {
+        font-size: 0.9rem; /* Resize buttons */
+    }
+
+    .see-more-link {
+        font-size: 10px; /* Make the link smaller for mobile view */
+    }
+}
+
