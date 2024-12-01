@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($query->execute()) {
         // Redirect to evaluation form
-        header("Location: ../pages/evaluation.php?course_id=$course_id");
+        header("Location: ../pages/success_page.php?message=Attendance completed!");
         exit();
     } else {
         echo "Error: " . $query->error;
