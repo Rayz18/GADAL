@@ -53,7 +53,8 @@ if (!$resultFaceToFace || !$resultOnline) {
             </div>
         </div>
         <div class="mission-statement" style="animation-delay: 1s;">
-            <p>The Batangas State University's Gender and Development Office aims to provide gender-responsive programs, projects, and services that address the needs and concerns of men and women.</p>
+            <p>The Batangas State University's Gender and Development Office aims to provide gender-responsive programs,
+                projects, and services that address the needs and concerns of men and women.</p>
         </div>
     </div>
 
@@ -190,63 +191,65 @@ if (!$resultFaceToFace || !$resultOnline) {
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const toggleFaceToFaceBtn = document.getElementById('toggle-face-to-face');
-    const toggleOnlineBtn = document.getElementById('toggle-online');
+            const toggleFaceToFaceBtn = document.getElementById('toggle-face-to-face');
+            const toggleOnlineBtn = document.getElementById('toggle-online');
 
-    const faceToFaceCards = document.querySelectorAll('.face-to-face-card');
-    const onlineCards = document.querySelectorAll('.online-card');
+            const faceToFaceCards = document.querySelectorAll('.face-to-face-card');
+            const onlineCards = document.querySelectorAll('.online-card');
 
-    const toggleVisibility = (button, cards) => {
-        if (button.textContent === 'See More') {
-            cards.forEach(card => card.classList.remove('hidden-card')); // Show all cards
-            button.textContent = 'See Less';
-        } else {
-            cards.forEach((card, index) => {
-                if (index >= 4) card.classList.add('hidden-card'); // Hide cards after the 4th
-            });
-            button.textContent = 'See More';
-        }
-    };
-
-    toggleFaceToFaceBtn.addEventListener('click', () => toggleVisibility(toggleFaceToFaceBtn, faceToFaceCards));
-    toggleOnlineBtn.addEventListener('click', () => toggleVisibility(toggleOnlineBtn, onlineCards));
-});
-
-    </script>
-    <scrip>    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let slideIndex = 0;
-
-            function showSlides() {
-                const slides = document.querySelectorAll(".custom-slide");
-                slides.forEach(slide => slide.style.display = "none");
-                slideIndex++;
-                if (slideIndex > slides.length) {
-                    slideIndex = 1;
-                }
-                slides[slideIndex - 1].style.display = "block";
-                setTimeout(showSlides, 2500); // Change image every 3 seconds
-            }
-
-            showSlides();
-
-            // Intersection Observer for Mission Statement Animation
-            const missionStatement = document.querySelector('.mission-statement');
-
-            if (missionStatement) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            missionStatement.classList.add('animate');
-                        }
+            const toggleVisibility = (button, cards) => {
+                if (button.textContent === 'See More') {
+                    cards.forEach(card => card.classList.remove('hidden-card')); // Show all cards
+                    button.textContent = 'See Less';
+                } else {
+                    cards.forEach((card, index) => {
+                        if (index >= 4) card.classList.add('hidden-card'); // Hide cards after the 4th
                     });
-                });
+                    button.textContent = 'See More';
+                }
+            };
 
-                observer.observe(missionStatement);
-            } else {
-                console.error('Mission statement element not found');
-            }
+            toggleFaceToFaceBtn.addEventListener('click', () => toggleVisibility(toggleFaceToFaceBtn, faceToFaceCards));
+            toggleOnlineBtn.addEventListener('click', () => toggleVisibility(toggleOnlineBtn, onlineCards));
         });
+
     </script>
+    <scrip>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                let slideIndex = 0;
+
+                function showSlides() {
+                    const slides = document.querySelectorAll(".custom-slide");
+                    slides.forEach(slide => slide.style.display = "none");
+                    slideIndex++;
+                    if (slideIndex > slides.length) {
+                        slideIndex = 1;
+                    }
+                    slides[slideIndex - 1].style.display = "block";
+                    setTimeout(showSlides, 2500); // Change image every 3 seconds
+                }
+
+                showSlides();
+
+                // Intersection Observer for Mission Statement Animation
+                const missionStatement = document.querySelector('.mission-statement');
+
+                if (missionStatement) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                missionStatement.classList.add('animate');
+                            }
+                        });
+                    });
+
+                    observer.observe(missionStatement);
+                } else {
+                    console.error('Mission statement element not found');
+                }
+            });
+        </script>
 </body>
+
 </html>

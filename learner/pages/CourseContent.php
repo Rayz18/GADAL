@@ -116,239 +116,239 @@ while ($row = $materials_result->fetch_assoc()) {
                 $selected_module_id = $_GET['module'] ?? null;
 
                 if ($tab === 'pre-test'): ?>
-                    <h2 class="text-secondary">Pre-Test</h2>
-                    <?php if ($pre_test_result): ?>
-                        <!-- Show Pre-Test Results if already completed -->
-                        <div class="text-center">
-                            <h1 class="mb-4">Pre-Test Results</h1>
-                            <p class="lead">Your performance:</p>
-                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($pre_test_result['score']); ?>%</h2>
-                            <p class="lead">Correct Answers:
-                                <strong><?php echo htmlspecialchars($pre_test_result['correct_answers']); ?></strong> /
-                                <?php echo htmlspecialchars($pre_test_result['total_questions']); ?>
-                            </p>
-                        </div>
-                    <?php elseif ($pre_test_questions->num_rows > 0): ?>
-                        <!-- Show Pre-Test Questions if not yet completed -->
-                        <form method="POST" action="submit_pre_test.php" style="max-width: 800px; margin: auto;">
-                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                            <p class="text-muted text-center mb-4">"Before you begin the course, please complete this pre-test
-                                to assess your current knowledge on the topic."</p>
-                            <?php
-                            $counter = 1;
-                            while ($row = $pre_test_questions->fetch_assoc()): ?>
-                                <div class="mb-4 d-flex align-items-start question-container">
-                                    <span class="question-counter"><?php echo $counter; ?>.</span>
-                                    <div>
-                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['pre_test_id']; ?>]" value="a" required>
-                                            <label class="form-check-label">
-                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['pre_test_id']; ?>]" value="b">
-                                            <label class="form-check-label">
-                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['pre_test_id']; ?>]" value="c">
-                                            <label class="form-check-label">
-                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
-                                            </label>
-                                        </div>
-                                    </div>
+                        <h2 class="text-secondary">Pre-Test</h2>
+                        <?php if ($pre_test_result): ?>
+                                <!-- Show Pre-Test Results if already completed -->
+                                <div class="text-center">
+                                    <h1 class="mb-4">Pre-Test Results</h1>
+                                    <p class="lead">Your performance:</p>
+                                    <h2 class="display-4 text-success"><?php echo htmlspecialchars($pre_test_result['score']); ?>%</h2>
+                                    <p class="lead">Correct Answers:
+                                        <strong><?php echo htmlspecialchars($pre_test_result['correct_answers']); ?></strong> /
+                                        <?php echo htmlspecialchars($pre_test_result['total_questions']); ?>
+                                    </p>
                                 </div>
-                                <?php
-                                $counter++;
-                            endwhile; ?>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary px-5 py-2"
-                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    <?php else: ?>
-                        <p class="text-center text-muted">No Pre-Test questions available at the moment.</p>
-                    <?php endif; ?>
-                <?php elseif ($tab === 'post-test'): ?>
-                    <h2 class="text-secondary">Post-Test</h2>
-                    <?php if ($post_test_result): ?>
-                        <!-- Show Post-Test Results if already completed -->
-                        <div class="text-center">
-                            <h1 class="mb-4">Post-Test Results</h1>
-                            <p class="lead">Your performance:</p>
-                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($post_test_result['score']); ?>%</h2>
-                            <p class="lead">Correct Answers:
-                                <strong><?php echo htmlspecialchars($post_test_result['correct_answers']); ?></strong> /
-                                <?php echo htmlspecialchars($post_test_result['total_questions']); ?>
-                            </p>
-                        </div>
-                    <?php elseif ($post_test_questions->num_rows > 0): ?>
-                        <!-- Show Post-Test Questions if not yet completed -->
-                        <form method="POST" action="submit_post_test.php" style="max-width: 800px; margin: auto;">
-                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                            <p class="text-muted text-center mb-4">"Now that you’ve completed the course, take this post-test to
-                                evaluate what you’ve learned."</p>
-                            <?php
-                            $counter = 1;
-                            while ($row = $post_test_questions->fetch_assoc()): ?>
-                                <div class="mb-4 d-flex align-items-start question-container">
-                                    <span class="question-counter"><?php echo $counter; ?>.</span>
-                                    <div>
-                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="a" required>
-                                            <label class="form-check-label">
-                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="b">
-                                            <label class="form-check-label">
-                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['post_test_id']; ?>]" value="c">
-                                            <label class="form-check-label">
-                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                                $counter++;
-                            endwhile; ?>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary px-5 py-2"
-                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    <?php else: ?>
-                        <p class="text-center text-muted">No Post-Test questions available at the moment.</p>
-                    <?php endif; ?>
-                <?php elseif ($tab === 'quiz'): ?>
-                    <h2 class="text-secondary">Quiz</h2>
-                    <?php if ($quiz_result): ?>
-                        <!-- Show Quiz Results if already completed -->
-                        <div class="text-center">
-                            <h1 class="mb-4">Quiz Results</h1>
-                            <p class="lead">Your performance:</p>
-                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($quiz_result['score']); ?>%</h2>
-                            <p class="lead">Correct Answers:
-                                <strong><?php echo htmlspecialchars($quiz_result['correct_answers']); ?></strong> /
-                                <?php echo htmlspecialchars($quiz_result['total_questions']); ?>
-                            </p>
-                        </div>
-                    <?php elseif ($quiz_questions->num_rows > 0): ?>
-                        <!-- Show Quiz Questions if not yet completed -->
-                        <form method="POST" action="submit_quiz.php" style="max-width: 800px; margin: auto;">
-                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                            <p class="text-muted text-center mb-4">"Complete this quiz to test your understanding."</p>
-                            <?php
-                            $counter = 1;
-                            while ($row = $quiz_questions->fetch_assoc()): ?>
-                                <div class="mb-4 d-flex align-items-start question-container">
-                                    <span class="question-counter"><?php echo $counter; ?>.</span>
-                                    <div>
-                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="a" required>
-                                            <label class="form-check-label">
-                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="b">
-                                            <label class="form-check-label">
-                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="c">
-                                            <label class="form-check-label">
-                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                                $counter++;
-                            endwhile; ?>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary px-5 py-2"
-                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    <?php else: ?>
-                        <p class="text-center text-muted">No Quiz questions available at the moment.</p>
-                    <?php endif; ?>
-                <?php elseif ($tab === 'learning-materials'): ?>
-                    <h2 class="text-secondary">Learning Materials</h2>
-                    <div class="accordion" id="materialsAccordion">
-                        <?php foreach ($learning_materials as $index => $material): ?>
-                            <?php
-                            // Use the $index as a unique identifier
-                            $is_expanded = (isset($_GET['module']) && $_GET['module'] == $index);
-                            ?>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="heading<?php echo $index; ?>">
-                                    <button class="accordion-button <?php echo $is_expanded ? '' : 'collapsed'; ?>"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $index; ?>"
-                                        aria-expanded="<?php echo $is_expanded ? 'true' : 'false'; ?>"
-                                        aria-controls="collapse<?php echo $index; ?>">
-                                        <?php echo htmlspecialchars($material['module_title']); ?>
-                                    </button>
-                                </h2>
-                                <div id="collapse<?php echo $index; ?>"
-                                    class="accordion-collapse collapse <?php echo $is_expanded ? 'show' : ''; ?>"
-                                    aria-labelledby="heading<?php echo $index; ?>" data-bs-parent="#materialsAccordion">
-                                    <div class="accordion-body">
-                                        <p><?php echo htmlspecialchars($material['module_discussion']); ?></p>
-
-                                        <?php if (!empty($material['video_url'])): ?>
-                                            <div class="video-container mb-3">
-                                                <div class="video-title text-center">
-                                                    <strong><?php echo htmlspecialchars($material['video_title'] ?? 'Video'); ?></strong>
+                        <?php elseif ($pre_test_questions->num_rows > 0): ?>
+                                <!-- Show Pre-Test Questions if not yet completed -->
+                                <form method="POST" action="submit_pre_test.php" style="max-width: 800px; margin: auto;">
+                                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                    <p class="text-muted text-center mb-4">"Before you begin the course, please complete this pre-test
+                                        to assess your current knowledge on the topic."</p>
+                                    <?php
+                                    $counter = 1;
+                                    while ($row = $pre_test_questions->fetch_assoc()): ?>
+                                            <div class="mb-4 d-flex align-items-start question-container">
+                                                <span class="question-counter"><?php echo $counter; ?>.</span>
+                                                <div>
+                                                    <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['pre_test_id']; ?>]" value="a" required>
+                                                        <label class="form-check-label">
+                                                            a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['pre_test_id']; ?>]" value="b">
+                                                        <label class="form-check-label">
+                                                            b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['pre_test_id']; ?>]" value="c">
+                                                        <label class="form-check-label">
+                                                            c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <video controls>
-                                                    <source src="<?php echo htmlspecialchars($material['video_url']); ?>"
-                                                        type="video/mp4">
-                                                    Your browser does not support video playback.
-                                                </video>
                                             </div>
-                                        <?php endif; ?>
-
-                                        <?php if (!empty($material['pdf_url'])): ?>
-                                            <div class="pdf-container mb-3">
-                                                <a href="<?php echo htmlspecialchars($material['pdf_url']); ?>" target="_blank"
-                                                    class="btn pdf-button">
-                                                    <?php echo htmlspecialchars($material['pdf_title'] ?? 'PDF File'); ?>
-                                                </a>
-                                            </div>
-                                        <?php endif; ?>
+                                            <?php
+                                            $counter++;
+                                    endwhile; ?>
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary px-5 py-2"
+                                            style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                            Submit
+                                        </button>
                                     </div>
+                                </form>
+                        <?php else: ?>
+                                <p class="text-center text-muted">No Pre-Test questions available at the moment.</p>
+                        <?php endif; ?>
+                <?php elseif ($tab === 'post-test'): ?>
+                        <h2 class="text-secondary">Post-Test</h2>
+                        <?php if ($post_test_result): ?>
+                                <!-- Show Post-Test Results if already completed -->
+                                <div class="text-center">
+                                    <h1 class="mb-4">Post-Test Results</h1>
+                                    <p class="lead">Your performance:</p>
+                                    <h2 class="display-4 text-success"><?php echo htmlspecialchars($post_test_result['score']); ?>%</h2>
+                                    <p class="lead">Correct Answers:
+                                        <strong><?php echo htmlspecialchars($post_test_result['correct_answers']); ?></strong> /
+                                        <?php echo htmlspecialchars($post_test_result['total_questions']); ?>
+                                    </p>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                        <?php elseif ($post_test_questions->num_rows > 0): ?>
+                                <!-- Show Post-Test Questions if not yet completed -->
+                                <form method="POST" action="submit_post_test.php" style="max-width: 800px; margin: auto;">
+                                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                    <p class="text-muted text-center mb-4">"Now that you’ve completed the course, take this post-test to
+                                        evaluate what you’ve learned."</p>
+                                    <?php
+                                    $counter = 1;
+                                    while ($row = $post_test_questions->fetch_assoc()): ?>
+                                            <div class="mb-4 d-flex align-items-start question-container">
+                                                <span class="question-counter"><?php echo $counter; ?>.</span>
+                                                <div>
+                                                    <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['post_test_id']; ?>]" value="a" required>
+                                                        <label class="form-check-label">
+                                                            a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['post_test_id']; ?>]" value="b">
+                                                        <label class="form-check-label">
+                                                            b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['post_test_id']; ?>]" value="c">
+                                                        <label class="form-check-label">
+                                                            c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            $counter++;
+                                    endwhile; ?>
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary px-5 py-2"
+                                            style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                        <?php else: ?>
+                                <p class="text-center text-muted">No Post-Test questions available at the moment.</p>
+                        <?php endif; ?>
+                <?php elseif ($tab === 'quiz'): ?>
+                        <h2 class="text-secondary">Quiz</h2>
+                        <?php if ($quiz_result): ?>
+                                <!-- Show Quiz Results if already completed -->
+                                <div class="text-center">
+                                    <h1 class="mb-4">Quiz Results</h1>
+                                    <p class="lead">Your performance:</p>
+                                    <h2 class="display-4 text-success"><?php echo htmlspecialchars($quiz_result['score']); ?>%</h2>
+                                    <p class="lead">Correct Answers:
+                                        <strong><?php echo htmlspecialchars($quiz_result['correct_answers']); ?></strong> /
+                                        <?php echo htmlspecialchars($quiz_result['total_questions']); ?>
+                                    </p>
+                                </div>
+                        <?php elseif ($quiz_questions->num_rows > 0): ?>
+                                <!-- Show Quiz Questions if not yet completed -->
+                                <form method="POST" action="submit_quiz.php" style="max-width: 800px; margin: auto;">
+                                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                    <p class="text-muted text-center mb-4">"Complete this quiz to test your understanding."</p>
+                                    <?php
+                                    $counter = 1;
+                                    while ($row = $quiz_questions->fetch_assoc()): ?>
+                                            <div class="mb-4 d-flex align-items-start question-container">
+                                                <span class="question-counter"><?php echo $counter; ?>.</span>
+                                                <div>
+                                                    <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['quiz_id']; ?>]" value="a" required>
+                                                        <label class="form-check-label">
+                                                            a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['quiz_id']; ?>]" value="b">
+                                                        <label class="form-check-label">
+                                                            b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[<?php echo $row['quiz_id']; ?>]" value="c">
+                                                        <label class="form-check-label">
+                                                            c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            $counter++;
+                                    endwhile; ?>
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary px-5 py-2"
+                                            style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                        <?php else: ?>
+                                <p class="text-center text-muted">No Quiz questions available at the moment.</p>
+                        <?php endif; ?>
+                <?php elseif ($tab === 'learning-materials'): ?>
+                        <h2 class="text-secondary">Learning Materials</h2>
+                        <div class="accordion" id="materialsAccordion">
+                            <?php foreach ($learning_materials as $index => $material): ?>
+                                    <?php
+                                    // Use the $index as a unique identifier
+                                    $is_expanded = (isset($_GET['module']) && $_GET['module'] == $index);
+                                    ?>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading<?php echo $index; ?>">
+                                            <button class="accordion-button <?php echo $is_expanded ? '' : 'collapsed'; ?>"
+                                                type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $index; ?>"
+                                                aria-expanded="<?php echo $is_expanded ? 'true' : 'false'; ?>"
+                                                aria-controls="collapse<?php echo $index; ?>">
+                                                <?php echo htmlspecialchars($material['module_title']); ?>
+                                            </button>
+                                        </h2>
+                                        <div id="collapse<?php echo $index; ?>"
+                                            class="accordion-collapse collapse <?php echo $is_expanded ? 'show' : ''; ?>"
+                                            aria-labelledby="heading<?php echo $index; ?>" data-bs-parent="#materialsAccordion">
+                                            <div class="accordion-body">
+                                                <p><?php echo htmlspecialchars($material['module_discussion']); ?></p>
+
+                                                <?php if (!empty($material['video_url'])): ?>
+                                                        <div class="video-container mb-3">
+                                                            <div class="video-title text-center">
+                                                                <strong><?php echo htmlspecialchars($material['video_title'] ?? 'Video'); ?></strong>
+                                                            </div>
+                                                            <video controls>
+                                                                <source src="<?php echo htmlspecialchars($material['video_url']); ?>"
+                                                                    type="video/mp4">
+                                                                Your browser does not support video playback.
+                                                            </video>
+                                                        </div>
+                                                <?php endif; ?>
+
+                                                <?php if (!empty($material['pdf_url'])): ?>
+                                                        <div class="pdf-container mb-3">
+                                                            <a href="<?php echo htmlspecialchars($material['pdf_url']); ?>" target="_blank"
+                                                                class="btn pdf-button">
+                                                                <?php echo htmlspecialchars($material['pdf_title'] ?? 'PDF File'); ?>
+                                                            </a>
+                                                        </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <?php endforeach; ?>
+                        </div>
                 <?php endif; ?>
             </div>
         </div>

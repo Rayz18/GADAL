@@ -113,22 +113,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm <?php echo $is_enrolled ? 'border-success' : ''; ?>">
-                            <?php if ($is_enrolled): ?>
+                            <?php if ($is_enrolled && $offered_mode === 'online'): ?>
+                                <!-- Make the course image clickable if enrolled and online -->
                                 <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
                                     class="text-decoration-none">
                                 <?php endif; ?>
                                 <img src="../../staff/upload/<?php echo htmlspecialchars($course['course_img']); ?>"
                                     class="card-img-top rounded" alt="<?php echo htmlspecialchars($course['course_name']); ?>">
-                                <?php if ($is_enrolled): ?>
+                                <?php if ($is_enrolled && $offered_mode === 'online'): ?>
                                 </a>
                             <?php endif; ?>
                             <div class="card-body">
-                                <?php if ($is_enrolled): ?>
+                                <?php if ($is_enrolled && $offered_mode === 'online'): ?>
+                                    <!-- Make the course title clickable if enrolled and online -->
                                     <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
                                         class="text-decoration-none">
                                         <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
                                     </a>
                                 <?php else: ?>
+                                    <!-- Display the title as plain text if not enrolled or not online -->
                                     <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
                                 <?php endif; ?>
                                 <p class="text-muted small mb-2">
@@ -172,7 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
-
                             </div>
                         </div>
                     </div>

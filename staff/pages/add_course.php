@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $program_id = $_POST['program_id'];
     $course_name = $_POST['course_name'];
     $course_desc = $_POST['course_desc'];
-    $course_date = $_POST['course_date'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
     $offered_mode = $_POST['offered_mode'];
 
     $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
@@ -24,8 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $stmt = $conn->prepare("INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssssiii", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
+    // Validate that the end_date is later than the start_date
+    if (strtotime($end_date) <= strtotime($start_date)) {
+        echo "<script>alert('The end date must be later than the start date.'); window.history.back();</script>";
+        exit;
+    }
+
+    $stmt = $conn->prepare("
+        INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    $stmt->bind_param("issssssiii", $program_id, $course_name, $course_img, $course_desc, $start_date, $end_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
     $stmt->execute();
     $stmt->close();
 
@@ -77,8 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="file" id="course_img" name="course_img" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="course_date" class="form-label">Course Date:</label>
-                                <input type="date" id="course_date" name="course_date" class="form-control" required>
+                                <label for="start_date" class="form-label">Start Date:</label>
+                                <input type="date" id="start_date" name="start_date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">End Date:</label>
+                                <input type="date" id="end_date" name="end_date" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="offered_mode" class="form-label">Offered Mode:</label>
@@ -130,6 +144,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const faceToFaceOptions = document.getElementById('face_to_face_options');
             faceToFaceOptions.classList.toggle('d-none', value !== 'face_to_face');
         }
+
+        // Client-side validation to ensure end_date is later than start_date
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const startDateInput = document.getElementById("start_date");
+            const endDateInput = document.getElementById("end_date");
+
+            form.addEventListener("submit", function (event) {
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                if (endDate <= startDate) {
+                    event.preventDefault(); // Prevent form submission
+                    alert("The end date must be later than the start date.");
+                }
+            });
+        });
     </script>
 </body>
 
