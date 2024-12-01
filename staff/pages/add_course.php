@@ -8,15 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $program_id = $_POST['program_id'];
     $course_name = $_POST['course_name'];
     $course_desc = $_POST['course_desc'];
-    $start_date = $_POST['start_date'];
-    $end_date = $_POST['end_date'];
     $offered_mode = $_POST['offered_mode'];
-
     $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
     $enable_attendance = isset($_POST['enable_attendance']) ? 1 : 0;
     $enable_evaluation = isset($_POST['enable_evaluation']) ? 1 : 0;
-
     $course_img = '';
+
+    // Handle file upload
     if (!empty($_FILES['course_img']['name'])) {
         $target_dir = "../../staff/upload/";
         $target_file = $target_dir . basename($_FILES['course_img']['name']);
@@ -25,20 +23,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Validate that the end_date is later than the start_date
-    if (strtotime($end_date) <= strtotime($start_date)) {
-        echo "<script>alert('The end date must be later than the start date.'); window.history.back();</script>";
-        exit;
+    // Validation based on offered mode
+    if ($offered_mode === 'face_to_face') {
+        $course_date = $_POST['course_date'];
+        $stmt = $conn->prepare("
+            INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $stmt->bind_param("isssssiii", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
+    } else {
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+
+        // Validate that the end_date is later than the start_date
+        if (strtotime($end_date) <= strtotime($start_date)) {
+            echo "<script>alert('The end date must be later than the start date.'); window.history.back();</script>";
+            exit;
+        }
+
+        $stmt = $conn->prepare("
+            INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $stmt->bind_param("issssssiii", $program_id, $course_name, $course_img, $course_desc, $start_date, $end_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
     }
 
-    $stmt = $conn->prepare("
-        INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-    $stmt->bind_param("issssssiii", $program_id, $course_name, $course_img, $course_desc, $start_date, $end_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
     $stmt->execute();
     $stmt->close();
-
     header('Location: staff_dashboard.php');
     exit;
 }
@@ -86,18 +97,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="course_img" class="form-label">Course Image:</label>
                                 <input type="file" id="course_img" name="course_img" class="form-control">
                             </div>
-                            <div class="mb-3">
-                                <label for="start_date" class="form-label">Start Date:</label>
-                                <input type="date" id="start_date" name="start_date" class="form-control" required>
+                            <div class="mb-3" id="face_to_face_date" style="display: none;">
+                                <label for="course_date" class="form-label">Course Date:</label>
+                                <input type="date" id="course_date" name="course_date" class="form-control">
                             </div>
-                            <div class="mb-3">
-                                <label for="end_date" class="form-label">End Date:</label>
-                                <input type="date" id="end_date" name="end_date" class="form-control" required>
+                            <div id="online_dates">
+                                <div class="mb-3">
+                                    <label for="start_date" class="form-label">Start Date:</label>
+                                    <input type="date" id="start_date" name="start_date" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="end_date" class="form-label">End Date:</label>
+                                    <input type="date" id="end_date" name="end_date" class="form-control">
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="offered_mode" class="form-label">Offered Mode:</label>
                                 <select id="offered_mode" name="offered_mode" class="form-control" required
-                                    onchange="toggleFaceToFaceOptions(this.value)">
+                                    onchange="toggleFields(this.value)">
                                     <option value="face_to_face">Face to Face</option>
                                     <option value="online">Online</option>
                                 </select>
@@ -140,13 +157,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function toggleFaceToFaceOptions(value) {
-            const faceToFaceOptions = document.getElementById('face_to_face_options');
-            faceToFaceOptions.classList.toggle('d-none', value !== 'face_to_face');
+        function toggleFields(value) {
+            const faceToFaceDate = document.getElementById('face_to_face_date');
+            const onlineDates = document.getElementById('online_dates');
+
+            if (value === 'face_to_face') {
+                faceToFaceDate.style.display = 'block';
+                onlineDates.style.display = 'none';
+            } else {
+                faceToFaceDate.style.display = 'none';
+                onlineDates.style.display = 'block';
+            }
         }
 
-        // Client-side validation to ensure end_date is later than start_date
         document.addEventListener("DOMContentLoaded", function () {
+            toggleFields(document.getElementById('offered_mode').value);
+
             const form = document.querySelector("form");
             const startDateInput = document.getElementById("start_date");
             const endDateInput = document.getElementById("end_date");

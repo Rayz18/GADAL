@@ -12,11 +12,11 @@ if (!$conn) {
 }
 
 // Query to fetch approved Face to Face courses
-$queryFaceToFace = "SELECT program_id, course_name, course_img, course_date FROM courses WHERE status = 'approved' AND offered_mode = 'face_to_face' ORDER BY course_date DESC";
+$queryFaceToFace = "SELECT program_id, course_name, course_img, start_date, end_date FROM courses WHERE status = 'approved' AND offered_mode = 'face_to_face' ORDER BY start_date DESC";
 $resultFaceToFace = $conn->query($queryFaceToFace);
 
 // Query to fetch approved Online courses
-$queryOnline = "SELECT program_id, course_name, course_img, course_date FROM courses WHERE status = 'approved' AND offered_mode = 'Online' ORDER BY course_date DESC";
+$queryOnline = "SELECT program_id, course_name, course_img, start_date, end_date FROM courses WHERE status = 'approved' AND offered_mode = 'Online' ORDER BY start_date DESC";
 $resultOnline = $conn->query($queryOnline);
 
 // Check if the queries were successful
@@ -70,7 +70,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                     $program_id = $row['program_id'];
                     $course_name = $row['course_name'];
                     $course_img = "./staff/upload/" . $row['course_img'];
-                    $course_date = date('F d, Y', strtotime($row['course_date']));
+                    $course_duration = date('F d, Y', strtotime($row['start_date'])) . ' - ' . date('F d, Y', strtotime($row['end_date']));
 
                     $hiddenClass = $displayedCards >= 4 ? 'hidden-card' : '';
                     echo "
@@ -89,7 +89,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                                     <span class='course-name'>$course_name</span>
                                     <span class='quote'>&quot;</span>
                                 </h3>
-                                <p class='course-date'>$course_date</p>
+                                <p class='course-date'>$course_duration</p>
                                 <a href='../GADAL/learner/pages/Course.php?program_id=$program_id' class='view-course-btn'>View Course</a>
                             </div>
                         </div>
@@ -136,7 +136,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                     $program_id = $row['program_id'];
                     $course_name = $row['course_name'];
                     $course_img = "./staff/upload/" . $row['course_img'];
-                    $course_date = date('F d, Y', strtotime($row['course_date']));
+                    $course_duration = date('F d, Y', strtotime($row['start_date'])) . ' - ' . date('F d, Y', strtotime($row['end_date']));
 
                     $hiddenClass = $displayedCards >= 4 ? 'hidden-card' : '';
                     echo "
@@ -155,7 +155,7 @@ if (!$resultFaceToFace || !$resultOnline) {
                                     <span class='course-name'>$course_name</span>
                                     <span class='quote'>&quot;</span>
                                 </h3>
-                                <p class='course-date'>$course_date</p>
+                                <p class='course-date'>$course_duration</p>
                                 <a href='../GADAL/learner/pages/Course.php?program_id=$program_id' class='view-course-btn'>View Course</a>
                             </div>
                         </div>
@@ -212,44 +212,42 @@ if (!$resultFaceToFace || !$resultOnline) {
             toggleFaceToFaceBtn.addEventListener('click', () => toggleVisibility(toggleFaceToFaceBtn, faceToFaceCards));
             toggleOnlineBtn.addEventListener('click', () => toggleVisibility(toggleOnlineBtn, onlineCards));
         });
-
     </script>
-    <scrip>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                let slideIndex = 0;
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let slideIndex = 0;
 
-                function showSlides() {
-                    const slides = document.querySelectorAll(".custom-slide");
-                    slides.forEach(slide => slide.style.display = "none");
-                    slideIndex++;
-                    if (slideIndex > slides.length) {
-                        slideIndex = 1;
-                    }
-                    slides[slideIndex - 1].style.display = "block";
-                    setTimeout(showSlides, 2500); // Change image every 3 seconds
+            function showSlides() {
+                const slides = document.querySelectorAll(".custom-slide");
+                slides.forEach(slide => slide.style.display = "none");
+                slideIndex++;
+                if (slideIndex > slides.length) {
+                    slideIndex = 1;
                 }
+                slides[slideIndex - 1].style.display = "block";
+                setTimeout(showSlides, 2500); // Change image every 3 seconds
+            }
 
-                showSlides();
+            showSlides();
 
-                // Intersection Observer for Mission Statement Animation
-                const missionStatement = document.querySelector('.mission-statement');
+            // Intersection Observer for Mission Statement Animation
+            const missionStatement = document.querySelector('.mission-statement');
 
-                if (missionStatement) {
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach((entry) => {
-                            if (entry.isIntersecting) {
-                                missionStatement.classList.add('animate');
-                            }
-                        });
+            if (missionStatement) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            missionStatement.classList.add('animate');
+                        }
                     });
+                });
 
-                    observer.observe(missionStatement);
-                } else {
-                    console.error('Mission statement element not found');
-                }
-            });
-        </script>
+                observer.observe(missionStatement);
+            } else {
+                console.error('Mission statement element not found');
+            }
+        });
+    </script>
 </body>
 
 </html>

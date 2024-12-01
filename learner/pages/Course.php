@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="row g-4">
             <?php
             // Fetch approved courses associated with the program_id
-            $query = $conn->query("SELECT * FROM courses WHERE program_id = '$program_id' AND status = 'approved'");
+            $query = $conn->query("SELECT course_id, course_name, course_img, course_desc, course_date, start_date, end_date, offered_mode, enable_registration FROM courses WHERE program_id = '$program_id' AND status = 'approved'");
 
             // Loop through each course and display it
             if ($query->num_rows > 0) {
@@ -110,6 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Determine if "See More/See Less" should be displayed
                     $course_desc = htmlspecialchars($course['course_desc']);
                     $show_toggle = strlen($course_desc) > 100;
+
+                    // Determine the course date or duration to display
+                    if ($offered_mode === 'face_to_face') {
+                        $course_date = htmlspecialchars(date('F d, Y', strtotime($course['course_date'])));
+                        $date_label = "Date";
+                    } else {
+                        $course_date = htmlspecialchars(date('F d, Y', strtotime($course['start_date'])) . ' - ' . date('F d, Y', strtotime($course['end_date'])));
+                        $date_label = "Duration";
+                    }
                     ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm <?php echo $is_enrolled ? 'border-success' : ''; ?>">
@@ -135,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
                                 <?php endif; ?>
                                 <p class="text-muted small mb-2">
-                                    <strong>Date:</strong> <?php echo htmlspecialchars($course['course_date']); ?>
+                                    <strong><?php echo $date_label; ?>:</strong> <?php echo $course_date; ?>
                                 </p>
                                 <p class="text-muted small mb-2">
                                     <strong>Mode:</strong>
