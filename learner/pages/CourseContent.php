@@ -96,6 +96,7 @@ while ($row = $materials_result->fetch_assoc()) {
     <link rel="stylesheet" href="../../public/assets/css/Sidebar.css">
     <script src="../../public/assets/js/sidebarToggle.js" defer></script>
     <script src="../../public/assets/js/syncSidebar.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../learner/assets/css/CourseContent.css">
 </head>
 
@@ -355,6 +356,97 @@ while ($row = $materials_result->fetch_assoc()) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to load content dynamically
+        function loadContent(tab, module = null) {
+            $.ajax({
+                url: "CourseContent.php",
+                type: "GET",
+                data: {
+                    course_id: "<?php echo $course_id; ?>",
+                    tab: tab,
+                    module: module
+                },
+                success: function (response) {
+                    const newContent = $(response).find('#content-section').html();
+                    $('#content-section').html(newContent);
+
+                    // Update active state in sidebar
+                    $('.menu-item').removeClass('active');
+                    if (module !== null) {
+                        $(`a[href$="&tab=${tab}&module=${module}"]`).addClass('active');
+                    } else {
+                        $(`a[href$="&tab=${tab}"]`).addClass('active');
+                    }
+                },
+                error: function () {
+                    alert("Failed to load content.");
+                }
+            });
+        }
+
+        // On page load, load the initial content
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab') || 'pre-test';
+            const module = urlParams.get('module');
+            loadContent(tab, module);
+
+            // Update content when sidebar links are clicked
+            $('.menu-item').click(function (event) {
+                event.preventDefault();
+                const url = new URL($(this).attr('href'), window.location.origin);
+                const tab = url.searchParams.get('tab');
+                const module = url.searchParams.get('module');
+                loadContent(tab, module);
+            });
+        });
+
+    // Function to highlight the active sidebar item based on the clicked module
+function updateSidebarActiveState(tab, module = null) {
+    // Remove 'active' class from all sidebar items
+    $('.menu-item').removeClass('active');
+    $('.submenu .menu-item').removeClass('active');
+
+    // Highlight the relevant item
+    if (module !== null) {
+        $(`a[href$="&tab=${tab}&module=${module}"]`).addClass('active');
+    } else {
+        $(`a[href$="&tab=${tab}"]`).addClass('active');
+    }
+}
+
+// Event delegation for content clicks
+$(document).on('click', '.accordion-button', function () {
+    const moduleIndex = $(this).closest('.accordion-item').index();
+    const tab = 'learning-materials';
+    updateSidebarActiveState(tab, moduleIndex);
+
+    // Trigger dynamic content loading (optional)
+    loadContent(tab, moduleIndex);
+});
+
+// On sidebar link click
+$('.menu-item').on('click', function (event) {
+    event.preventDefault();
+    const url = new URL($(this).attr('href'), window.location.origin);
+    const tab = url.searchParams.get('tab');
+    const module = url.searchParams.get('module');
+    updateSidebarActiveState(tab, module);
+
+    // Load the content dynamically
+    loadContent(tab, module);
+});
+
+// Initialize active state on page load
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab') || 'pre-test';
+    const module = urlParams.get('module');
+    updateSidebarActiveState(tab, module);
+});
+
+    </script>
 </body>
 
 </html>

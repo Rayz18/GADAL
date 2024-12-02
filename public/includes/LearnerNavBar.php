@@ -28,7 +28,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <img src="/GADAL/public/assets/images/icon.png" alt="Profile" class="user-profile">
     </div>
 
-    <div id="profile-popup" class="profile-popup" style="display: none;">
+    <div id="profile-popup" class="profile-popup">
         <div class="popup-content">
             <?php if (isset($_SESSION['learner_id'])): ?>
                 <h2 class="popup-title">WELCOME BACK!</h2>
@@ -36,9 +36,9 @@ if (session_status() == PHP_SESSION_NONE) {
             <?php else: ?>
                 <h2 class="popup-title">WELCOME!</h2>
                 <p class="popup-text">Sign in to your account now.</p>
-                <button class="popup-btn signin-btn">SIGN IN</button>
+                <button onclick="redirectToSignIn()" class="popup-btn signin-btn">SIGN IN</button>
                 <div class="separator"><span>OR</span></div>
-                <button class="popup-btn signup-btn">SIGN UP</button>
+                <button onclick="redirectToSignUp()" class="popup-btn signup-btn">SIGN UP</button>
             <?php endif; ?>
         </div>
     </div>
@@ -96,7 +96,17 @@ if (session_status() == PHP_SESSION_NONE) {
     // Toggle the visibility of the profile popup
     function togglePopup() {
         const popup = document.getElementById('profile-popup');
-        popup.style.display = (popup.style.display === "none" || popup.style.display === "") ? "block" : "none";
+        popup.classList.toggle('visible');
+    }
+
+    // Redirect to the sign-in page
+    function redirectToSignIn() {
+        window.location.href = '/GADAL/learner/pages/login.php';
+    }
+
+    // Redirect to the sign-up page
+    function redirectToSignUp() {
+        window.location.href = '/GADAL/learner/pages/sign-up.php';
     }
 
     // Logout function to destroy session and redirect to login page
@@ -134,6 +144,44 @@ if (session_status() == PHP_SESSION_NONE) {
 
 .user-profile-icon img {
     height: 33px;
+}
+
+/* Profile Popup */
+.profile-popup {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    color: black;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1500;
+}
+
+.profile-popup.visible {
+    display: block;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #B19CD9;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-btn:hover {
+    background-color: #9674b7;
 }
 
 /* Mobile Header */

@@ -8,7 +8,7 @@
             </a>
         </li>
         <li class="dropdown">
-            <a href="javascript:void(0);" class="menu-item dropdown-toggle" id="learning-materials-toggle">
+            <a href="javascript:void(0);" class="menu-item <?php echo (!empty($learning_materials)) ? 'dropdown-toggle' : ''; ?>" id="learning-materials-toggle">
                 Learning Materials
             </a>
             <?php if (!empty($learning_materials)): ?>
@@ -23,8 +23,6 @@
                         </li>
                     <?php endforeach; ?>
                 </ul>
-            <?php else: ?>
-                <p class="text-muted ms-3">No materials available.</p>
             <?php endif; ?>
         </li>
         <li>
