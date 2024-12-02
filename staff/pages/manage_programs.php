@@ -66,10 +66,6 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
         .nav-tabs .nav-item {
             flex-shrink: 0;
         }
-
-        .archives-button {
-            margin-left: 10px;
-        }
     </style>
 </head>
 
@@ -84,13 +80,10 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
 
         <!-- Main Content -->
         <div id="content" class="content">
-            <!-- Toggle Sidebar Icon -->
-            <div id="toggle-sidebar" class="toggle-sidebar"></div>
             <h1 class="page-title">Manage Programs and Courses</h1>
 
             <div class="text-end mb-3">
                 <a href="add_program.php" class="btn btn-success">Add New Program</a>
-                <a href="archives.php" class="btn btn-secondary archives-button">View Archives</a>
             </div>
 
             <!-- Program Tabs -->

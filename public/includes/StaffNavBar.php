@@ -45,6 +45,8 @@ if (!isset($_SESSION['staff_logged_in'])) {
         <ul class="menu">
             <li><a href="staff_dashboard.php" class="menu-item">Home</a></li>
             <li><a href="manage_programs.php" class="menu-item">Manage Programs</a></li>
+            <li><a href="archives_programs.php" class="menu-item">Archived Programs</a></li>
+            <li><a href="archives_courses.php" class="menu-item">Archived Courses</a></li>
         </ul>
 
         <!-- Logout Button -->
