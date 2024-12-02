@@ -4,7 +4,6 @@ require_once "../../config/config.php";
 
 // Check if learner is logged in
 if (!isset($_SESSION['learner_id'])) {
-    // Redirect to login page if not logged in
     header('Location: login.php');
     exit;
 }
@@ -95,8 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container my-5">
         <div class="row g-4">
             <?php
-            // Fetch approved courses associated with the program_id
-            $query = $conn->query("SELECT course_id, course_name, course_img, course_desc, course_date, start_date, end_date, offered_mode, enable_registration FROM courses WHERE program_id = '$program_id' AND status = 'approved'");
+            // Fetch approved courses associated with the program_id, excluding archived courses
+            $query = $conn->query("
+                SELECT course_id, course_name, course_img, course_desc, course_date, start_date, end_date, offered_mode, enable_registration 
+                FROM courses 
+                WHERE program_id = '$program_id' AND status = 'approved' AND archive = FALSE
+            ");
 
             // Loop through each course and display it
             if ($query->num_rows > 0) {
