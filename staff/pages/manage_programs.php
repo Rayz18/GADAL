@@ -8,8 +8,8 @@ if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== tru
     exit;
 }
 
-// Fetch all programs
-$programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC");
+// Fetch all non-archived programs
+$programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORDER BY created_at DESC");
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +66,10 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
         .nav-tabs .nav-item {
             flex-shrink: 0;
         }
+
+        .archives-button {
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -77,7 +81,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
         </div>
         <?php include '../../public/includes/StaffNavBar.php'; ?>
         <?php include '../../public/includes/header.php'; ?>
-        
+
         <!-- Main Content -->
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->
@@ -86,6 +90,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
 
             <div class="text-end mb-3">
                 <a href="add_program.php" class="btn btn-success">Add New Program</a>
+                <a href="archives.php" class="btn btn-secondary archives-button">View Archives</a>
             </div>
 
             <!-- Program Tabs -->
@@ -105,7 +110,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                     <button class="nav-link <?php echo $is_first ? 'active' : ''; ?>"
                                         id="tab-<?php echo $program['program_id']; ?>" data-bs-toggle="tab"
                                         data-bs-target="#content-<?php echo $program['program_id']; ?>" type="button" role="tab"
-                                        aria-controls="content-<?php echo $program['program_id']; ?>"
+                                        aria-controls="content-<?php echo $program['program_id']; ?> "
                                         aria-selected="<?php echo $is_first ? 'true' : 'false'; ?>">
                                         <span class="truncate"
                                             title="<?php echo htmlspecialchars($program['program_name']); ?>">
@@ -146,8 +151,8 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                     <div>
                                         <a href="edit_program.php?program_id=<?php echo $program['program_id']; ?>"
                                             class="btn btn-light btn-sm me-2">Edit Program</a>
-                                        <a href="delete_program.php?program_id=<?php echo $program['program_id']; ?>"
-                                            class="btn btn-danger btn-sm">Delete Program</a>
+                                        <a href="archive_handler.php?program_id=<?php echo $program['program_id']; ?>"
+                                            class="btn btn-warning btn-sm">Archive Program</a>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +186,7 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                             $courses_query = $conn->query("
                                             SELECT course_id, course_name, offered_mode, enable_registration, enable_attendance, enable_evaluation 
                                             FROM courses 
-                                            WHERE program_id = " . $program['program_id']);
+                                            WHERE program_id = " . $program['program_id'] . " AND archive = FALSE");
                                             if ($courses_query->num_rows > 0) {
                                                 while ($course = $courses_query->fetch_array()) { ?>
                                                     <tr data-mode="<?php echo $course['offered_mode']; ?>">
@@ -192,8 +197,8 @@ $programs_query = $conn->query("SELECT * FROM programs ORDER BY created_at DESC"
                                                         <td>
                                                             <a href="edit_course.php?course_id=<?php echo $course['course_id']; ?>"
                                                                 class="btn btn-primary btn-sm">Edit</a>
-                                                            <a href="delete_course.php?course_id=<?php echo $course['course_id']; ?>"
-                                                                class="btn btn-danger btn-sm">Delete</a>
+                                                            <a href="archive_handler.php?course_id=<?php echo $course['course_id']; ?>"
+                                                                class="btn btn-warning btn-sm">Archive</a>
                                                         </td>
                                                         <td>
                                                             <?php if ($course['offered_mode'] === 'face_to_face') { ?>
