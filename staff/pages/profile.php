@@ -31,51 +31,47 @@ if ($profile_result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
+    <link rel="stylesheet" href="../../staff/assets/css/profile.css">
 </head>
 
 <body>
-    <?php include '../../public/includes/StaffNavBar.php'; ?>
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>Staff Profile</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label"><strong>Full Name:</strong></label>
-                            <p><?php echo htmlspecialchars($staff_data['staff_name']); ?></p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label"><strong>Username:</strong></label>
-                            <p><?php echo htmlspecialchars($staff_data['username']); ?></p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label"><strong>Email:</strong></label>
-                            <p><?php echo htmlspecialchars($staff_data['email']); ?></p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label"><strong>Contact Number:</strong></label>
-                            <p><?php echo htmlspecialchars($staff_data['contact_number']); ?></p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label"><strong>Gender:</strong></label>
-                            <p><?php echo htmlspecialchars($staff_data['gender']); ?></p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>
-                        <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
-                    </div>
-                </div>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">Staff Profile</div>
+            <div class="profile-name">
+                <?php echo htmlspecialchars($staff_data['staff_name']); ?>
+            </div>
+            <div class="profile-item">
+                <i class="bi bi-person profile-icon"></i>
+                <span class="profile-label">Username:</span>
+                <span><?php echo htmlspecialchars($staff_data['username']); ?></span>
+            </div>
+            <div class="profile-item">
+                <i class="bi bi-envelope profile-icon"></i>
+                <span class="profile-label">Email:</span>
+                <span><?php echo htmlspecialchars($staff_data['email']); ?></span>
+            </div>
+            <div class="profile-item">
+                <i class="bi bi-telephone profile-icon"></i>
+                <span class="profile-label">Contact Number:</span>
+                <span><?php echo htmlspecialchars($staff_data['contact_number']); ?></span>
+            </div>
+            <div class="profile-item">
+                <i class="bi bi-gender-ambiguous profile-icon"></i>
+                <span class="profile-label">Gender:</span>
+                <span><?php echo htmlspecialchars($staff_data['gender']); ?></span>
+            </div>
+            <div class="profile-footer">
+                <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>
+                <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
             </div>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 
 </html>

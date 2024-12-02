@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
+    <link rel="stylesheet" href="../../staff/assets/css/_profile.css">
 </head>
 
 <body>

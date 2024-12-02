@@ -15,7 +15,6 @@ html, body {
     box-sizing: inherit;
 }
 
-
 /* Programs section */
 .container {
     margin: 0 auto;
@@ -58,8 +57,6 @@ h1 {
     width: 180px; /* Slightly wider dropdown */
 }
 
-
-
 .certificate-list {
     list-style-type: none;
     text-align: left;
@@ -85,7 +82,6 @@ h1 {
     color: #666;
 }
 
-
 /* Customize scrollbar */
 ::-webkit-scrollbar {
     width: 6px; /* Set scrollbar width */
@@ -98,4 +94,76 @@ h1 {
 
 ::-webkit-scrollbar-track {
     background-color: #f4f4f4; /* Scrollbar track color */
+}
+
+/* Mobile view styles */
+@media screen and (max-width: 768px) {
+    /* Adjust the body to center contents better */
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Start pushing contents upwards */
+        min-height: 100vh; /* Ensure full viewport height */
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove padding */
+    }
+
+    .container {
+        margin-top: 30px; /* Slightly move contents upwards */
+        padding-bottom: 50px; /* Add space at the bottom */
+        text-align: center; /* Center align contents */
+    }
+
+    /* Adjust title size and spacing */
+    h1 {
+        font-size: 22px; /* Adjust font size for mobile */
+        margin-bottom: 20px; /* Adjust spacing below the title */
+    }
+
+    /* Filters section */
+    .filters {
+        flex-direction: column; /* Stack label and dropdown vertically */
+        align-items: flex-start; /* Align to the left */
+        gap: 10px; /* Add spacing between label and dropdown */
+        margin-bottom: 20px; /* Space between filters and content */
+        padding: 0 15px; /* Add side padding */
+    }
+
+    #offering {
+        width: 100%; /* Make dropdown full-width */
+        font-size: 14px; /* Adjust font size */
+        padding: 8px; /* Adjust padding */
+    }
+
+    /* Certificate list adjustments */
+    .certificate-list {
+        margin: 0; /* Remove default margin */
+        padding: 0 15px; /* Add padding for alignment */
+    }
+
+    .certificate-list li {
+        margin: 20px 0; /* Adjust vertical spacing between items */
+    }
+
+    .certificate-list a {
+        font-size: 16px; /* Adjust font size */
+        color: #1a73e8; /* Add a distinct color */
+    }
+
+    .certificate-list p {
+        font-size: 12px; /* Adjust font size */
+        color: #555; /* Slightly darker text */
+    }
+
+    /* Adjust toggle button */
+    .toggle {
+        position: fixed;
+        bottom: 50px; /* Slightly move it up from the bottom */
+        right: 20px; /* Align toggle to the right */
+    }
+
+    /* Add spacing for better alignment */
+    body {
+        padding-bottom: 70px; /* Ensure enough space at the bottom */
+    }
 }

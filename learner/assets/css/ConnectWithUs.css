@@ -1,11 +1,8 @@
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto;   /* Ensure vertical scrolling only */
     font-family: Arial, sans-serif;
     box-sizing: border-box; /* Make sure padding/margins are handled properly */
 }
@@ -35,7 +32,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px; /* Ensures content starts after the navigation bar */
+    margin-top: 50px; /* Ensures content starts after the navigation bar */
 }
 
 .title {
@@ -43,7 +40,7 @@ html, body {
     font-size: 26px; /* Increased the title size for consistency with other pages */
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px; /* Added spacing under the title */
+    margin-bottom: 0px; /* Added spacing under the title */
 }
 
 .location-section {
@@ -62,16 +59,15 @@ html, body {
     background-color: #f5f5f5;
     padding: 20px;
     border-radius: 8px;
-    width: 95%; /* Makes sure the content doesn't touch the edges */
+    width: 100%; /* Makes sure the content doesn't touch the edges */
     margin: 0 auto; /* Centers the location container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
     align-items: center;
 }
 
 .location img {
-    width: 360px; /* Adjusted width for larger images */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 8px;
+    width: 350px; /* Adjusted width for larger images */
+    height: 470px; /* Maintains aspect ratio */
     object-fit: cover; /* Ensures the image maintains aspect ratio */
 }
 
@@ -103,4 +99,51 @@ html, body {
     color: #431876;
     text-decoration: underline;
 
+}
+
+/* Mobile View (max-width: 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+        justify-content: center;
+        font-size: 16px; /* Adjust font size for mobile */
+    }
+
+    .content {
+        padding: 10px;
+        margin-top: 60px; /* Adjust the margin for mobile view */
+    }
+
+    .title {
+        margin-top: 50px; /* Move title lower for mobile */
+        font-size: 24px; /* Slightly smaller font size */
+    }
+
+    .location {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .location img {
+        width: 100%;
+        height: auto;
+    }
+
+    .location-details {
+        text-align: center;
+    }
+
+    .location-details h2 {
+        font-size: 16px;
+    }
+
+    .location-details p, .location-details a {
+        font-size: 12px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 300px;
+    }
 }

@@ -1,0 +1,92 @@
+/* General Styling */
+body {
+    background-color: #F5F5F5; /* Light gray background */
+    font-family: Arial, sans-serif;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 10px;
+    border: 1px solid #D3D3D3; /* Light gray border */
+    overflow: hidden;
+    background-color: white;
+}
+
+.card-header {
+    background: linear-gradient(to right, #B19CD9, #C96A6A); /* Light purple to red gradient */
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Form Labels */
+.form-label {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Form Inputs */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #D3D3D3; /* Light gray border */
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #B19CD9; /* Light purple focus color */
+    box-shadow: 0 0 5px rgba(177, 156, 217, 0.5);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #B19CD9;
+    border-color: #B19CD9;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #C96A6A;
+    border-color: #C96A6A;
+    transform: scale(1.02);
+}
+
+.btn-secondary {
+    background-color: #D3D3D3;
+    border-color: #D3D3D3;
+    color: #333;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #C96A6A;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+/* Image Styling */
+img {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Container */
+.container {
+    margin-top: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+/* Small Devices */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+}
