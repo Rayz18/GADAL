@@ -42,7 +42,7 @@ body {
     background-color: lightgray;
     color: gray;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .accordion-button:not(.collapsed) {
@@ -54,6 +54,7 @@ body {
     background-color: #F5F5F5;
     color: #333333;
     padding: 15px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
 .accordion-body p {
@@ -89,23 +90,23 @@ body {
     margin-bottom: 8px; /* Reduced spacing */
 }
 
-.pdf-container {
+.file-container {
     text-align: center;
 }
 
-.pdf-container .pdf-button {
+.file-container .btn-secondary {
     width: 900px; /* Uniform width */
     height: 40px; /* Uniform height */
     background-color: #c0808096; /* Minimalist style */
     border: 1px solid #C96A6A;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: lowercase;
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
 }
 
-.pdf-container .pdf-button:hover {
+.file-container .btn-secondary:hover {
     background-color: #C96A6A;
     color: #FFFFFF;
 }
@@ -165,4 +166,13 @@ overflow-wrap: break-word;
     white-space: normal;
     line-height: 1.6;
     margin-bottom: 1rem;
+}
+
+.preserved-text {
+    white-space: pre-wrap; /* Preserves indentation and line breaks */
+    word-wrap: break-word;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

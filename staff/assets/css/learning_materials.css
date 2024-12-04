@@ -160,3 +160,8 @@ body {
     margin-left: 250px; /* Shifts content when sidebar is open */
 }
 
+.preserved-text {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}

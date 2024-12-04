@@ -45,7 +45,7 @@ $stmt->bind_param("iiiii", $learner_id, $course_id, $score, $total_questions, $c
 
 if ($stmt->execute()) {
     // Redirect to the results page
-    header("Location: pre_test_results.php?course_id=" . urlencode($course_id) . "&score=" . urlencode($score) . "&correct=" . urlencode($correct_answers) . "&total=" . urlencode($total_questions));
+    header("Location: CourseContent.php?course_id=" . urlencode($course_id) . "&score=" . urlencode($score) . "&correct=" . urlencode($correct_answers) . "&total=" . urlencode($total_questions));
     exit;
 } else {
     die("Failed to save pre-test results.");
