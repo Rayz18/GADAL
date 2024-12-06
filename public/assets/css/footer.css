@@ -1,0 +1,92 @@
+.footer {
+    background-color: #B19CD9 !important;  /* Updated background color */
+    color: #fff !important;
+    padding: 40px 20px !important;
+    text-align: center !important;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.footer-logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+
+.footer-logo p {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: nowrap; /* Prevents wrapping */
+    overflow-x: auto; /* Adds horizontal scrolling for mobile */
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+    white-space: nowrap; /* Prevents breaking text */
+}
+
+.footer-links a:hover {
+    color: #9c27b0;
+}
+
+.footer-contact p {
+    font-size: 12px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* Responsive Footer Design */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo img {
+        width: 80px; /* Adjust the logo size */
+    }
+
+    .footer-logo p {
+        font-size: 12px; /* Smaller text for mobile */
+    }
+
+    .footer-links {
+        gap: 10px; /* Reduce the space between links */
+    }
+
+    .footer-links a {
+        font-size: 12px; /* Smaller font size for links */
+    }
+
+    .footer-contact p {
+        font-size: 10px; /* Smaller font for contact information */
+    }
+
+    .footer-links::-webkit-scrollbar {
+        height: 4px; /* Smaller scrollbar height */
+    }
+
+    .footer-links::-webkit-scrollbar-thumb {
+        background-color: #cac5d35d;
+        border-radius: 6px;
+    }
+
+    .footer-links::-webkit-scrollbar-track {
+        background-color: #333;
+    }
+}
