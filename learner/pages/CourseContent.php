@@ -180,7 +180,22 @@ while ($row = $materials_result->fetch_assoc()) {
                     <?php endif; ?>
                 <?php elseif ($tab === 'post-test'): ?>
                     <h2 class="text-secondary">Post-Test</h2>
-                    <?php if ($post_test_result): ?>
+                    <?php
+                    // Check if quiz is completed by this learner
+                    $query = "SELECT COUNT(*) AS quiz_completed FROM quiz_results WHERE learner_id = ? AND course_id = ?";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("ii", $_SESSION['learner_id'], $course_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    $quiz_completed = $row['quiz_completed'] > 0; // true if quiz is completed
+                
+                    if (!$quiz_completed): ?>
+                        <!-- Restrict access if Quiz is not completed -->
+                        <p class="text-center text-warning">
+                            You must complete the Quiz before accessing the Post-Test.
+                        </p>
+                    <?php elseif ($post_test_result): ?>
                         <!-- Show Post-Test Results if already completed -->
                         <div class="text-center">
                             <h1 class="mb-4">Post-Test Results</h1>
@@ -240,6 +255,7 @@ while ($row = $materials_result->fetch_assoc()) {
                     <?php else: ?>
                         <p class="text-center text-muted">No Post-Test questions available at the moment.</p>
                     <?php endif; ?>
+
                 <?php elseif ($tab === 'quiz'): ?>
                     <h2 class="text-secondary">Quiz</h2>
                     <?php
@@ -247,10 +263,17 @@ while ($row = $materials_result->fetch_assoc()) {
 
                     // Loop through the learning materials to check if any are not completed
                     foreach ($learning_materials as $module) {
-                        // Ensure the 'completed' key exists and is set to true
-                        if (!isset($module['completed']) || !$module['completed']) {
+                        // Check if the module has been marked as done in the 'module_completion' table
+                        $query = "SELECT COUNT(*) AS is_done FROM module_completion WHERE learner_id = ? AND LM_id = ?";
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param("ii", $_SESSION['learner_id'], $module['LM_id']);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+
+                        if ($row['is_done'] == 0) { // If the module is not completed
                             $all_modules_completed = false;
-                            break;
+                            break; // Exit the loop as soon as we find an incomplete module
                         }
                     }
                     ?>
