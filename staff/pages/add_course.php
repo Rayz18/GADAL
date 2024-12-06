@@ -9,9 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_name = $_POST['course_name'];
     $course_desc = $_POST['course_desc'];
     $offered_mode = $_POST['offered_mode'];
-    $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
-    $enable_attendance = isset($_POST['enable_attendance']) ? 1 : 0;
-    $enable_evaluation = isset($_POST['enable_evaluation']) ? 1 : 0;
     $course_img = '';
 
     // Handle file upload
@@ -23,15 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Validation based on offered mode
+    // Validate based on offered mode
     if ($offered_mode === 'face_to_face') {
         $course_date = $_POST['course_date'];
+        $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
+        $enable_attendance = isset($_POST['enable_attendance']) ? 1 : 0;
+        $enable_evaluation = isset($_POST['enable_evaluation']) ? 1 : 0;
+
+        // Insert for face-to-face courses
         $stmt = $conn->prepare("
             INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmt->bind_param("isssssiii", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
     } else {
+        // Only handle online courses
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
 
@@ -41,11 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
+        // Insert for online courses (no need for registration, attendance, evaluation)
         $stmt = $conn->prepare("
-            INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
-        $stmt->bind_param("issssssiii", $program_id, $course_name, $course_img, $course_desc, $start_date, $end_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
+        $stmt->bind_param("issssss", $program_id, $course_name, $course_img, $course_desc, $start_date, $end_date, $offered_mode);
     }
 
     $stmt->execute();
@@ -119,28 +123,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="online">Online</option>
                                 </select>
                             </div>
-                            <div id="face_to_face_options" class="mb-3">
+                            <div id="face_to_face_options" class="mb-3" style="display: none;">
                                 <label class="form-label">Face to Face Options:</label>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_registration" name="enable_registration"
-                                        class="form-check-input" checked readonly>
-                                    <label for="enable_registration" class="form-check-label">Enable Registration
-                                        (Predefined)</label>
-                                    <input type="hidden" name="enable_registration_hidden" value="1">
+                                        class="form-check-input">
+                                    <label for="enable_registration" class="form-check-label">Enable
+                                        Registration</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_attendance" name="enable_attendance"
-                                        class="form-check-input" checked readonly>
-                                    <label for="enable_attendance" class="form-check-label">Enable Attendance
-                                        (Predefined)</label>
-                                    <input type="hidden" name="enable_attendance_hidden" value="1">
+                                        class="form-check-input">
+                                    <label for="enable_attendance" class="form-check-label">Enable Attendance</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" id="enable_evaluation" name="enable_evaluation"
-                                        class="form-check-input" checked readonly>
-                                    <label for="enable_evaluation" class="form-check-label">Enable Evaluation
-                                        (Predefined)</label>
-                                    <input type="hidden" name="enable_evaluation_hidden" value="1">
+                                        class="form-check-input">
+                                    <label for="enable_evaluation" class="form-check-label">Enable Evaluation</label>
                                 </div>
                             </div>
 
@@ -160,32 +159,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         function toggleFields(value) {
             const faceToFaceDate = document.getElementById('face_to_face_date');
             const onlineDates = document.getElementById('online_dates');
+            const faceToFaceOptions = document.getElementById('face_to_face_options');
 
             if (value === 'face_to_face') {
                 faceToFaceDate.style.display = 'block';
                 onlineDates.style.display = 'none';
+                faceToFaceOptions.style.display = 'block'; // Show face to face options
             } else {
                 faceToFaceDate.style.display = 'none';
                 onlineDates.style.display = 'block';
+                faceToFaceOptions.style.display = 'none'; // Hide face to face options for online mode
             }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            toggleFields(document.getElementById('offered_mode').value);
-
-            const form = document.querySelector("form");
-            const startDateInput = document.getElementById("start_date");
-            const endDateInput = document.getElementById("end_date");
-
-            form.addEventListener("submit", function (event) {
-                const startDate = new Date(startDateInput.value);
-                const endDate = new Date(endDateInput.value);
-
-                if (endDate <= startDate) {
-                    event.preventDefault(); // Prevent form submission
-                    alert("The end date must be later than the start date.");
-                }
-            });
+            toggleFields(document.getElementById('offered_mode').value); // Initial state based on current selection
         });
     </script>
 </body>

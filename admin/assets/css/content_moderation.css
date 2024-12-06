@@ -57,11 +57,6 @@ body {
     position: relative;
 }
 
-.custom-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-}
-
 /* Card Title */
 .custom-card h5.card-title {
     font-size: 20px;
@@ -217,4 +212,3 @@ body {
 .content.shifted {
     margin-left: 250px; /* Shifts content when sidebar is open */
 }
-

@@ -37,6 +37,79 @@ html, body {
     object-fit: cover;
 }
 
+/* Mission Statement Container */
+.mission-statement {
+    background-color: #8A2BE2; /* Dark purple color */
+    color: white; /* White text for better readability */
+    text-align: center; /* Center-align the text */
+    padding: 20px; /* Add vertical padding for spacing */
+    margin: 0 0 10px 0; /* Reduce the bottom margin to bring it closer to the next section */
+    width: 100%; /* Ensure it spans the full width of the container */
+    border-radius: 0; /* Remove border radius for a rectangular shape */
+    font-size: 1.2rem; /* Slightly larger text for better readability */
+    line-height: 1.8; /* Improve line spacing */
+    font-weight: 600; /* Make the text slightly bolder */
+    box-sizing: border-box; /* Include padding/borders in total width */
+    margin-top: 15px;
+    overflow: hidden; /* Hide overflow for the split animation */
+
+    /* Hide animation initially */
+    opacity: 0;
+    clip-path: inset(50% 50% 50% 50%);
+    transition: opacity 1.5s ease-out, clip-path 1.5s ease-out;
+}
+
+/* When the mission statement is in view, animate */
+.mission-statement.animate {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+}
+
+/* Mission Statement Text */
+.mission-statement p {
+    opacity: 0; /* Initially hidden */
+    transform: translateY(10px); /* Slight initial offset */
+    animation: fadeInUp 1.5s ease-in-out, textTransitions 12s infinite ease-in-out;
+    animation-delay: 1.2s; /* Start after the container animation */
+    animation-fill-mode: both; /* Retain the final state */
+}
+
+/* Custom Slider Section for Mobile */
+@media screen and (max-width: 768px) {
+    .custom-slider-image {
+        height: 300px; /* Reduce the height for smaller screens */
+    }
+
+    .mission-statement {
+        padding: 15px; /* Reduce padding for smaller screens */
+        font-size: 1rem; /* Adjust font size for better fit */
+        line-height: 1.5; /* Adjust line spacing for readability */
+    }
+
+    .mission-statement p {
+        font-size: 0.9rem; /* Smaller font for mobile */
+        transform: translateY(5px); /* Slightly adjust initial offset */
+    }
+}
+
+/* Custom Slider Section for Extra Small Mobile */
+@media screen and (max-width: 480px) {
+    .custom-slider-image {
+        height: 200px; /* Further reduce height for extra small screens */
+    }
+
+    .mission-statement {
+        padding: 10px; /* Further reduce padding for extra small screens */
+        font-size: 0.9rem; /* Further adjust font size */
+        line-height: 1.4; /* Fine-tune line spacing */
+    }
+
+    .mission-statement p {
+        font-size: 0.8rem; /* Smaller font size for extra small screens */
+        transform: translateY(3px); /* Adjust offset slightly */
+    }
+}
+
 /* Navigation Arrows */
 .custom-prev, .custom-next {
     cursor: pointer;
@@ -176,43 +249,6 @@ html, body {
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-size: 1.5rem; /* Adjust icon size if necessary */
-}
-
-/* Mission Statement Container */
-.mission-statement {
-    background-color: #8A2BE2; /* Dark purple color */
-    color: white; /* White text for better readability */
-    text-align: center; /* Center-align the text */
-    padding: 20px; /* Add vertical padding for spacing */
-    margin: 0 0 10px 0; /* Reduce the bottom margin to bring it closer to the next section */
-    width: 100%; /* Ensure it spans the full width of the container */
-    border-radius: 0; /* Remove border radius for a rectangular shape */
-    font-size: 1.2rem; /* Slightly larger text for better readability */
-    line-height: 1.8; /* Improve line spacing */
-    font-weight: 600; /* Make the text slightly bolder */
-    box-sizing: border-box; /* Include padding/borders in total width */
-    margin-top: 15px;
-    overflow: hidden; /* Hide overflow for the split animation */
-
-    /* Hide animation initially */
-    opacity: 0;
-    clip-path: inset(50% 50% 50% 50%);
-    transition: opacity 1.5s ease-out, clip-path 1.5s ease-out;
-}
-
-/* When the mission statement is in view, animate */
-.mission-statement.animate {
-    opacity: 1;
-    clip-path: inset(0% 0% 0% 0%);
-}
-
-/* Mission Statement Text */
-.mission-statement p {
-    opacity: 0; /* Initially hidden */
-    transform: translateY(10px); /* Slight initial offset */
-    animation: fadeInUp 1.5s ease-in-out, textTransitions 12s infinite ease-in-out;
-    animation-delay: 1.2s; /* Start after the container animation */
-    animation-fill-mode: both; /* Retain the final state */
 }
 
 /* Initial Fade-In and Upward Transition */
@@ -421,20 +457,6 @@ html, body {
         font-size: 12px;
         line-height: 25px;
     }
-}
-
-/* Add responsive design adjustments */
-@media (max-width: 768px) {
-    .training-cards {
-        max-width: 100%;
-        gap: 10px;
-    }
-
-    .training-card {
-        width: 260px; /* Adjust card width for smaller screens */
-        height: auto; /* Allow dynamic height on smaller screens */
-    }
-
 }
 
 /* Latest Trainings Header */

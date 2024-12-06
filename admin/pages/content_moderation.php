@@ -13,6 +13,7 @@ $content_types = [
     "Learning Materials" => "SELECT * FROM learning_materials WHERE status = 'pending'",
     "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
     "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
+    "Quiz Questions" => "SELECT * FROM quiz_questions WHERE status = 'pending'",
 ];
 
 $content_data = [];
@@ -53,6 +54,7 @@ foreach ($content_types as $type => $query) {
         .card-text {
             font-weight: bold;
         }
+
     </style>
 </head>
 
@@ -68,7 +70,7 @@ foreach ($content_types as $type => $query) {
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->
             <div id="toggle-sidebar" class="toggle-sidebar"></div>
-            <h1 class="learning-title text-primary text-center">Content Moderation</h1>
+            <h1 class="learning-title text-primary text-center" style="color: #B19DC9;">Content Moderation</h1>
                 <div class="card-container">
                     <?php foreach ($content_data as $type => $count): ?>
                         <div class="custom-card card text-center mb-4 shadow-sm 

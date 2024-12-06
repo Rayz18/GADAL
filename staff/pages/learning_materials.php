@@ -154,145 +154,151 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         </div>
 
         <?php include '../../public/includes/StaffNavBar.php'; ?>
-        
+
         <!-- Main Content -->
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->
             <div id="toggle-sidebar" class="toggle-sidebar"></div>
             <div class="header">
                 <h1>Manage Learning Materials</h1>
-                <h4 class="text-light">Course: <span id="courseNameDisplay"><?php echo htmlspecialchars($course_name); ?></span></h4>
+                <h4 class="text-light">Course: <span
+                        id="courseNameDisplay"><?php echo htmlspecialchars($course_name); ?></span></h4>
             </div>
 
-        <!-- Add Material Form -->
-        <div class="form-container">
-            <h4 class="section-title">Add New Learning Material</h4>
-            <form id="addMaterialForm" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="moduleTitle" class="form-label">Module Title</label>
-                    <input type="text" id="moduleTitle" name="module_title" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="moduleDiscussion" class="form-label">Module Discussion</label>
-                    <textarea id="moduleDiscussion" name="module_discussion" class="form-control" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="videoFile" class="form-label">Upload Video</label>
-                    <input type="file" id="videoFile" name="video_file" class="form-control" accept="video/*">
-                </div>
-                <div class="mb-3">
-                    <label for="videoTitle" class="form-label">Video Title</label>
-                    <input type="text" id="videoTitle" name="video_title" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="pdfFile" class="form-label">Upload PDF</label>
-                    <input type="file" id="pdfFile" name="pdf_file" class="form-control" accept="application/pdf">
-                </div>
-                <div class="mb-3">
-                    <label for="pdfTitle" class="form-label">PDF Title</label>
-                    <input type="text" id="pdfTitle" name="pdf_title" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg w-100">Add Material</button>
-            </form>
-        </div>
+            <!-- Add Material Form -->
+            <div class="form-container">
+                <h4 class="section-title">Add New Learning Material</h4>
+                <form id="addMaterialForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="moduleTitle" class="form-label">Module Title</label>
+                        <input type="text" id="moduleTitle" name="module_title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="moduleDiscussion" class="form-label">Module Discussion</label>
+                        <textarea id="moduleDiscussion" name="module_discussion" class="form-control"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoFile" class="form-label">Upload Video</label>
+                        <input type="file" id="videoFile" name="video_file" class="form-control" accept="video/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoTitle" class="form-label">Video Title</label>
+                        <input type="text" id="videoTitle" name="video_title" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pdfFile" class="form-label">Upload PDF</label>
+                        <input type="file" id="pdfFile" name="pdf_file" class="form-control" accept="application/pdf">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pdfTitle" class="form-label">PDF Title</label>
+                        <input type="text" id="pdfTitle" name="pdf_title" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Add Material</button>
+                </form>
+            </div>
 
-        <!-- Existing Materials Section -->
-        <div class="materials-container">
-            <h4 class="section-title">Existing Learning Materials</h4>
-            <div id="materialList">
-                <div class="accordion" id="materialsAccordion"></div>
+            <!-- Existing Materials Section -->
+            <div class="materials-container">
+                <h4 class="section-title">Existing Learning Materials</h4>
+                <div id="materialList">
+                    <div class="accordion" id="materialsAccordion"></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        const courseId = new URLSearchParams(window.location.search).get("course_id");
-        document.getElementById("addMaterialForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            formData.append("action", "add");
+        <script>
+            const courseId = new URLSearchParams(window.location.search).get("course_id");
+            document.getElementById("addMaterialForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                formData.append("action", "add");
 
-            const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
-            const result = await response.json();
-            alert(result.message);
-            fetchMaterials();
-        });
+                const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
+                const result = await response.json();
+                alert(result.message);
+                fetchMaterials();
+            });
 
-        async function fetchMaterials() {
-            const formData = new FormData();
-            formData.append("action", "fetch");
-            const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
-            const materials = await response.json();
-            const materialList = document.getElementById("materialsAccordion");
-            materialList.innerHTML = "";
+            async function fetchMaterials() {
+                const formData = new FormData();
+                formData.append("action", "fetch");
+                const response = await fetch("learning_materials.php?course_id=" + courseId, { method: "POST", body: formData });
+                const materials = await response.json();
+                const materialList = document.getElementById("materialsAccordion");
+                materialList.innerHTML = "";
 
-            materials.forEach((material, index) => {
-                let videoHTML = "";
-                let pdfHTML = "";
+                materials.forEach((material, index) => {
+                    let videoHTML = "";
+                    let pdfHTML = "";
 
-                // Add video HTML only if video_url is present
-                if (material.video_url) {
-                    videoHTML = `
-                        <div class="video-container mt-3">
-                            <h5>${material.video_title || "Video"}</h5>
-                            <video controls>
-                                <source src="${material.video_url}" type="video/mp4">
-                                Your browser does not support video playback.
-                            </video>
-                        </div>
-                    `;
-                }
+                    // Add video HTML only if video_url is present
+                    if (material.video_url) {
+                        videoHTML = `
+                            <div class="video-container mt-3">
+                                <h5>${material.video_title || "Video"}</h5>
+                                <video controls>
+                                    <source src="${material.video_url}" type="video/mp4">
+                                    Your browser does not support video playback.
+                                </video>
+                            </div>
+                        `;
+                    }
 
-                // Add PDF HTML only if pdf_url is present
-                if (material.pdf_url) {
-                    pdfHTML = `
-                        <div class="file-container mt-3">
-                            <h5>${material.pdf_title || "PDF File"}</h5>
-                            <a href="${material.pdf_url}" target="_blank" class="btn btn-secondary">View PDF</a>
-                        </div>
-                    `;
-                }
+                    // Add PDF HTML only if pdf_url is present
+                    if (material.pdf_url) {
+                        pdfHTML = `
+                            <div class="file-container mt-3">
+                                <h5>${material.pdf_title || "PDF File"}</h5>
+                                <a href="${material.pdf_url}" target="_blank" class="btn btn-secondary">View PDF</a>
+                            </div>
+                        `;
+                    }
 
-                materialList.innerHTML += `
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading${index}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
-                                ${material.module_title}
-                            </button>
-                        </h2>
-                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#materialsAccordion">
-                            <div class="accordion-body">
-                                <p><strong>Discussion:</strong> ${material.module_discussion}</p>
-                                ${videoHTML}
-                                ${pdfHTML}
+                    // Add discussion with preserved formatting
+                    materialList.innerHTML += `
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading${index}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                    ${material.module_title}
+                                </button>
+                            </h2>
+                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#materialsAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Discussion:</strong></p>
+                                    <div class="preserved-text">
+                                        ${material.module_discussion}
+                                    </div>
+                                    ${videoHTML}
+                                    ${pdfHTML}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-            });
-        }
-        fetchMaterials();
-    </script>
+                    `;
+                });
+            }
+            fetchMaterials();
+        </script>
 
-<script>document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const content = document.getElementById("content");
-    const toggleButton = document.getElementById("toggle-sidebar");
+        <script>document.addEventListener("DOMContentLoaded", function () {
+                const sidebar = document.getElementById("sidebar");
+                const content = document.getElementById("content");
+                const toggleButton = document.getElementById("toggle-sidebar");
 
-    toggleButton.addEventListener("click", function () {
-        if (sidebar.classList.contains("open")) {
-            // Close the sidebar
-            sidebar.classList.remove("open");
-            content.classList.remove("shifted");
-        } else {
-            // Open the sidebar
-            sidebar.classList.add("open");
-            content.classList.add("shifted");
-        }
-    });
-});</script>
+                toggleButton.addEventListener("click", function () {
+                    if (sidebar.classList.contains("open")) {
+                        // Close the sidebar
+                        sidebar.classList.remove("open");
+                        content.classList.remove("shifted");
+                    } else {
+                        // Open the sidebar
+                        sidebar.classList.add("open");
+                        content.classList.add("shifted");
+                    }
+                });
+            });</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
