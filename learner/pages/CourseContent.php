@@ -242,64 +242,84 @@ while ($row = $materials_result->fetch_assoc()) {
                     <?php endif; ?>
                 <?php elseif ($tab === 'quiz'): ?>
                     <h2 class="text-secondary">Quiz</h2>
-                    <?php if ($quiz_result): ?>
-                        <!-- Show Quiz Results if already completed -->
-                        <div class="text-center">
-                            <h1 class="mb-4">Quiz Results</h1>
-                            <p class="lead">Your performance:</p>
-                            <h2 class="display-4 text-success"><?php echo htmlspecialchars($quiz_result['score']); ?>%</h2>
-                            <p class="lead">Correct Answers:
-                                <strong><?php echo htmlspecialchars($quiz_result['correct_answers']); ?></strong> /
-                                <?php echo htmlspecialchars($quiz_result['total_questions']); ?>
-                            </p>
-                        </div>
-                    <?php elseif ($quiz_questions->num_rows > 0): ?>
-                        <!-- Show Quiz Questions if not yet completed -->
-                        <form method="POST" action="submit_quiz.php" style="max-width: 800px; margin: auto;">
-                            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                            <p class="text-muted text-center mb-4">"Complete this quiz to test your understanding."</p>
-                            <?php
-                            $counter = 1;
-                            while ($row = $quiz_questions->fetch_assoc()): ?>
-                                <div class="mb-4 d-flex align-items-start question-container">
-                                    <span class="question-counter"><?php echo $counter; ?>.</span>
-                                    <div>
-                                        <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="a" required>
-                                            <label class="form-check-label">
-                                                a.) <?php echo htmlspecialchars($row['option_a']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="b">
-                                            <label class="form-check-label">
-                                                b.) <?php echo htmlspecialchars($row['option_b']); ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="answers[<?php echo $row['quiz_id']; ?>]" value="c">
-                                            <label class="form-check-label">
-                                                c.) <?php echo htmlspecialchars($row['option_c']); ?>
-                                            </label>
+                    <?php
+                    $all_modules_completed = true;
+
+                    // Loop through the learning materials to check if any are not completed
+                    foreach ($learning_materials as $module) {
+                        // Ensure the 'completed' key exists and is set to true
+                        if (!isset($module['completed']) || !$module['completed']) {
+                            $all_modules_completed = false;
+                            break;
+                        }
+                    }
+                    ?>
+
+                    <?php if (!$all_modules_completed): ?>
+                        <!-- Show restriction message if not all modules are completed -->
+                        <p class="text-center text-warning">
+                            You must complete all learning materials before accessing the quiz.
+                        </p>
+                    <?php else: ?>
+                        <?php if ($quiz_result): ?>
+                            <!-- Show Quiz Results if already completed -->
+                            <div class="text-center">
+                                <h1 class="mb-4">Quiz Results</h1>
+                                <p class="lead">Your performance:</p>
+                                <h2 class="display-4 text-success"><?php echo htmlspecialchars($quiz_result['score']); ?>%</h2>
+                                <p class="lead">Correct Answers:
+                                    <strong><?php echo htmlspecialchars($quiz_result['correct_answers']); ?></strong> /
+                                    <?php echo htmlspecialchars($quiz_result['total_questions']); ?>
+                                </p>
+                            </div>
+                        <?php elseif ($quiz_questions->num_rows > 0): ?>
+                            <!-- Show Quiz Questions if not yet completed -->
+                            <form method="POST" action="submit_quiz.php" style="max-width: 800px; margin: auto;">
+                                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                <p class="text-muted text-center mb-4">"Complete this quiz to test your understanding."</p>
+                                <?php
+                                $counter = 1;
+                                while ($row = $quiz_questions->fetch_assoc()): ?>
+                                    <div class="mb-4 d-flex align-items-start question-container">
+                                        <span class="question-counter"><?php echo $counter; ?>.</span>
+                                        <div>
+                                            <p class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="answers[<?php echo $row['quiz_id']; ?>]" value="a" required>
+                                                <label class="form-check-label">
+                                                    a.) <?php echo htmlspecialchars($row['option_a']); ?>
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="answers[<?php echo $row['quiz_id']; ?>]" value="b">
+                                                <label class="form-check-label">
+                                                    b.) <?php echo htmlspecialchars($row['option_b']); ?>
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="answers[<?php echo $row['quiz_id']; ?>]" value="c">
+                                                <label class="form-check-label">
+                                                    c.) <?php echo htmlspecialchars($row['option_c']); ?>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
+                                    <?php
+                                    $counter++;
+                                endwhile; ?>
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-primary px-5 py-2"
+                                        style="background-color: #C7A1D4; border: none; border-radius: 6px;">
+                                        Submit
+                                    </button>
                                 </div>
-                                <?php
-                                $counter++;
-                            endwhile; ?>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary px-5 py-2"
-                                    style="background-color: #C7A1D4; border: none; border-radius: 6px;">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    <?php else: ?>
-                        <p class="text-center text-muted">No Quiz questions available at the moment.</p>
+                            </form>
+                        <?php else: ?>
+                            <p class="text-center text-muted">No Quiz questions available at the moment.</p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php elseif ($tab === 'learning-materials'): ?>
                     <?php if (!$pre_test_result): ?>
@@ -315,8 +335,15 @@ while ($row = $materials_result->fetch_assoc()) {
                                 <?php
                                 // Determine if the accordion item should be expanded
                                 $is_expanded = (isset($_GET['module']) && $_GET['module'] == $index);
+
                                 // Check if the module has been marked as done by this user
-                                $is_done = isset($_SESSION['completed_modules'][$index]) ? $_SESSION['completed_modules'][$index] : false;
+                                $query = "SELECT COUNT(*) AS is_done FROM module_completion WHERE learner_id = ? AND LM_id = ?";
+                                $stmt = $conn->prepare($query);
+                                $stmt->bind_param("ii", $_SESSION['learner_id'], $material['LM_id']);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $row = $result->fetch_assoc();
+                                $is_done = $row['is_done'] > 0; // True if a record exists
                                 ?>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading<?php echo $index; ?>">
@@ -361,7 +388,8 @@ while ($row = $materials_result->fetch_assoc()) {
                                             <div class="d-flex justify-content-end mt-3">
                                                 <?php if (!$is_done): ?>
                                                     <form action="mark_done.php" method="POST">
-                                                        <input type="hidden" name="module_index" value="<?php echo $index; ?>">
+                                                        <input type="hidden" name="module_id" value="<?php echo $material['LM_id']; ?>">
+                                                        <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
                                                         <button type="submit" class="btn btn-success">Mark as Done</button>
                                                     </form>
                                                 <?php else: ?>
