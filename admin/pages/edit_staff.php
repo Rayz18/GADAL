@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,33 +49,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Staff</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../admin/assets/css/edit_staff.css">
 </head>
 
-<body>
-    <div class="container mt-5">
-        <a href="manage_staff.php" class="btn btn-outline-secondary mb-3">← Back</a>
-        <h2 class="text-center text-primary fw-bold">Edit Staff Account</h2>
-        <form action="edit_staff.php" method="POST" class="bg-white p-5 rounded-4 shadow-lg mx-auto"
-            style="max-width: 500px;">
+<body class="min-vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="container bg-white p-4 rounded shadow-lg">
+        <h2 class="text-center mb-4">EDIT STAFF DETAILS</h2>
+
+        <form action="edit_staff.php" method="POST">
             <input type="hidden" name="staff_id" value="<?php echo htmlspecialchars($staff['staff_id']); ?>">
+
             <div class="mb-3">
-                <label for="staff_name" class="form-label text-secondary fw-bold">Staff Name:</label>
-                <input type="text" id="staff_name" name="staff_name" class="form-control"
-                    value="<?php echo htmlspecialchars($staff['staff_name']); ?>" required>
+                <label for="staff_name" class="form-label fw-bold">Staff Name:</label>
+                <input type="text" id="staff_name" name="staff_name" value="<?php echo htmlspecialchars($staff['staff_name']); ?>"
+                    class="form-control" required>
             </div>
+
             <div class="mb-3">
-                <label for="username" class="form-label text-secondary fw-bold">Username:</label>
-                <input type="text" id="username" name="username" class="form-control"
-                    value="<?php echo htmlspecialchars($staff['username']); ?>" required>
+                <label for="username" class="form-label fw-bold">Username:</label>
+                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($staff['username']); ?>"
+                    class="form-control" required>
             </div>
+
             <div class="mb-3">
-                <label for="password" class="form-label text-secondary fw-bold">New Password (optional):</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Enter new password">
+                <label for="password" class="form-label fw-bold">New Password (optional):</label>
+                <input type="password" id="password" name="password" placeholder="Enter new password"
+                    class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Save Changes</button>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="manage_staff.php" class="btn btn-link">Back</a>
+            </div>
         </form>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -1,8 +1,7 @@
-
 /* General container styling */
 .review-content-container {
     max-width: 100%;
-    width: 90%;
+    width: 95% !important;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #D3D3D3;
@@ -22,6 +21,23 @@
     border-bottom: 2px solid #bcbbbb;
     padding-bottom: 10px;
     text-transform: uppercase;
+}
+
+/* Add specific table adjustments for programs, courses, and other types */
+.review-content-container.programs table,
+.review-content-container.courses table,
+.review-content-container.learning-materials table,
+.review-content-container.post-test table,
+.review-content-container.pre-test table,
+.review-content-container.quiz table {
+    max-width: 95%; /* Slightly increase width for these tables */
+    margin: 0 auto; /* Center these specific tables */
+}
+
+/* Optional: Add some padding to make tables more readable */
+.review-content-container table th,
+.review-content-container table td {
+    padding: 12px; /* Slightly increase padding for better readability */
 }
 
 .dashboard-wrapper {

@@ -7,20 +7,19 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-// Retrieve the content type from the URL
 $content_type = $_GET['type'] ?? null;
 if (!$content_type) {
     echo "No content type specified.";
     exit;
 }
 
-// Map content types to their database queries
 $content_queries = [
-    "Programs" => "SELECT * FROM programs WHERE status = 'pending'",
-    "Courses" => "SELECT * FROM courses WHERE status = 'pending'",
-    "Learning Materials" => "SELECT * FROM learning_materials WHERE status = 'pending'",
-    "Post-Test Questions" => "SELECT * FROM post_test_questions WHERE status = 'pending'",
-    "Pre-Test Questions" => "SELECT * FROM pre_test_questions WHERE status = 'pending'",
+    "Programs" => "SELECT program_id, program_name, program_img FROM programs WHERE status = 'pending'",
+    "Courses" => "SELECT course_id, course_name, course_img, course_desc, offered_mode, start_date, end_date FROM courses WHERE status = 'pending'",
+    "Learning Materials" => "SELECT LM_id, module_title, module_discussion, video_url, pdf_url FROM learning_materials WHERE status = 'pending'",
+    "Post-Test Questions" => "SELECT post_test_id, question_text, option_a, option_b, option_c, correct_option FROM post_test_questions WHERE status = 'pending'",
+    "Pre-Test Questions" => "SELECT pre_test_id, question_text, option_a, option_b, option_c, correct_option FROM pre_test_questions WHERE status = 'pending'",
+    "Quiz Questions" => "SELECT quiz_id, question_text, option_a, option_b, option_c, correct_option FROM quiz_questions WHERE status = 'pending'",
 ];
 
 $query = $content_queries[$content_type] ?? null;
@@ -35,13 +34,12 @@ if (!$result) {
     exit;
 }
 
-// Fetch columns if there are rows in the result
 $columns = $result->num_rows > 0 ? array_keys($result->fetch_assoc()) : [];
 $result->data_seek(0);
 
 $image_columns = ['program_img', 'course_img', 'material_path', 'poster_path'];
 $video_columns = ['video_path', 'course_video_path', 'video_url'];
-$file_columns = ['file_path', 'pdf_url']; // Add any columns that should be clickable file paths
+$file_columns = ['file_path', 'pdf_url']; 
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +55,10 @@ $file_columns = ['file_path', 'pdf_url']; // Add any columns that should be clic
 </head>
         
 <body>
-<!-- Main Content -->
+
 <div id="content" class="content">
-            <!-- Toggle Sidebar Icon -->
-            <div id="toggle-sidebar" class="toggle-sidebar"></div>
+            
+<div id="toggle-sidebar" class="toggle-sidebar"></div>
     <div class="dashboard-wrapper">
         <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="review-content-container">
@@ -118,12 +116,12 @@ $file_columns = ['file_path', 'pdf_url']; // Add any columns that should be clic
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <form action="moderate_content_action.php" method="post">
-                                    <input type="hidden" name="content_mdrtn_id" value="<?php echo $row[$columns[0]]; ?>">
-                                    <input type="hidden" name="content_type" value="<?php echo strtolower($content_type); ?>">
-                                    <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
-                                    <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
-                                </form>
+                            <form action="moderate_content_action.php" method="post">
+                                <input type="hidden" name="content_mdrtn_id" value="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>">
+                                <input type="hidden" name="content_type" value="<?php echo htmlspecialchars($content_type); ?>">
+                                <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+                                <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
+                            </form>
                             </td>
                         </tr>
                     <?php endwhile; ?>
