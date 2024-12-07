@@ -242,6 +242,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <button type="submit" name="enroll" class="btn btn-primary">Enroll</button>
                                     </form>
                                 <?php endif; ?>
+                                <?php if ($is_enrolled && $offered_mode === 'face_to_face'): ?>
+                                    <div class="face-to-face-options mt-3">
+                                        <?php if ($course['enable_registration']): ?>
+                                            <a href="register.php?course_id=<?php echo $course_id; ?>"
+                                                class="btn btn-info btn-sm">Registration</a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
