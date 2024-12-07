@@ -57,6 +57,7 @@
         // Call the function initially to apply the default filter (show all)
         window.onload = filterCertificates;
     </script>
+    <?php include '../../public/includes/footer.php'; ?>
 </body>
 
 </html>

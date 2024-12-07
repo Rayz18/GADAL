@@ -16,12 +16,11 @@
             <h1 class="title">CONNECT WITH US</h1>
 
             <section class="location-section">
-                <!-- Alangilan Campus -->
                 <div class="location">
                     <img src="https://lh3.googleusercontent.com/p/AF1QipMgKEy0eNkfBl73aw1UJSrHNUFwUZpyaNo1gk8A=s1360-w1360-h1020"
                         alt="Batangas State University - Alangilan Campus" />
                     <div class="location-details">
-                        <h2>BATANGAS STATE UNIVERSITY - ALANGILAN CAMPUS</h2>
+                        <h2>2nd floor, CET Building, BatStateU-TNEU Alangilan</h2>
                         <p>Q3MF+JQJ, Batangas</p>
                         <p><a href="mailto:gad@g.batstate-u.edu.ph">gad@g.batstate-u.edu.ph</a></p>
                         <h3>Vicinity Map</h3>
@@ -31,11 +30,8 @@
                             referrerpolicy="no-referrer-when-downgrade" title="Alangilan Campus Map"></iframe>
                     </div>
                 </div>
-
             </section>
         </div>
     </div>
-
+    <?php include '../../public/includes/footer.php'; ?>
 </body>
-
-</html>

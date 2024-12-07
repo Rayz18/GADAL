@@ -237,7 +237,7 @@ $archived_courses_query = $conn->query("
                                             <button type="submit" class="btn btn-warning btn-sm">Restore</button>
                                         </form>
                                         <form method="POST" action="" class="d-inline" onsubmit="return confirmDelete();">
-                                            <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                                            <input type="hidden" name="delete_course_id" value="<?php echo $course['course_id']; ?>">
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         </form>
                                     </div>
@@ -246,7 +246,7 @@ $archived_courses_query = $conn->query("
                     </div>
                 <?php }
                 } else {
-                    echo "<p>No archived courses available.</p>";
+                    echo "<p class='text-center text-muted'>No archived programs available.</p>";
                 }
                 ?>
             </div>
