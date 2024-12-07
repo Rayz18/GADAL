@@ -122,11 +122,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $course_date = htmlspecialchars(date('F d, Y', strtotime($course['start_date'])) . ' - ' . date('F d, Y', strtotime($course['end_date'])));
                         $date_label = "Duration";
                     }
+
+                    // Calculate learner's progress for online courses
+                    if ($is_enrolled && $offered_mode === 'online') {
+                        // Assuming we have a table for tracking completion of sections (pre-test, learning materials, quiz, post-test)
+                        $progress_query = $conn->query("
+                            SELECT 
+                                (SELECT COUNT(*) FROM pre_test_results WHERE learner_id = '$learner_id' AND course_id = '$course_id') AS pre_test,
+                                (SELECT COUNT(*) FROM quiz_results WHERE learner_id = '$learner_id' AND course_id = '$course_id') AS quiz,
+                                (SELECT COUNT(*) FROM post_test_results WHERE learner_id = '$learner_id' AND course_id = '$course_id') AS post_test
+                        ");
+                        $progress_data = $progress_query->fetch_assoc();
+
+                        // Fetch the total number of learning materials for the course
+                        $learning_materials_query = $conn->query("SELECT LM_id FROM learning_materials WHERE course_id = '$course_id'");
+                        $total_learning_materials = $learning_materials_query->num_rows;
+
+
+                        // Fetch the count of completed learning materials for the learner
+                        $completed_materials_query = $conn->query("SELECT COUNT(*) AS completed FROM module_completion WHERE learner_id = '$learner_id' AND course_id = '$course_id'");
+                        $completed_materials_data = $completed_materials_query->fetch_assoc();
+                        $completed_materials = $completed_materials_data['completed'];
+
+
+                        // Calculate the total number of sections (Pre-test, Materials, Quiz, Post-test)
+                        $total_sections = 4; // Pre-test, Materials, Quiz, Post-test
+            
+                        // Count completed sections (pre-test, materials, quiz, post-test)
+                        $completed_sections = 0;
+                        if ($progress_data['pre_test'] > 0) {
+                            $completed_sections++;
+                        }
+                        if ($completed_materials == $total_learning_materials) {
+                            $completed_sections++; // Completed learning materials count
+                        }
+                        if ($progress_data['quiz'] > 0) {
+                            $completed_sections++;
+                        }
+                        if ($progress_data['post_test'] > 0) {
+                            $completed_sections++;
+                        }
+
+                        // Calculate the percentage of completion
+                        $progress_percentage = ($completed_sections / $total_sections) * 100;
+                    } else {
+                        $progress_percentage = 0;
+
+                    }
                     ?>
+                    <!-- Course display HTML here -->
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm <?php echo $is_enrolled ? 'border-success' : ''; ?>">
                             <?php if ($is_enrolled && $offered_mode === 'online'): ?>
-                                <!-- Make the course image clickable if enrolled and online -->
                                 <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
                                     class="text-decoration-none">
                                 <?php endif; ?>
@@ -137,13 +184,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endif; ?>
                             <div class="card-body">
                                 <?php if ($is_enrolled && $offered_mode === 'online'): ?>
-                                    <!-- Make the course title clickable if enrolled and online -->
                                     <a href="../../learner/pages/CourseContent.php?course_id=<?php echo $course_id; ?>"
                                         class="text-decoration-none">
                                         <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
                                     </a>
                                 <?php else: ?>
-                                    <!-- Display the title as plain text if not enrolled or not online -->
                                     <h5 class="card-title fw-bold"><?php echo htmlspecialchars($course['course_name']); ?></h5>
                                 <?php endif; ?>
                                 <p class="text-muted small mb-2">
@@ -161,31 +206,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <span class="more-text" id="more-<?php echo $course_id; ?>" style="display: none;">
                                             <?php echo mb_substr($course_desc, 100); ?>
                                         </span>
-                                        <a href="javascript:void(0);" class="see-more-link" id="toggle-<?php echo $course_id; ?>"
-                                            onclick="toggleDescription('<?php echo $course_id; ?>')">
+                                        <a href="javascript:void(0);" id="toggle-<?php echo $course_id; ?>"
+                                            onclick="toggleDescription(<?php echo $course_id; ?>)">
                                             See More
                                         </a>
                                     <?php else: ?>
                                         <?php echo $course_desc; ?>
                                     <?php endif; ?>
                                 </p>
-                                <form method="POST">
-                                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
-                                    <input type="hidden" name="offered_mode" value="<?php echo $offered_mode; ?>">
-                                    <?php if ($is_enrolled): ?>
-                                        <button type="submit" name="unenroll" class="btn btn-danger btn-sm"
-                                            onclick="confirmUnenroll(event)">Unenroll</button>
-                                    <?php else: ?>
-                                        <button type="submit" name="enroll" class="btn btn-primary btn-sm">Enroll</button>
-                                    <?php endif; ?>
-                                </form>
-                                <?php if ($is_enrolled && $offered_mode === 'face_to_face'): ?>
-                                    <div class="face-to-face-options mt-3">
-                                        <?php if ($course['enable_registration']): ?>
-                                            <a href="register.php?course_id=<?php echo $course_id; ?>"
-                                                class="btn btn-info btn-sm">Registration</a>
-                                        <?php endif; ?>
+
+                                <!-- Progress Bar for Online Course -->
+                                <?php if ($offered_mode === 'online'): ?>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar"
+                                            style="width: <?php echo $progress_percentage; ?>%"
+                                            aria-valuenow="<?php echo $progress_percentage; ?>" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            <?php echo round($progress_percentage); ?>% Completed
+                                        </div>
                                     </div>
+                                <?php endif; ?>
+
+                                <!-- Enrollment Button -->
+                                <?php if ($is_enrolled): ?>
+                                    <form method="POST" class="mt-3">
+                                        <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                        <input type="hidden" name="offered_mode" value="<?php echo $offered_mode; ?>">
+                                        <button type="submit" name="unenroll" class="btn btn-danger"
+                                            onclick="confirmUnenroll(event)">Unenroll</button>
+                                    </form>
+                                <?php else: ?>
+                                    <form method="POST" class="mt-3">
+                                        <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
+                                        <input type="hidden" name="offered_mode" value="<?php echo $offered_mode; ?>">
+                                        <button type="submit" name="enroll" class="btn btn-primary">Enroll</button>
+                                    </form>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -193,11 +248,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php
                 }
             } else {
-                echo "<p class='text-center text-muted'>No approved courses available for this program.</p>";
+                echo "<p>No courses available for this program.</p>";
             }
             ?>
         </div>
     </div>
+
 </body>
 
 </html>

@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['module_id'], $_POST['
     $course_id = $_POST['course_id']; // Get course ID from form submission
 
     // Insert or update module completion record
-    $query = "INSERT INTO module_completion (learner_id, LM_id) VALUES (?, ?)
+    $query = "INSERT INTO module_completion (learner_id, LM_id, course_id) VALUES (?, ?, ?)
               ON DUPLICATE KEY UPDATE completed_at = CURRENT_TIMESTAMP";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ii", $learner_id, $module_id);
+    $stmt->bind_param("iii", $learner_id, $module_id, $course_id);
 
     if ($stmt->execute()) {
         // Redirect back to the Learning Materials page after marking done
