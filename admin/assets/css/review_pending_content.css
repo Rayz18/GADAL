@@ -11,16 +11,41 @@
     overflow: auto;
 }
 
-/* Title styling */
+/* Title Styling with Milky Way Effect */
 .review-content-container h1 {
+    position: relative;
     text-align: center;
-    font-size: 24px;
-    color: #333;
+    font-size: 28px; /* Larger font size for prominence */
     font-weight: bold;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #bcbbbb;
-    padding-bottom: 10px;
-    text-transform: uppercase;
+    color: #fff; /* White text for contrast */
+    background: linear-gradient(
+        120deg,
+        #6a5acd, /* Soft blue */
+        #8a2be2, /* Deep purple */
+        #ff69b4, /* Hot pink */
+        #ff7f50, /* Coral */
+        #1e90ff /* Dodger blue */
+    );
+    background-clip: text;
+    -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
+    -webkit-text-fill-color: transparent; /* Makes the background gradient visible */
+    padding: 15px 20px; /* Add padding for better spacing */
+    margin-bottom: 25px; /* Spacing between title and content */
+    text-transform: uppercase; /* Make the title all caps */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    overflow: hidden; /* Ensure pseudo-elements stay within bounds */
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
+}
+
+/* Animated Gradient Effect */
+@keyframes milkyway-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 /* Add specific table adjustments for programs, courses, and other types */
@@ -60,6 +85,65 @@
     flex: 1;
     transition: margin-left 0.3s ease, width 0.3s ease;
 }
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #f9f9f9; /* Light neutral background */
+}
+
+table th, table td {
+    border: 1px solid #333; /* Subtle dark border */
+    padding: 12px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Row */
+table th {
+    background-color: #b19dc9; /* Cool gray background for header */
+    color: #fff; /* White text for contrast */
+    font-weight: bold;
+}
+
+/* Body Rows */
+tr:nth-child(even) {
+    background-color: #e9ecef; /* Light gray for even rows */
+}
+
+tr:nth-child(odd) {
+    background-color: #f8f9fa; /* Slightly lighter gray for odd rows */
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.approve-btn {
+    background-color: #28a745; /* Success green */
+    color: #fff;
+}
+
+button.approve-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+button.decline-btn {
+    background-color: #dc3545; /* Danger red */
+    color: #fff;
+}
+
+button.decline-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
 
 /* Table styling */
 table {
@@ -251,13 +335,16 @@ form button:hover {
     color: #333;
 }
 
-/* Image hover zoom effect */
 img.table-image {
-    transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+    width: 100px; /* Set a fixed width */
+    height: 100px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    transition: transform 0.3s ease; /* Smooth hover effect */
 }
 
 img.table-image:hover {
-    transform: scale(1.1); /* Scale up the image by 10% on hover */
+    transform: scale(1.1); /* Scale up the image slightly on hover */
 }
 
 .navbar-logo img {
@@ -328,4 +415,8 @@ img.table-image:hover {
 
 .content.shifted {
     margin-left: 250px; /* Shifts content when sidebar is open */
+}
+
+tr {
+    transition: opacity 0.5s ease-out !important;
 }

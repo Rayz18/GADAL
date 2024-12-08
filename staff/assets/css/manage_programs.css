@@ -4,11 +4,54 @@ header {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.page-title-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid #d3d3d3;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .page-title {
-    color: #007bff;
-    font-size: 2.5rem;
+    position: relative;
     text-align: center;
-    margin-bottom: 60px;
+    font-size: 35px; /* Larger font size for prominence */
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #fff; /* White text for contrast */
+    background: linear-gradient(
+        120deg,
+        #6a5acd, /* Soft blue */
+        #8a2be2, /* Deep purple */
+        #ff69b4, /* Hot pink */
+        #ff7f50, /* Coral */
+        #1e90ff /* Dodger blue */
+    );
+    background-clip: text;
+    -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
+    -webkit-text-fill-color: transparent; /* Makes the background gradient visible */
+    padding: 15px 20px; /* Add padding for better spacing */
+    margin-bottom: 25px; /* Spacing between title and content */
+    text-transform: uppercase; /* Make the title all caps */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    overflow: hidden; /* Ensure pseudo-elements stay within bounds */
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
+}
+
+/* Animated Gradient Effect */
+@keyframes milkyway-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .truncate {
@@ -106,4 +149,51 @@ header {
 
 .content.shifted {
     margin-left: 250px; /* Shifts content when sidebar is open */
+}
+
+.truncate {
+    display: inline-block;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.card-header h5 {
+    display: inline-block;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+#scroll-left,
+#scroll-right {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#scroll-left:disabled,
+#scroll-right:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    flex: nowrap;
+}
+
+.nav-tabs .nav-item {
+    flex-shrink: 0;
+}
+
+.text-danger {
+    position: center;
 }

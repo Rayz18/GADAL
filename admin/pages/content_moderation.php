@@ -70,7 +70,9 @@ foreach ($content_types as $type => $query) {
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->
             <div id="toggle-sidebar" class="toggle-sidebar"></div>
-            <h1 class="learning-title text-primary text-center" style="color: #B19DC9;">Content Moderation</h1>
+            <div class="page-title-container">
+                <h1 class="page-title">CONTENT MODERATION</h1>
+            </div>
                 <div class="card-container">
                     <?php foreach ($content_data as $type => $count): ?>
                         <div class="custom-card card text-center mb-4 shadow-sm 

@@ -49,8 +49,10 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
         <div id="content" class="content">
             <!-- Toggle Sidebar Icon -->
             <div id="toggle-sidebar" class="toggle-sidebar"></div>
-            <h1 class="learning-title text-primary text-center">Manage Staff Account</h1>
-
+            <div class="page-title-container">
+            <h1 class="page-title">Manage Staff Account</h1>
+            </div>
+            
         <div class="text-end mb-3">
     <a href="add_staff.php" class="btn btn-success">+ Add Staff</a>
 </div>

@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php include '../../public/includes/StaffNavBar.php'; ?>
 
-    <div class="container mt-5">
+    <div class="container" style="margin-top: 5px;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm">

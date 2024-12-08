@@ -63,15 +63,15 @@ if ($profile_result->num_rows > 0) {
                 <span class="profile-label">Gender:</span>
                 <span><?php echo htmlspecialchars($staff_data['gender']); ?></span>
             </div>
-            <div class="profile-footer">
-                <a href="staff_dashboard.php" class="btn btn-secondary">Back</a>
+            <div class="d-flex justify-content-between">
                 <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
+                <a href="staff_dashboard.php" class="btn btn-link">Back</a>
             </div>
         </div>
     </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 
 </html>

@@ -15,14 +15,54 @@ body {
     color: var(--text-color);
 }
 
-/* Header Styling */
-.manage-staff-container h1,
-.learning-title {
-    font-size: 2rem;
-    color: var(--primary-color); /* Use theme color */
-    text-transform: uppercase;
-    font-weight: 700;
+.page-title-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid #d3d3d3;
     margin-bottom: 20px;
+    padding-top: 5px; /* Reduce top padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    position: relative;
+    text-align: center;
+    font-size: 35px; /* Larger font size for prominence */
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #fff; /* White text for contrast */
+    background: linear-gradient(
+        120deg,
+        #6a5acd, /* Soft blue */
+        #8a2be2, /* Deep purple */
+        #ff69b4, /* Hot pink */
+        #ff7f50, /* Coral */
+        #1e90ff /* Dodger blue */
+    );
+    background-clip: text;
+    -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
+    -webkit-text-fill-color: transparent; /* Makes the background gradient visible */
+    padding: 15px 20px; /* Add padding for better spacing */
+    margin-bottom: 25px; /* Spacing between title and content */
+    text-transform: uppercase; /* Make the title all caps */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    overflow: hidden; /* Ensure pseudo-elements stay within bounds */
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
+}
+
+/* Animated Gradient Effect */
+@keyframes milkyway-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 /* Buttons */
@@ -40,33 +80,59 @@ body {
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.staff-list .btn-outline-primary {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.staff-list .btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-}
-
-.staff-list .btn-outline-danger {
-    border-color: var(--danger-color);
-    color: var(--danger-color);
-}
-
-.staff-list .btn-outline-danger:hover {
-    background-color: var(--danger-color);
-    color: #fff;
-}
-
 /* Table Styling */
+.staff-list {
+    border-collapse: separate; /* Allows spacing and rounded borders */
+    border-spacing: 0 10px; /* Adds space between rows */
+}
+
+
+/* Edit Button Styling (Similar to Delete Button) */
+.staff-list .btn-outline-primary {
+    border: 1px solid var(--primary-color); /* Add border similar to delete button */
+    color: var(--primary-color); /* Set text color to primary color */
+    background-color: transparent; /* Keep the background transparent */
+    font-weight: bold; /* Add bold text for better emphasis */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Adjust padding for consistent size */
+}
+
+/* Hover Effect for Edit Button */
+.staff-list .btn-outline-primary:hover {
+    background-color: var(--primary-color); /* Change background to primary color on hover */
+    color: #fff; /* Change text color to white on hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+    transition: all 0.3s ease; /* Smooth transition effect */
+}
+
+/* Delete Button Styling (Same as Edit Button) */
+.staff-list .btn-danger {
+    border: 1px solid var(--danger-color); /* Add border similar to edit button */
+    color: var(--danger-color); /* Set text color to danger color */
+    background-color: transparent; /* Keep the background transparent */
+    font-weight: bold; /* Add bold text for better emphasis */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Adjust padding for consistent size */
+}
+
+/* Hover Effect for Delete Button */
+.staff-list .btn-danger:hover {
+    background-color: var(--danger-color); /* Change background to danger color on hover */
+    color: #fff; /* Change text color to white on hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+    transition: all 0.3s ease; /* Smooth transition effect */
+}
+
+
 .staff-list th {
     background-color: var(--primary-color);
     color: #fff;
     font-weight: 700;
     padding: 15px;
     text-align: left;
+    border: 1px solid var(--primary-color); /* Adds borders to header cells */
 }
 
 .staff-list td {
@@ -74,7 +140,11 @@ body {
     text-align: left;
     vertical-align: middle;
     color: var(--text-color);
+    background-color: #fff; /* White background for rows */
+    border: 1px solid #d6cece; /* Adds borders to each cell */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for row depth */
 }
+
 
 .staff-list tr:hover {
     background-color: #f3e9f7;

@@ -23,50 +23,6 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../staff/assets/css/manage_programs.css">
-    <style>
-        .truncate {
-            display: inline-block;
-            max-width: 150px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: middle;
-        }
-
-        .card-header h5 {
-            display: inline-block;
-            max-width: 200px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: middle;
-        }
-
-        #scroll-left,
-        #scroll-right {
-            border: none;
-            background: transparent;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        #scroll-left:disabled,
-        #scroll-right:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .nav-tabs {
-            overflow-x: auto;
-            white-space: nowrap;
-            display: flex;
-            flex-nowrap: nowrap;
-        }
-
-        .nav-tabs .nav-item {
-            flex-shrink: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -80,8 +36,10 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
 
         <!-- Main Content -->
         <div id="content" class="content">
+        <div class="page-title-container">
             <h1 class="page-title">Manage Programs and Courses</h1>
-
+        </div>
+        
             <div class="text-end mb-3">
                 <a href="add_program.php" class="btn btn-success">Add New Program</a>
             </div>
@@ -115,7 +73,7 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
                             }
                         } else { ?>
                             <li class="nav-item">
-                                <span class="nav-link text-danger">No Programs Available</span>
+                                <span class="nav-link text-danger">No programs available.</span>
                             </li>
                         <?php } ?>
                     </ul>

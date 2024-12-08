@@ -60,3 +60,73 @@
 .content.shifted {
     margin-left: 250px; /* Shifts content when sidebar is open */
 }
+
+.card-img-top {
+    width: 100%; /* Ensures the image takes the full width of the card */
+    height: 200px; /* Increase height for better proportion */
+    object-fit: cover; /* Ensures the image covers the entire area without distortion */
+    border-radius: 15px 15px 0 0; /* Rounded corners for the top of the card */
+    background-color: #f8f9fa;
+    border: 1px solid #000000;
+}
+
+.placeholder-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    font-size: 0.875rem;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.page-title-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid #d3d3d3;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    position: relative;
+    text-align: center;
+    font-size: 35px; /* Larger font size for prominence */
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #fff; /* White text for contrast */
+    background: linear-gradient(
+        120deg,
+        #6a5acd, /* Soft blue */
+        #8a2be2, /* Deep purple */
+        #ff69b4, /* Hot pink */
+        #ff7f50, /* Coral */
+        #1e90ff /* Dodger blue */
+    );
+    background-clip: text;
+    -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
+    -webkit-text-fill-color: transparent; /* Makes the background gradient visible */
+    padding: 15px 20px; /* Add padding for better spacing */
+    margin-bottom: 25px; /* Spacing between title and content */
+    text-transform: uppercase; /* Make the title all caps */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    overflow: hidden; /* Ensure pseudo-elements stay within bounds */
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
+}
+
+/* Animated Gradient Effect */
+@keyframes milkyway-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}

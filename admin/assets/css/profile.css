@@ -7,6 +7,43 @@ body {
     padding: 0;
 }
 
+.profile-header {
+    position: relative;
+    text-align: center;
+    font-size: 35px; /* Keep this larger */
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #fff;
+    background: linear-gradient(
+        120deg,
+        #6a5acd,
+        #8a2be2,
+        #ff69b4,
+        #ff7f50,
+        #1e90ff
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    overflow: hidden;
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate;
+}
+
+/* Animated Gradient Effect */
+@keyframes milkyway-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 /* Center Container */
 .profile-container {
     display: flex;
@@ -23,28 +60,20 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     width: 60%;
     max-width: 700px;
-    padding: 40px 50px;
+    padding: 30px 40px; /* Reduce padding for smaller content */
     animation: fadeIn 0.8s ease-in-out;
     text-align: center;
-}
-
-/* Header Section */
-.profile-header {
-    font-size: 28px;
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    border: 3px solid #4b0082; /* Add defined border with dark purple color */
 }
 
 /* Full Name Styling */
 .profile-name {
-    font-size: 32px;
+    font-size: 24px; /* Smaller font size */
     font-weight: bold;
     color: #333;
-    margin-bottom: 40px;
+    margin-bottom: 30px; /* Reduce spacing */
     text-transform: capitalize;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Profile Item Styling */
@@ -52,25 +81,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 20px;
-    font-size: 18px;
-    padding: 15px 20px;
+    margin-bottom: 15px; /* Reduce margin */
+    font-size: 16px; /* Smaller font size */
+    padding: 10px 15px; /* Reduce padding */
     border: 1px solid #e6e6e6;
-    border-radius: 12px;
+    border-radius: 8px; /* Smaller border radius */
     background: #ffffff;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05), -4px -4px 8px rgba(255, 255, 255, 0.8);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05), -3px -3px 6px rgba(255, 255, 255, 0.8);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-icon {
-    font-size: 26px;
+    font-size: 20px; /* Smaller icon size */
     color: #007bff;
-    margin-right: 15px;
+    margin-right: 10px; /* Reduce margin */
 }
 
 .profile-label {
     font-weight: bold;
-    margin-right: 10px;
+    margin-right: 8px; /* Reduce margin */
     color: #555;
 }
 
@@ -78,21 +107,20 @@ body {
     color: #666;
 }
 
-/* Footer Buttons */
+/* Profile Footer Buttons */
 .profile-footer {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between; /* Space out the buttons */
     margin-top: 30px;
 }
 
 .btn-secondary,
 .btn-primary {
-    width: 160px;
-    font-size: 16px;
+    width: 140px; /* Reduce button width */
+    font-size: 14px; /* Smaller font size */
     font-weight: bold;
-    padding: 12px 20px;
-    border-radius: 10px;
+    padding: 10px 15px; /* Reduce padding */
+    border-radius: 8px; /* Smaller border radius */
     border: none;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
@@ -118,9 +146,26 @@ body {
     transform: translateY(-2px);
 }
 
+/* Back Button Styling */
+.btn-back {
+    width: auto; /* Allow the button to adjust based on its content */
+    font-size: 14px; /* Match the font size */
+    font-weight: bold; /* Match the font weight */
+    color: #0d6efd; /* Same blue color */
+    background-color: transparent;
+    border: none; /* Remove border for a link-like appearance */
+    text-decoration: underline; /* Add underline for consistency */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 0; /* Remove padding for clean alignment */
+}
+
+.btn-back:hover {
+    color: #0b5ed7; /* Darker blue for hover effect */
+}
+
 /* Add Subtle Dividers */
 .profile-item + .profile-item {
-    margin-top: 15px;
+    margin-top: 10px; /* Reduce spacing between items */
 }
 
 /* Fade-in Animation */

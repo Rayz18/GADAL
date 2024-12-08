@@ -22,16 +22,16 @@ $content_queries = [
     "Quiz Questions" => "SELECT quiz_id, question_text, option_a, option_b, option_c, correct_option FROM quiz_questions WHERE status = 'pending'",
 ];
 
-$query = $content_queries[$content_type] ?? null;
-if (!$query) {
-    echo "Invalid content type.";
-    exit;
+// Validate and fetch content type
+$content_type = $_GET['type'] ?? null;
+if (!$content_type || !array_key_exists($content_type, $content_queries)) {
+    die("Invalid content type specified.");
 }
 
+$query = $content_queries[$content_type];
 $result = $conn->query($query);
 if (!$result) {
-    echo "Failed to fetch content.";
-    exit;
+    die("Failed to fetch content: " . $conn->error);
 }
 
 $columns = $result->num_rows > 0 ? array_keys($result->fetch_assoc()) : [];
@@ -55,6 +55,7 @@ $file_columns = ['file_path', 'pdf_url'];
 </head>
         
 <body>
+<script src="path/to/ajax-content-moderation.js"></script>
 
 <div id="content" class="content">
             
@@ -76,6 +77,7 @@ $file_columns = ['file_path', 'pdf_url'];
                 </tr>
                 <?php if (!empty($columns)): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr id="row-<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>">
                         <tr>
                             <?php foreach ($columns as $column): ?>
                                 <td class="<?php echo (strlen($row[$column]) > 30) ? 'long-text' : ''; ?>"
@@ -116,13 +118,14 @@ $file_columns = ['file_path', 'pdf_url'];
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                            <form action="moderate_content_action.php" method="post">
-                                <input type="hidden" name="content_mdrtn_id" value="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>">
-                                <input type="hidden" name="content_type" value="<?php echo htmlspecialchars($content_type); ?>">
-                                <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
-                                <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
-                            </form>
-                            </td>
+                            <button class="btn btn-success approve-btn" 
+                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Approve</button>
+                            <button class="btn btn-danger decline-btn" 
+                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Decline</button>
+                        </td>
+
                         </tr>
                     <?php endwhile; ?>
                 <?php endif; ?>
@@ -177,30 +180,44 @@ $file_columns = ['file_path', 'pdf_url'];
                 }
             };
 
-            // Add click event to cells with ellipsis overflow
-            document.querySelectorAll("td").forEach(cell => {
-                if (hasEllipsis(cell)) {
-                    cell.classList.add("long-text"); // Apply the ellipsis-checking style
-                    cell.addEventListener("click", function () {
-                        document.getElementById("modalText").innerText = cell.getAttribute("data-fulltext") || cell.textContent;
-                        document.getElementById("textModal").style.display = "flex";
-                    });
+            document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.approve-btn, .decline-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const action = this.classList.contains('approve-btn') ? 'approve' : 'decline';
+            const contentId = this.dataset.id;
+            const contentType = this.dataset.type;
+
+            if (!confirm(`Are you sure you want to ${action} this content?`)) return;
+
+            fetch("moderate_content_action.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ action, content_type: contentType, content_id: contentId })
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(`Response from server: ${data}`);
+                if (data.includes("successfully")) {
+                    alert(`Content ${action}d successfully.`);
+                    // Remove the row from the table
+                    const row = document.getElementById(`row-${contentId}`);
+                    if (row) {
+                        row.remove();
+                    }
+                } else {
+                    alert("Failed to process the request.");
                 }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while processing the request.");
             });
+        });
+    });
+});
 
-            // Close modal when 'x' is clicked
-            document.querySelector(".close-modal").addEventListener("click", function () {
-                document.getElementById("textModal").style.display = "none";
-            });
-
-            // Close modal when clicking outside of modal content
-            window.onclick = function (event) {
-                if (event.target == document.getElementById("textModal")) {
-                    document.getElementById("textModal").style.display = "none";
-                }
-            };
-
-        </script>
+</script>
+        
         <script>document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const content = document.getElementById("content");
@@ -218,9 +235,13 @@ $file_columns = ['file_path', 'pdf_url'];
         }
     });
 });</script>
+
+
         <div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         </div>
+        <script src="path/to/your/script.js"></script>
+
 </body>
 
 </html>

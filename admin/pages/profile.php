@@ -61,9 +61,9 @@ if ($profile_result->num_rows > 0) {
                 <span class="profile-label">Gender:</span>
                 <span><?php echo htmlspecialchars($admin_data['gender']); ?></span>
             </div>
-            <div class="profile-footer">
-                <a href="admin_dashboard.php" class="btn btn-secondary">Back</a>
-                <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
+            <div class="d-flex justify-content-between">
+                <a href="edit_profile.php" class="btn btn-primary">Edit Profile</button>
+                <a href="admin_dashboard.php" class="btn btn-link">Back</a>
             </div>
         </div>
     </div>

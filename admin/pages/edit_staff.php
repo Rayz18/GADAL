@@ -49,13 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Staff</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../admin/assets/css/edit_staff.css">
 </head>
 
 <body class="min-vh-100 d-flex justify-content-center align-items-center">
-
-    <div class="container bg-white p-4 rounded shadow-lg">
-        <h2 class="text-center mb-4">EDIT STAFF DETAILS</h2>
-
+    <div class="container">
+            <h1 class="page-title">EDIT STAFF DETAILS</h1>
         <form action="edit_staff.php" method="POST">
             <input type="hidden" name="staff_id" value="<?php echo htmlspecialchars($staff['staff_id']); ?>">
 

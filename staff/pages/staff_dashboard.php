@@ -60,13 +60,15 @@ $programs_query = $conn->query($query);
 
     <!-- Main Content Section -->
     <main class="flex-grow-1 d-flex flex-column align-items-center justify-content-center bg-gray p-5">
-        <h1 class="dashboard-heading">STAFF DASHBOARD - SUMMARY VIEW</h1>
+    <div class="page-title-container">
+        <h1 class="page-title">STAFF DASHBOARD - SUMMARY VIEW</h1>
+    </div>
 
         <!-- Programs Summary Section -->
         <div class="programs-summary mt-4 w-100">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Programs Overview Heading -->
-                <h2 class="text-light-purple mb-0">PROGRAMS OVERVIEW</h2>
+                <h2 class="overview-heading text-light-purple mb-0">PROGRAMS OVERVIEW:</h2>
 
                 <!-- Filter and Search Form -->
                 <form method="GET" class="d-flex align-items-center">

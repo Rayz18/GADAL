@@ -57,47 +57,7 @@ $archived_courses_query = $conn->query("
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archived Courses</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        .card-img-top {
-            width: 100%;
-            height: 150px;
-            object-fit: contain;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-        }
-
-        .placeholder-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 150px;
-            font-size: 0.875rem;
-            color: #6c757d;
-            background-color: #e9ecef;
-            border-radius: 5px;
-        }
-
-        .page-title-container {
-            width: 100%;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-            border-bottom: 2px solid #d3d3d3;
-            padding-top: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .page-title {
-            color: blue;
-            font-weight: bold;
-            text-align: center;
-            font-size: 2.5rem;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="../../staff/assets/css/archives_courses.css">
     <script>
         // Toggle description visibility
         function toggleDescription(courseId) {
@@ -281,4 +241,4 @@ $archived_courses_query = $conn->query("
 </script>
 
 </body>
-</html>
+</html> 
