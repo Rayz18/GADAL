@@ -164,7 +164,7 @@ form {
     font-size: 16px;
     cursor: pointer;
     border: none;
-    margin-top: 20px;
+    margin-top: 5px;
     transition: background-color 0.3s;
 }
 
@@ -174,7 +174,7 @@ form {
 
 .login-footer-text {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 25px;
     font-size: 14px;
     color: #666;
 }
