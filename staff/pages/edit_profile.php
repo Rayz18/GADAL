@@ -52,18 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../includes/assets/StaffNavBar.css">
-    <link rel="stylesheet" href="../../staff/assets/css/_profile.css">
+    <link rel="stylesheet" href="../../staff/assets/css/edit_profile.css">
 </head>
 
 <body>
     <?php include '../../public/includes/StaffNavBar.php'; ?>
-
-    <div class="container" style="margin-top: 5px;">
+    <div class="container" style="margin-top: 30px;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>Edit Profile</h3>
+                    <div class="card-header text-center">
+                        <h1 class="page-title">EDIT STAFF PROFILE</h1>
                     </div>
                     <div class="card-body">
                         <?php if (isset($error_message)): ?>

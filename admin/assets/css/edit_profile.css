@@ -45,19 +45,39 @@ body {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+.button-group {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px; /* Adds spacing above the buttons */
+}
+
+
 .btn {
     padding: 10px 15px;
     font-size: 1rem;
     border-radius: 5px;
 }
 
+/* Save Changes Button */
 .btn-primary {
-    background-color: #007bff;
-    border: none;
+    background-color: #C96A6A !important; /* Default button color */
+    border: none !important; /* Remove border */
+    color: #fff !important; /* White text color */
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #B55D5D !important; /* Slightly darker shade on hover */
+    transform: translateY(-2px) !important; /* Subtle lift effect on hover */
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #A94C4C !important; /* Even darker shade for click/focus */
+    box-shadow: 0 0 5px rgba(201, 106, 106, 0.5) !important; /* Subtle glow effect on click */
+    outline: none !important; /* Remove default focus outline */
+    transform: translateY(0) !important; /* Reset lift on click */
 }
 
 .btn-secondary {
@@ -99,10 +119,7 @@ body {
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */

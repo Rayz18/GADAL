@@ -43,10 +43,7 @@ body {
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
@@ -87,9 +84,7 @@ body {
     max-width: 1200px;
     margin: 30px auto;
     padding: 30px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Outer shadow for the main container */
+    background-color: #ffffff;
 }
 
 /* Custom Card Styling with Shadow */
