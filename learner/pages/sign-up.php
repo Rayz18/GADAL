@@ -118,8 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="contact_number" name="contact_number" class="form-input"
-                            placeholder="Contact Number (e.g., 09123456789)" required>
+                    <input type="text" id="contact_number" name="contact_number" class="form-input"
+                        placeholder="Contact Number (e.g., 09123456789)" required
+                        pattern="^(09|\+639)\d{9}$" title="Please enter a valid Philippine mobile number starting with 09 or +639">
                     </div>
                     <div class="form-group password-group">
                         <input type="password" id="password" name="password" class="form-input"

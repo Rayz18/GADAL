@@ -50,7 +50,6 @@ $file_columns = ['file_path', 'pdf_url'];
     <title>Review Pending <?php echo htmlspecialchars($content_type); ?></title>
     <link rel="stylesheet" href="../../admin/assets/css/review_pending_content.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../../includes/assets/Toggle.js" defer></script>
     <?php include '../../public/includes/AdminHeader.php'; ?>
 </head>
         
@@ -58,12 +57,12 @@ $file_columns = ['file_path', 'pdf_url'];
 <script src="path/to/ajax-content-moderation.js"></script>
 
 <div id="content" class="content">
-            
+<?php include '../../public/includes/AdminNavBar.php'; ?>
 <div id="toggle-sidebar" class="toggle-sidebar"></div>
     <div class="dashboard-wrapper">
-        <?php include '../../public/includes/AdminNavBar.php'; ?>
         <div class="review-content-container">
             <h1>Pending <?php echo htmlspecialchars($content_type); ?></h1>
+            
             <table>
                 <tr>
                     <?php if (!empty($columns)): ?>
@@ -119,13 +118,12 @@ $file_columns = ['file_path', 'pdf_url'];
                             <?php endforeach; ?>
                             <td>
                             <button class="btn btn-success approve-btn" 
-                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
-                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Approve</button>
-                            <button class="btn btn-danger decline-btn" 
-                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
-                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Decline</button>
-                        </td>
-
+        data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+        data-type="<?php echo htmlspecialchars($content_type); ?>">Approve</button>
+<button class="btn btn-danger decline-btn" 
+        data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+        data-type="<?php echo htmlspecialchars($content_type); ?>">Decline</button>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php endif; ?>
@@ -181,37 +179,43 @@ $file_columns = ['file_path', 'pdf_url'];
             };
 
             document.addEventListener("DOMContentLoaded", function () {
+    // Add event listeners to approve and decline buttons
     document.querySelectorAll('.approve-btn, .decline-btn').forEach(button => {
         button.addEventListener('click', function () {
             const action = this.classList.contains('approve-btn') ? 'approve' : 'decline';
-            const contentId = this.dataset.id;
-            const contentType = this.dataset.type;
+            const contentId = this.dataset.id; // Get content ID
+            const contentType = this.dataset.type; // Get content type
 
+            // Confirmation dialog
             if (!confirm(`Are you sure you want to ${action} this content?`)) return;
 
+            // Make the request to the backend
             fetch("moderate_content_action.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams({ action, content_type: contentType, content_id: contentId })
             })
-            .then(response => response.text())
-            .then(data => {
-                console.log(`Response from server: ${data}`);
-                if (data.includes("successfully")) {
-                    alert(`Content ${action}d successfully.`);
-                    // Remove the row from the table
-                    const row = document.getElementById(`row-${contentId}`);
-                    if (row) {
-                        row.remove();
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
-                } else {
-                    alert("Failed to process the request.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred while processing the request.");
-            });
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Find the button's row parent dynamically and remove it
+                        const row = this.closest('tr');
+                        if (row) {
+                            row.remove();
+                        }
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                    alert("An error occurred. Please try again later.");
+                });
         });
     });
 });
@@ -240,8 +244,7 @@ $file_columns = ['file_path', 'pdf_url'];
         <div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         </div>
-        <script src="path/to/your/script.js"></script>
-
+    
 </body>
 
 </html>

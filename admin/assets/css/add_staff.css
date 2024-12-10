@@ -10,28 +10,28 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styling */
 h2 {
+    position: relative;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 35px; /* Larger font size for prominence */
     font-weight: bold;
+    font-size: 2.5rem;
     color: #fff; /* White text for contrast */
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
-    -webkit-text-fill-color: transparent; /* Makes the gradient visible */
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    animation: milkyway-gradient 5s infinite alternate;
+    -webkit-text-fill-color: transparent; /* Makes the background gradient visible */
+    padding: 15px 20px; /* Add padding for better spacing */
+    margin-bottom: 25px; /* Spacing between title and content */
+    text-transform: uppercase; /* Make the title all caps */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    overflow: hidden; /* Ensure pseudo-elements stay within bounds */
+    z-index: 1;
+    animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
 }
 
 /* Animated Gradient Effect */
@@ -48,12 +48,12 @@ h2 {
 .container {
     background-color: #ffffff;
     padding: 40px;
-    border-radius: 12px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    border: 2px solid #6a0dad;
+    border: 2px solid #8057b1;
     max-width: 600px;
     width: 100%;
     margin-top: 5px;
+    height: 560px;
 }
 
 /* Label Styles */
@@ -90,7 +90,7 @@ button[type="submit"] {
     padding: 8px; /* Reduced padding for consistency */
     font-size: 14px; /* Match the font size */
     font-weight: 600;
-    background-color: #0d6efd; /* Blue color for the button */
+    background-color: #C96A6A !important; /* Blue color for the button */
     color: white;
     border: none;
     border-radius: 8px;
@@ -99,7 +99,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #0b5ed7;
+    background-color: #C96A6A !important;
     transform: translateY(-2px);
     box-shadow: 0px 4px 10px rgba(13, 110, 253, 0.3);
 }
@@ -168,4 +168,12 @@ button[type="submit"]:hover {
         font-size: 12px;
         padding: 6px 12px;
     }
+}
+
+.btn-primary {
+    margin-top: 40px;
+}
+
+.btn-link {
+    margin-top: 40px;
 }

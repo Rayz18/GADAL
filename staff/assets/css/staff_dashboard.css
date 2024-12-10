@@ -6,8 +6,7 @@ header {
 
 .overview-heading {
     font-weight: bold; /* Makes the text bold */
-    color: #6a5acd; /* Optional: Soft purple color for styling */
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a slight shadow for better visibility */
+    color: #6a5acd !important; /* Soft blue */
 }
 
 .header-actions {
@@ -120,10 +119,7 @@ header {
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
@@ -209,7 +205,7 @@ form.d-flex.gap-3 .form-group {
 }
 
 .custom-button {
-    background-color: #B19CD9;
+    background-color: #6a5acd;
     border: none;
     color: white;
     padding: 8px 16px;
@@ -221,7 +217,7 @@ form.d-flex.gap-3 .form-group {
 }
 
 .custom-form-control:focus {
-    border-color: #4b0082;
+    border-color: #5748b6;
     box-shadow: 0px 4px 8px rgba(75, 0, 130, 0.2);
 }
 

@@ -3,7 +3,8 @@ session_start();
 require_once '../../config/config.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
-    echo "Unauthorized access.";
+    http_response_code(403); // Forbidden
+    echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
     exit;
 }
 
@@ -12,7 +13,8 @@ $content_type = $_POST['content_type'] ?? null;
 $content_id = $_POST['content_id'] ?? null;
 
 if (!$action || !$content_type || !$content_id) {
-    echo "Invalid input.";
+    http_response_code(400); // Bad Request
+    echo json_encode(['success' => false, 'message' => 'Invalid input.']);
     exit;
 }
 
@@ -23,7 +25,8 @@ $content_mappings = [
 ];
 
 if (!array_key_exists($content_type, $content_mappings)) {
-    echo "Invalid content type.";
+    http_response_code(400); // Bad Request
+    echo json_encode(['success' => false, 'message' => 'Invalid content type.']);
     exit;
 }
 
@@ -32,16 +35,22 @@ $id_column = $content_mappings[$content_type]['id_column'];
 
 $status = ($action === 'approve') ? 'approved' : 'declined';
 $query = "UPDATE $table SET status = ? WHERE $id_column = ?";
+
 $stmt = $conn->prepare($query);
+if (!$stmt) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['success' => false, 'message' => 'Failed to prepare the statement.', 'error' => $conn->error]);
+    exit;
+}
+
 $stmt->bind_param('si', $status, $content_id);
 
 if ($stmt->execute()) {
-    echo "Content $status successfully.";
+    echo json_encode(['success' => true, 'message' => "Content $status successfully.", 'content_id' => $content_id]);
 } else {
-    echo "Failed to update status: " . $conn->error;
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['success' => false, 'message' => 'Failed to update status.', 'error' => $stmt->error]);
 }
 
 $stmt->close();
 $conn->close();
-?>
-

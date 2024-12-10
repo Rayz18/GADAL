@@ -5,7 +5,7 @@
     --secondary-color: #F8F9FA;
     --text-color: #333333;
     --success-color: #198754;
-    --danger-color: #dc3545;
+    --danger-color: #c96a6a;
 }
 
 /* Body Styling */
@@ -38,10 +38,7 @@ body {
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
@@ -67,16 +64,17 @@ body {
 
 /* Buttons */
 .manage-staff-container .btn-success {
-    background-color: var(--success-color);
+    background-color: #C96A6A; /* Change to the desired color */
     border: none;
     font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Ensure text is visible on the new background color */
 }
 
 .manage-staff-container .btn-success:hover {
-    background-color: #146c43;
+    background-color: #b55d5d; /* Slightly darker shade for hover effect */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -125,7 +123,6 @@ body {
     transition: all 0.3s ease; /* Smooth transition effect */
 }
 
-
 .staff-list th {
     background-color: var(--primary-color);
     color: #fff;
@@ -144,7 +141,6 @@ body {
     border: 1px solid #d6cece; /* Adds borders to each cell */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for row depth */
 }
-
 
 .staff-list tr:hover {
     background-color: #f3e9f7;
@@ -202,12 +198,14 @@ body {
     content: '❮';
 }
 
-/* Notification Styling */
-#notification-container .alert {
-    background-color: var(--primary-color);
+#notification-container .alert .btn-close {
+    position: absolute;
+    bottom: 20px; /* Adjust the vertical position */
+    right: 10px; /* Adjust the horizontal position */
     color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    animation: slideDown 0.5s ease;
+    font-size: 1rem; /* Adjust the size if necessary */
+    padding: 0; /* Remove extra padding */
+    cursor: pointer; /* Ensure it looks clickable */
 }
 
 #notification-container .alert .btn-close {

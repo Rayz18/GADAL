@@ -52,17 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../includes/assets/AdminNavBar.css">
+    <link rel="stylesheet" href="../../admin/assets/css/edit_profile.css">
 </head>
 
 <body>
     <?php include '../../public/includes/AdminNavBar.php'; ?>
 
-    <div class="container" style="margin-top: 5px;">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>Edit Profile</h3>
+                    <div class="card-header text-center">
+                        <h1 class="page-title">EDIT ADMIN PROFILE</h1>
                     </div>
                     <div class="card-body">
                         <?php if (isset($error_message)): ?>
@@ -70,36 +71,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                         <form method="POST" action="">
                             <div class="mb-3">
-                                <label for="admin_name" class="form-label"><strong>Full Name</strong></label>
+                                <label for="admin_name" class="form-label"><strong>Full Name:</strong></label>
                                 <input type="text" name="admin_name" id="admin_name" class="form-control"
                                        value="<?php echo htmlspecialchars($admin_data['admin_name']); ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label"><strong>Username</strong></label>
+                                <label for="username" class="form-label"><strong>Username:</strong></label>
                                 <input type="text" name="username" id="username" class="form-control"
                                        value="<?php echo htmlspecialchars($admin_data['username']); ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label"><strong>Email</strong></label>
+                                <label for="email" class="form-label"><strong>Email:</strong></label>
                                 <input type="email" name="email" id="email" class="form-control"
                                        value="<?php echo htmlspecialchars($admin_data['email']); ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="contact_number" class="form-label"><strong>Contact Number</strong></label>
+                                <label for="contact_number" class="form-label"><strong>Contact Number:</strong></label>
                                 <input type="text" name="contact_number" id="contact_number" class="form-control"
                                        value="<?php echo htmlspecialchars($admin_data['contact_number']); ?>">
                             </div>
                             <div class="mb-3">
-                                <label for="gender" class="form-label"><strong>Gender</strong></label>
+                                <label for="gender" class="form-label"><strong>Gender:</strong></label>
                                 <select name="gender" id="gender" class="form-control">
                                     <option value="Male" <?php echo $admin_data['gender'] === 'Male' ? 'selected' : ''; ?>>Male</option>
                                     <option value="Female" <?php echo $admin_data['gender'] === 'Female' ? 'selected' : ''; ?>>Female</option>
                                     <option value="Other" <?php echo $admin_data['gender'] === 'Other' ? 'selected' : ''; ?>>Other</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                            <a href="profile.php" class="btn btn-secondary">Cancel</a>
-                        </form>
+                            <div class="button-group">
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="profile.php" class="btn btn-secondary">Cancel</a>
+</div>
+
                     </div>
                 </div>
             </div>
