@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                     </div>
                     <div class="form-footer">
-                        <a href="#" class="forgot-password">Forgot Password?</a>
+                        <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
                     </div>
                     <button type="submit" class="submit-btn">Login</button>
                 </form>
