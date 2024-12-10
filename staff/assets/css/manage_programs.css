@@ -27,10 +27,7 @@ header {
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
@@ -42,6 +39,17 @@ header {
     overflow: hidden; /* Ensure pseudo-elements stay within bounds */
     z-index: 1;
     animation: milkyway-gradient 5s infinite alternate; /* Gradient animation */
+}
+
+.btn-success {
+    background-color: #B19CD9;
+    border-color: #B19CD9;
+    color: white; /* Ensures text is visible */
+}
+
+.btn-success:hover {
+    background-color: #A082C7; /* Slightly darker shade for hover effect */
+    border-color: #A082C7;
 }
 
 /* Animated Gradient Effect */

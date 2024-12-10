@@ -68,7 +68,7 @@ $programs_query = $conn->query($query);
         <div class="programs-summary mt-4 w-100">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Programs Overview Heading -->
-                <h2 class="overview-heading text-light-purple mb-0">PROGRAMS OVERVIEW:</h2>
+                <h2 class="overview-heading mb-0">PROGRAMS OVERVIEW:</h2>
 
                 <!-- Filter and Search Form -->
                 <form method="GET" class="d-flex align-items-center">
