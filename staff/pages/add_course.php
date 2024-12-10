@@ -23,16 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate based on offered mode
     if ($offered_mode === 'face_to_face') {
         $course_date = $_POST['course_date'];
+        $course_time = $_POST['course_time']; // Directly use the time with AM/PM as submitted
         $enable_registration = isset($_POST['enable_registration']) ? 1 : 0;
         $enable_attendance = isset($_POST['enable_attendance']) ? 1 : 0;
         $enable_evaluation = isset($_POST['enable_evaluation']) ? 1 : 0;
 
         // Insert for face-to-face courses
         $stmt = $conn->prepare("
-            INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO courses (program_id, course_name, course_img, course_desc, course_date, offered_mode, enable_registration, enable_attendance, enable_evaluation, course_time) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
-        $stmt->bind_param("isssssiii", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation);
+        $stmt->bind_param("isssssiiis", $program_id, $course_name, $course_img, $course_desc, $course_date, $offered_mode, $enable_registration, $enable_attendance, $enable_evaluation, $course_time);
     } else {
         // Only handle online courses
         $start_date = $_POST['start_date'];
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        // Insert for online courses (no need for registration, attendance, evaluation)
+        // Insert for online courses
         $stmt = $conn->prepare("
             INSERT INTO courses (program_id, course_name, course_img, course_desc, start_date, end_date, offered_mode) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -57,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: staff_dashboard.php');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -101,27 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="course_img" class="form-label">Course Image:</label>
                                 <input type="file" id="course_img" name="course_img" class="form-control">
                             </div>
-                            <div class="mb-3" id="face_to_face_date" style="display: none;">
-                                <label for="course_date" class="form-label">Course Date:</label>
-                                <input type="date" id="course_date" name="course_date" class="form-control">
-                            </div>
-                            <div id="online_dates">
-                                <div class="mb-3">
-                                    <label for="start_date" class="form-label">Start Date:</label>
-                                    <input type="date" id="start_date" name="start_date" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="end_date" class="form-label">End Date:</label>
-                                    <input type="date" id="end_date" name="end_date" class="form-control">
-                                </div>
-                            </div>
                             <div class="mb-3">
                                 <label for="offered_mode" class="form-label">Offered Mode:</label>
-                                <select id="offered_mode" name="offered_mode" class="form-control" required
-                                    onchange="toggleFields(this.value)">
-                                    <option value="face_to_face">Face to Face</option>
-                                    <option value="online">Online</option>
-                                </select>
+                                <div>
+                                    <input type="radio" id="face_to_face" name="offered_mode" value="face_to_face"
+                                        onchange="toggleFields()" required>
+                                    <label for="face_to_face">Face to Face</label>
+                                    <input type="radio" id="online" name="offered_mode" value="online"
+                                        onchange="toggleFields()" required>
+                                    <label for="online">Online</label>
+                                </div>
                             </div>
                             <div id="face_to_face_options" class="mb-3" style="display: none;">
                                 <label class="form-label">Face to Face Options:</label>
@@ -142,7 +133,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <label for="enable_evaluation" class="form-check-label">Enable Evaluation</label>
                                 </div>
                             </div>
+                            <div class="mb-3" id="face_to_face_date" style="display: none;">
+                                <label for="course_date" class="form-label">Course Date:</label>
+                                <input type="date" id="course_date" name="course_date" class="form-control">
+                                <label for="course_time" class="form-label mt-2">Course Time:</label>
+                                <input type="time" id="course_time" name="course_time" class="form-control">
 
+                            </div>
+                            <div id="online_dates" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="start_date" the form-label">Start Date:</label>
+                                    <input type="date" id="start_date" name="start_date" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="end_date" the form-label">End Date:</label>
+                                    <input type="date" id="end_date" name="end_date" class="form-control">
+                                </div>
+                            </div>
                             <!-- Submit Button -->
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Add Course</button>
@@ -156,24 +163,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function toggleFields(value) {
+        function toggleFields() {
+            const faceToFace = document.getElementById('face_to_face').checked;
             const faceToFaceDate = document.getElementById('face_to_face_date');
             const onlineDates = document.getElementById('online_dates');
             const faceToFaceOptions = document.getElementById('face_to_face_options');
 
-            if (value === 'face_to_face') {
+            if (faceToFace) {
                 faceToFaceDate.style.display = 'block';
                 onlineDates.style.display = 'none';
-                faceToFaceOptions.style.display = 'block'; // Show face to face options
+                faceToFaceOptions.style.display = 'block';
             } else {
                 faceToFaceDate.style.display = 'none';
                 onlineDates.style.display = 'block';
-                faceToFaceOptions.style.display = 'none'; // Hide face to face options for online mode
+                faceToFaceOptions.style.display = 'none';
             }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            toggleFields(document.getElementById('offered_mode').value); // Initial state based on current selection
+            toggleFields(); // Initial state based on current selection
         });
     </script>
 </body>

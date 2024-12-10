@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php
             // Fetch approved courses associated with the program_id, excluding archived courses
             $query = $conn->query("
-                SELECT course_id, course_name, course_img, course_desc, course_date, start_date, end_date, offered_mode, enable_registration 
+                SELECT course_id, course_name, course_img, course_desc, course_date, start_date, end_date, offered_mode, enable_registration, course_time 
                 FROM courses 
                 WHERE program_id = '$program_id' AND status = 'approved' AND archive = FALSE
             ");
@@ -122,6 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $course_date = htmlspecialchars(date('F d, Y', strtotime($course['start_date'])) . ' - ' . date('F d, Y', strtotime($course['end_date'])));
                         $date_label = "Duration";
                     }
+
+                    $course_time = isset($course['course_time']) ? htmlspecialchars($course['course_time']) : 'Not Specified';
 
                     // Calculate learner's progress for online courses
                     if ($is_enrolled && $offered_mode === 'online') {
@@ -198,6 +200,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <strong>Mode:</strong>
                                     <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $offered_mode))); ?>
                                 </p>
+                                <?php if ($offered_mode === 'face_to_face'): ?>
+                                    <p class="text-muted small mb-2">
+                                        <strong>Time:</strong> <?php echo htmlspecialchars($course_time); ?>
+                                    </p>
+                                <?php endif; ?>
                                 <p class="card-text text-muted">
                                     <?php if ($show_toggle): ?>
                                         <span class="course-desc">
@@ -214,7 +221,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php echo $course_desc; ?>
                                     <?php endif; ?>
                                 </p>
-
                                 <!-- Progress Bar for Online Course -->
                                 <?php if ($offered_mode === 'online'): ?>
                                     <div class="progress">
