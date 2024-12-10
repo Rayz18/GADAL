@@ -32,22 +32,38 @@ $program = $result->fetch_assoc();
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $program_name = trim($_POST['program_name']);
-    $program_desc = trim($_POST['program_desc']);
+    $program_img = $_FILES['program_img'];
 
     // Validate the input
-    if (empty($program_name) || empty($program_desc)) {
+    if (empty($program_name) || empty($program_img['name'])) {
         $error = "All fields are required.";
     } else {
-        // Update the program in the database
-        $update_query = $conn->prepare("UPDATE programs SET program_name = ?, program_desc = ? WHERE program_id = ?");
-        $update_query->bind_param('ssi', $program_name, $program_desc, $program_id);
+        // Process the image upload
+        $target_dir = "../../uploads/"; // Directory where images will be stored
+        $target_file = $target_dir . basename($program_img["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-        if ($update_query->execute()) {
-            // Redirect to manage_programs.php after successful update
-            header('Location: manage_programs.php?success=1');
-            exit;
+        // Check if the file is an image
+        $check = getimagesize($program_img["tmp_name"]);
+        if ($check === false) {
+            $error = "The file is not an image.";
         } else {
-            $error = "Failed to update the program. Please try again.";
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($program_img["tmp_name"], $target_file)) {
+                // Update the program in the database
+                $update_query = $conn->prepare("UPDATE programs SET program_name = ?, program_img = ? WHERE program_id = ?");
+                $update_query->bind_param('ssi', $program_name, $target_file, $program_id);
+
+                if ($update_query->execute()) {
+                    // Redirect to manage_programs.php after successful update
+                    header('Location: manage_programs.php?success=1');
+                    exit;
+                } else {
+                    $error = "Failed to update the program. Please try again.";
+                }
+            } else {
+                $error = "Sorry, there was an error uploading the file.";
+            }
         }
     }
 }
@@ -60,40 +76,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Program</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../staff/assets/css/manage_programs.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Edit Program</h1>
+    <!-- Add Program Modal -->
+    <div class="modal fade" id="editProgramModal" tabindex="-1" aria-labelledby="editProgramModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProgramModalLabel">Edit Program</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Display success or error messages -->
+                    <?php if (isset($error)) { ?>
+                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                    <?php } ?>
 
-        <!-- Display success or error messages -->
-        <?php if (isset($error)) { ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
-        <?php } ?>
-
-        <!-- Edit Program Form -->
-        <form method="POST" action="">
-            <div class="form-group">
-                <label for="program_name">Program Name</label>
-                <input type="text" class="form-control" id="program_name" name="program_name"
-                    value="<?php echo htmlspecialchars($program['program_name']); ?>" required>
+                    <!-- Edit Program Form -->
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="program_name" class="form-label">Program Name</label>
+                            <input type="text" class="form-control" id="program_name" name="program_name"
+                                value="<?php echo htmlspecialchars($program['program_name']); ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="program_img" class="form-label">Program Image</label>
+                            <input type="file" class="form-control" id="program_img" name="program_img" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="program_desc">Program Description</label>
-                <textarea class="form-control" id="program_desc" name="program_desc" rows="5"
-                    required><?php echo htmlspecialchars($program['program_desc']); ?></textarea>
-            </div>
-            <div class="text-right">
-                <a href="manage_programs.php" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-        </form>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Trigger the modal (button) -->
+    <script>
+        // Open the modal as soon as the page loads
+        $(document).ready(function () {
+            $('#editProgramModal').modal('show');
+        });
+
+        // Handle form submission via AJAX for a seamless experience
+        $('#saveChangesBtn').on('click', function () {
+            var form = $('form');
+            var formData = new FormData(form[0]);
+
+            $.ajax({
+                url: '', // Current page (it will process the form data)
+                type: 'POST',
+                data: formData,
+                processData: false, // Important for file uploads
+                contentType: false, // Important for file uploads
+                success: function (response) {
+                    // If the update is successful, reload the page to show the changes
+                    location.reload();
+                },
+                error: function () {
+                    alert('There was an error updating the program.');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
