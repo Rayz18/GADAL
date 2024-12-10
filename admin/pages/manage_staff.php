@@ -53,8 +53,8 @@ $staff_accounts_query = $conn->query("SELECT * FROM staff_accounts");
             <h1 class="page-title">Manage Staff Account</h1>
             </div>
             
-        <div class="text-end mb-3">
-    <a href="add_staff.php" class="btn btn-success">+ Add Staff</a>
+            <div class="text-end mb-3">
+    <a href="add_staff.php" class="btn btn-success" style="background-color: #C96A6A; border-color: #C96A6A; color: #fff;">+ Add Staff</a>
 </div>
 
         <div class="staff-list table-responsive">

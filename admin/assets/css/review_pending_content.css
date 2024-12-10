@@ -11,20 +11,27 @@
     overflow: auto;
 }
 
+.navbar-logo img {
+    max-height: 80px; /* Fit the logo properly */
+    max-width: 100%; /* Prevent overflow */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto; /* Center the logo */
+    object-fit: cover; /* Optionally fill the container */
+    border-radius: 5px; /* Optional styling */
+}
+
 /* Title Styling with Milky Way Effect */
 .review-content-container h1 {
     position: relative;
     text-align: center;
-    font-size: 28px; /* Larger font size for prominence */
+    font-size: 35px; /* Larger font size for prominence */
     font-weight: bold;
+    font-size: 2rem;
     color: #fff; /* White text for contrast */
     background: linear-gradient(
         120deg,
         #6a5acd, /* Soft blue */
-        #8a2be2, /* Deep purple */
-        #ff69b4, /* Hot pink */
-        #ff7f50, /* Coral */
-        #1e90ff /* Dodger blue */
+        #8a2be2 /* Deep purple */
     );
     background-clip: text;
     -webkit-background-clip: text; /* Ensures compatibility with Webkit browsers */
