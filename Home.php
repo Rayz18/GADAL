@@ -248,6 +248,10 @@ if (!$resultFaceToFace || !$resultOnline) {
             }
         });
     </script>
+     <br>
+    <br>
+    <br>
+    <br>
     <?php include './public/includes/footer.php'; ?>
 </body>
 

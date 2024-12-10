@@ -119,13 +119,12 @@ $file_columns = ['file_path', 'pdf_url'];
                             <?php endforeach; ?>
                             <td>
                             <button class="btn btn-success approve-btn" 
-                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
-                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Approve</button>
+                                data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+                                data-type="<?php echo htmlspecialchars($content_type); ?>">Approve</button>
                             <button class="btn btn-danger decline-btn" 
-                                    data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
-                                    data-type="<?php echo htmlspecialchars($content_type); ?>">Decline</button>
-                        </td>
-
+                                data-id="<?php echo htmlspecialchars($row['program_id'] ?? $row['course_id'] ?? $row['LM_id'] ?? $row['post_test_id'] ?? $row['pre_test_id'] ?? $row['quiz_id']); ?>" 
+                                data-type="<?php echo htmlspecialchars($content_type); ?>">Decline</button>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php endif; ?>
@@ -196,18 +195,21 @@ $file_columns = ['file_path', 'pdf_url'];
             })
             .then(response => response.text())
             .then(data => {
-                console.log(`Response from server: ${data}`);
-                if (data.includes("successfully")) {
-                    alert(`Content ${action}d successfully.`);
-                    // Remove the row from the table
-                    const row = document.getElementById(`row-${contentId}`);
-                    if (row) {
-                        row.remove();
-                    }
-                } else {
-                    alert("Failed to process the request.");
-                }
-            })
+    console.log(`Response from server: ${data}`);
+    if (data.includes("successfully")) {
+        alert(`Content ${action}d successfully.`);
+        // Log the row being targeted
+        const row = document.getElementById(`row-${contentId}`);
+        if (row) {
+            console.log('Removing row:', row);
+            row.remove();
+        } else {
+            console.log('Row not found:', contentId);
+        }
+    } else {
+        alert("Failed to process the request.");
+    }
+})
             .catch(error => {
                 console.error("Error:", error);
                 alert("An error occurred while processing the request.");

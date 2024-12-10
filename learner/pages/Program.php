@@ -16,8 +16,7 @@ require_once "../../config/config.php";
 
 <body>
     <?php include '../../public/includes/LearnerNavBar.php'; ?>
-
-    <div class="container mt-5">
+  <div class="container mt-5">
         <div class="text-center mb-4">
             <h1 class="h1">PROGRAMS</h1>
         </div>
@@ -77,6 +76,10 @@ require_once "../../config/config.php";
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <br>
+    <br>
+    <br>
+    <br>
     <?php include '../../public/includes/footer.php'; ?>
 </body>
 

@@ -16,17 +16,6 @@
                 <p class="fw-bold text-uppercase mt-3">Batangas State University - The National Engineering University</p>
             </div>
             <!-- Navigation Links -->
-            <div class="mb-4">
-                <nav>
-                    <ul class="list-unstyled d-inline-flex justify-content-center gap-4">
-                        <li><a href="/GADAL/Home.php" class="text-light text-decoration-none small">Home</a></li>
-                        <li><a href="/GADAL/learner/pages/AboutUs.php" class="text-light text-decoration-none small">About Us</a></li>
-                        <li><a href="/GADAL/learner/pages/Program.php" class="text-light text-decoration-none small">Program</a></li>
-                        <li><a href="/GADAL/learner/pages/Certificate.php" class="text-light text-decoration-none small">Certificate</a></li>
-                        <li><a href="/GADAL/learner/pages/ConnectWithUs.php" class="text-light text-decoration-none small">Connect With Us</a></li>
-                    </ul>
-                </nav>
-            </div>
             <!-- Social Media Icons -->
             <div class="mb-4">
                 <a href="https://www.facebook.com/gadbatstateualangilan" class="text-light mx-2"><i class="fab fa-facebook fa-lg"></i></a>

@@ -1,169 +1,45 @@
 html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto;   /* Ensure vertical scrolling only */
-    box-sizing: border-box; /* Ensure padding/margins are handled properly */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Disable global scrolling */
 }
-
-/* Apply box-sizing to all elements to prevent overflow */
-*, *::before, *::after {
-    box-sizing: inherit;
-}
-
-/* Programs section */
-.container {
-    margin: 0 auto;
-    padding-top: 100px; 
-    text-align: center;
-}
-
-h1 {
-    color: rgb(86, 28, 109);
-    font-size: 26px;
-    margin-bottom: 30px; /* Adjusted margin for title */
-}
-
-/* Filter section */
-.filters {
-    display: flex;
-    align-items: center;  /* Vertically center label and dropdown */
-    justify-content: flex-end;  /* Keep them aligned to the left, but centered vertically */
-    gap: 10px; /* Add spacing between label and dropdown */
-    width: 100%;  /* Make it span the full width */
-    margin-bottom: 20px;  /* Space from the content below */
-    padding: 0 60px;  /* Add side padding for spacing from page edges */
-}
-
-/* Style the filter label */
-.filters label {
-    font-size: 14px;
-    color: #333; /* Darker text for better visibility */
-    margin: 0;   /* Remove default margin */
-}
-
-/* Style the dropdown */
-#offering {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
-    width: 180px; /* Slightly wider dropdown */
-}
-
-.certificate-list {
-    list-style-type: none;
-    text-align: left;
-    margin-left: 50px;
-}
-
-.certificate-list li {
-    margin: 60px;
-}
-
-.certificate-list a {
-    font-size: 18px;
-    color: blue;
-    text-decoration: none;
-}
-
-.certificate-list a:hover {
-    text-decoration: underline;
-}
-
-.certificate-list p {
-    font-size: 14px;
-    color: #666;
-}
-
-/* Customize scrollbar */
 ::-webkit-scrollbar {
-    width: 6px; /* Set scrollbar width */
+    width: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #cac5d35d; /* Scrollbar color */
-    border-radius: 6px; /* Rounded scrollbar */
+    background-color: #cac5d35d;
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f4f4f4; /* Scrollbar track color */
+    background-color: #f4f4f4;
 }
 
-/* Mobile view styles */
-@media screen and (max-width: 768px) {
-    /* Adjust the body to center contents better */
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* Start pushing contents upwards */
-        min-height: 100vh; /* Ensure full viewport height */
-        margin: 0; /* Remove default margin */
-        padding: 0; /* Remove padding */
-    }
+/* Make sure the container or certificate list scrolls */
+.container {
+    padding-top: 60px;
+    max-height: 100vh; /* Make the container fill the height of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
 
-    .container {
-        margin-top: 30px; /* Slightly move contents upwards */
-        padding-bottom: 50px; /* Add space at the bottom */
-        text-align: center; /* Center align contents */
-    }
+.certificate-list {
+    max-height: 80vh; /* Restrict the list to a certain height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
 
-    /* Adjust title size and spacing */
-    h1 {
-        font-size: 22px; /* Adjust font size for mobile */
-        margin-bottom: 20px; /* Adjust spacing below the title */
-    }
+h1 {
+    font-size: 26px;
+}
 
-    /* Filters section */
-    .filters {
-        flex-direction: column; /* Stack label and dropdown vertically */
-        align-items: flex-start; /* Align to the left */
-        gap: 10px; /* Add spacing between label and dropdown */
-        margin-bottom: 20px; /* Space between filters and content */
-        padding: 0 15px; /* Add side padding */
-    }
+.certificate-list li a {
+    font-size: 18px;
+}
 
-    #offering {
-        width: 100%; /* Make dropdown full-width */
-        font-size: 14px; /* Adjust font size */
-        padding: 8px; /* Adjust padding */
-    }
-
-    /* Certificate list adjustments */
-    .certificate-list {
-        margin: 0; /* Remove default margin */
-        padding: 0 15px; /* Add padding for alignment */
-    }
-
-    .certificate-list li {
-        margin: 20px 0; /* Adjust vertical spacing between items */
-    }
-
-    .certificate-list a {
-        font-size: 16px; /* Adjust font size */
-        color: #1a73e8; /* Add a distinct color */
-    }
-
-    .certificate-list p {
-        font-size: 12px; /* Adjust font size */
-        color: #555; /* Slightly darker text */
-    }
-
-    /* Adjust toggle button */
-    .toggle {
-        position: fixed;
-        bottom: 50px; /* Slightly move it up from the bottom */
-        right: 20px; /* Align toggle to the right */
-    }
-
-    /* Add spacing for better alignment */
-    body {
-        padding-bottom: 70px; /* Ensure enough space at the bottom */
-    }
+.certificate-list li p {
+    font-size: 14px;
+    margin-top: 2px;
 }

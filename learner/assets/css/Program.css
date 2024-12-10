@@ -9,6 +9,18 @@ html, body {
     overflow-x: hidden; /* Prevent horizontal scroll */
     box-sizing: border-box; /* Ensure consistent sizing */
 }
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cac5d35d;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
 
 /* Program title styling */
 .h1 {

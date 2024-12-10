@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../public/assets/css/LearnerNavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../learner/assets/css/AboutUs.css"> 
+    <link rel="stylesheet" href="../../learner/assets/css/AboutUs.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Main Content Section -->
-    <div class="container my-5 d-flex">
+    <div class="my-5 d-flex">
         <!-- Left Content -->
         <div class="content w-75">
             <p>
@@ -128,44 +128,46 @@
 
     <!-- Mobile Sidebar Section -->
 <div class="mobile-sidebar d-md-none">
-    <ul class="mobile-list-group">
-        <li class="mobile-list-group-item">
-            <button class="mobile-dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mobileGoalsContent" aria-expanded="false">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#goalsContentMobile" aria-expanded="false">
                 <i class="fas fa-bullseye me-2"></i> Goals
             </button>
-            <div class="collapse" id="mobileGoalsContent">
-                <p class="mobile-sidebar-content">Highlighting the primary goals of our organization ensures clarity and alignment with our mission and vision.</p>
+            <div class="collapse" id="goalsContentMobile">
+                <p class="sidebar-content">Highlighting the primary goals of our organization ensures clarity and alignment with our mission and vision.</p>
             </div>
         </li>
-        <li class="mobile-list-group-item">
-            <button class="mobile-dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mobileProfileContent" aria-expanded="false">
+        <li class="list-group-item">
+            <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#profileContentMobile" aria-expanded="false">
                 <i class="fas fa-user-circle me-2"></i> Organizational Profile
             </button>
-            <div class="collapse" id="mobileProfileContent">
-                <p class="mobile-sidebar-content">The organizational profile section provides insights into our structure, history, and guiding principles that shape our identity.</p>
+            <div class="collapse" id="profileContentMobile">
+                <p class="sidebar-content">The organizational profile section provides insights into our structure, history, and guiding principles that shape our identity.</p>
             </div>
         </li>
-        <li class="mobile-list-group-item">
-            <button class="mobile-dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mobilePrivacyContent" aria-expanded="false">
+        <li class="list-group-item">
+            <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#privacyContentMobile" aria-expanded="false">
                 <i class="fas fa-shield-alt me-2"></i> Privacy Notice
             </button>
-            <div class="collapse" id="mobilePrivacyContent">
-                <p class="mobile-sidebar-content">We prioritize user privacy by adhering to transparent and secure data management policies, outlined in this section.</p>
+            <div class="collapse" id="privacyContentMobile">
+                <p class="sidebar-content">We prioritize user privacy by adhering to transparent and secure data management policies, outlined in this section.</p>
             </div>
         </li>
-        <li class="mobile-list-group-item">
-            <button class="mobile-dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mobilePoliciesContent" aria-expanded="false">
+        <li class="list-group-item">
+            <button class="dropdown-toggle sidebar-item" type="button" data-bs-toggle="collapse" data-bs-target="#policiesContentMobile" aria-expanded="false">
                 <i class="fas fa-book me-2"></i> Laws and Policies
             </button>
-            <div class="collapse" id="mobilePoliciesContent">
-                <p class="mobile-sidebar-content">Explore the legal framework and policies governing our operations to ensure compliance and accountability.</p>
+            <div class="collapse" id="policiesContentMobile">
+                <p class="sidebar-content">Explore the legal framework and policies governing our operations to ensure compliance and accountability.</p>
             </div>
         </li>
     </ul>
 </div>
 
-
-    <!-- Bootstrap JavaScript -->
+    <!-- Include Bootstrap JS -->
+    <br>
+    <br>
+    <?php include '../../public/includes/footer.php'; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 

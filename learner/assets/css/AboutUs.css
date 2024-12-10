@@ -33,17 +33,6 @@ body::-webkit-scrollbar-track {
 }
 
 /* Content and Sidebar Container Adjustments */
-.container {
-    display: flex; /* Ensure proper layout */
-    gap: 2rem; /* Adjust gap between content and sidebar */
-    align-items: flex-start; /* Align the content and sidebar at the top */
-    margin: 1rem auto; /* Center the container */
-    padding: 1rem 2rem; /* Adjust padding inside the container */
-    background: #f5f5f5; /* Clean white container background */
-    position: relative; /* Ensure proper alignment under the image */
-    top: -15px; /* Move container upward */
-}
-
 /* Content Section */
 .content {
     flex: 3; /* Give more space to the main content */
