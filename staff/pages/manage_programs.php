@@ -40,20 +40,11 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
                 <h1 class="page-title">Manage Programs and Courses</h1>
             </div>
 
-           <!-- Original Button, Now to Trigger Modal -->
-<div class="text-end mb-3">
-    <button class="btn btn-success" 
-            style="background-color: #C96A6A; 
-                   border-color: #C96A6A; 
-                   color: white; 
-                   transition: transform 0.2s ease, background-color 0.2s ease;"
-            onmouseover="this.style.backgroundColor='#A55555'; this.style.transform='scale(1)';"
-            onmouseout="this.style.backgroundColor='#C96A6A'; this.style.transform='scale(1)';"
-            data-bs-toggle="modal" 
-            data-bs-target="#addProgramModal">
-        Add New Program
-    </button>
-</div>
+            <!-- Original Button, Now to Trigger Modal -->
+            <div class="text-end mb-3">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProgramModal">Add New
+                    Program</button>
+            </div>
 
             <!-- Modal HTML -->
             <div class="modal fade" id="addProgramModal" tabindex="-1" aria-labelledby="addProgramModalLabel"
@@ -139,7 +130,7 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
                         id="content-<?php echo $program['program_id']; ?>" role="tabpanel"
                         aria-labelledby="tab-<?php echo $program['program_id']; ?>">
                         <div class="card mt-4">
-                        <div class="card-header text-white" style="background-color: #B19CD9;">
+                            <div class="card-header bg-primary text-white">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0" title="<?php echo htmlspecialchars($program['program_name']); ?>">
                                         <?php echo mb_strimwidth(htmlspecialchars($program['program_name']), 0, 25, '...'); ?>
@@ -156,22 +147,16 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
                                 <h6>Courses in this Program:</h6>
 
                                 <div class="mb-3">
-    <div class="btn-group filter-courses" role="group" data-program-id="<?php echo $program['program_id']; ?>">
-    <button type="button" class="btn btn-outline-primary active" 
-        style="color: #9A84C4; border-color: #9A84C4;" 
-        onfocus="this.style.backgroundColor='#9A84C4'; this.style.color='white';" 
-        onblur="this.style.backgroundColor='transparent'; this.style.color='#9A84C4';">
-    Show All
-</button>
-        <button type="button" class="btn btn-outline-primary" 
-                style="color: #9A84C4; border-color: #9A84C4;" 
-                data-filter="online">Online</button>
-        <button type="button" class="btn btn-outline-primary" 
-                style="color: #9A84C4; border-color: #9A84C4;" 
-                data-filter="face_to_face">Face-to-Face</button>
-    </div>
-</div>
-
+                                    <div class="btn-group filter-courses" role="group"
+                                        data-program-id="<?php echo $program['program_id']; ?>">
+                                        <button type="button" class="btn btn-outline-primary active" data-filter="all">Show
+                                            All</button>
+                                        <button type="button" class="btn btn-outline-primary"
+                                            data-filter="online">Online</button>
+                                        <button type="button" class="btn btn-outline-primary"
+                                            data-filter="face_to_face">Face-to-Face</button>
+                                    </div>
+                                </div>
 
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
@@ -263,17 +248,10 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
                                             <?php } ?>
                                         </tbody>
                                     </table>
-                                    </div>
-<a href="add_course.php?program_id=<?php echo $program['program_id']; ?>" 
-   class="btn btn-success btn-sm mt-3"
-   style="background-color: #C96A6A; 
-          border-color: #C96A6A; 
-          color: white; 
-          transition: transform 0.2s ease, background-color 0.2s ease;"
-   onmouseover="this.style.backgroundColor='#A55555'; this.style.transform='scale(1)';"
-   onmouseout="this.style.backgroundColor='#C96A6A'; this.style.transform='scale(1)';">
-   Add New Course
-</a>
+                                </div>
+                                <a href="add_course.php?program_id=<?php echo $program['program_id']; ?>"
+                                    class="btn btn-success btn-sm mt-3">Add New Course</a>
+                            </div>
                         </div>
                     </div>
                     <?php $is_first = false;
