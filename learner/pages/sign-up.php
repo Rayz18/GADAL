@@ -8,6 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $gender = $_POST['gender'];
+    $birthdate = $_POST['birthdate'];
+    $contact_number = $_POST['contact_number']; // Added contact number
 
     // Validate password length and complexity
     if (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[^\w]/', $password)) {
@@ -25,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     // Prepare SQL query
-    $sql = "INSERT INTO learners (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO learners (first_name, last_name, email, password, gender, birthdate, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?)"; // Added contact_number to SQL query
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
+    $stmt->bind_param("sssssss", $first_name, $last_name, $email, $hashed_password, $gender, $birthdate, $contact_number); // Added contact_number binding
 
     if ($stmt->execute()) {
         header('Location: login.php');
@@ -100,6 +103,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 placeholder="Last Name" required>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select id="gender" name="gender" class="form-input" required>
+                                <option value="" disabled selected>Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="birthdate" name="birthdate" class="form-input"
+                                placeholder="mm/dd/yyyy" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="contact_number" name="contact_number" class="form-input"
+                            placeholder="Contact Number (e.g., 09123456789)" required>
+                    </div>
                     <div class="form-group password-group">
                         <input type="password" id="password" name="password" class="form-input"
                             placeholder="Create Password" required>
@@ -108,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="password" id="confirm-password" name="confirm_password" class="form-input"
                             placeholder="Confirm Password" required>
                     </div>
-                    <p id="password-error" style="color: red; font-size: 14px;"></p> <!-- Password error message -->
+                    <p id="password-error" style="color: red; font-size: 14px;"></p>
                     <button type="submit" class="submit-btn">Sign up</button>
                 </form>
                 <p class="login-footer-text">

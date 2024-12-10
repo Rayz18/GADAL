@@ -36,13 +36,49 @@ $programs_query = $conn->query("SELECT * FROM programs WHERE archive = FALSE ORD
 
         <!-- Main Content -->
         <div id="content" class="content">
-        <div class="page-title-container">
-            <h1 class="page-title">Manage Programs and Courses</h1>
-        </div>
-        
-            <div class="text-end mb-3">
-                <a href="add_program.php" class="btn btn-success">Add New Program</a>
+            <div class="page-title-container">
+                <h1 class="page-title">Manage Programs and Courses</h1>
             </div>
+
+            <!-- Original Button, Now to Trigger Modal -->
+            <div class="text-end mb-3">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProgramModal">Add New
+                    Program</button>
+            </div>
+
+            <!-- Modal HTML -->
+            <div class="modal fade" id="addProgramModal" tabindex="-1" aria-labelledby="addProgramModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addProgramModalLabel">Add New Program</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form to Add Program -->
+                            <form action="add_program.php" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="program_name" class="form-label fw-bold">Program Name:</label>
+                                    <input type="text" id="program_name" name="program_name" class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="program_img" class="form-label fw-bold">Program Image:</label>
+                                    <input type="file" id="program_img" name="program_img" class="form-control">
+                                </div>
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button type="submit" class="btn btn-primary">Add Program</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Program Tabs -->
             <div class="d-flex align-items-center">
